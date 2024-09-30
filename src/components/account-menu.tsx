@@ -1,5 +1,7 @@
+'use client';
+
+import { useClerk } from '@clerk/nextjs';
 import { ChevronDown, LogOut, UserRoundPen } from 'lucide-react';
-import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
@@ -11,18 +13,42 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { getInitials } from '@/lib/utils';
+
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Skeleton } from './ui/skeleton';
 
 export function AccountMenu() {
+  const { signOut, user } = useClerk();
+
   return (
     <Dialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="flex select-none items-center gap-2"
+            className="flex max-w-[200px] select-none items-center gap-2 md:max-w-[300px]"
           >
-            <div className="flex flex-col items-start">
-              <span>Joe Due</span>
+            <div className="flex items-center gap-2">
+              {user?.fullName ? (
+                <>
+                  <Avatar className="h-7 w-7">
+                    <AvatarImage src={user?.imageUrl} />
+                    <AvatarFallback>
+                      {getInitials(user.fullName)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <span className="max-w-[100px] overflow-hidden truncate text-ellipsis whitespace-nowrap md:max-w-[140px] lg:max-w-full">
+                    {user.fullName}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Skeleton className="h-7 w-7 rounded-full"></Skeleton>
+                  <Skeleton className="h-5 w-20" />
+                </>
+              )}
             </div>
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -30,9 +56,13 @@ export function AccountMenu() {
 
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel className="flex flex-col">
-            <span className="text-sm font-normal text-muted-foreground">
-              joe_due@gmail.com
-            </span>
+            {user?.emailAddresses ? (
+              <span className="text-sm font-normal text-muted-foreground">
+                {user?.emailAddresses[0].emailAddress}
+              </span>
+            ) : (
+              <Skeleton className="h-5 w-full" />
+            )}
           </DropdownMenuLabel>
 
           <DropdownMenuSeparator />
@@ -43,13 +73,11 @@ export function AccountMenu() {
             </DropdownMenuItem>
           </DialogTrigger>
           <DropdownMenuItem
-            asChild
+            onClick={() => signOut()}
             className="text-rose-500 dark:text-rose-400"
           >
-            <Link href="/" className="w-full">
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Sair</span>
-            </Link>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Sair</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

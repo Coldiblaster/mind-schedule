@@ -1,3 +1,9 @@
+'use client';
+
+import { useClerk } from '@clerk/nextjs';
+
 export default function Home() {
-  return <div>Dashboard</div>;
+  const { user } = useClerk();
+
+  return <div>Dashboard - {user?.id}</div>;
 }
