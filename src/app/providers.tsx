@@ -8,7 +8,7 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="pizzashop-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="mind-schedule-theme">
       {children}
     </ThemeProvider>
   );

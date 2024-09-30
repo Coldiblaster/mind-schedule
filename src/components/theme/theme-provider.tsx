@@ -25,7 +25,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
-  storageKey = 'vite-ui-theme',
+  storageKey = 'mind-schedule-theme',
   ...props
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme | undefined>(undefined);
