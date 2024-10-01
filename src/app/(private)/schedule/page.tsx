@@ -1,9 +1,11 @@
 'use client';
 
-import { useClerk } from '@clerk/nextjs';
+import { Calendar } from '@/components/ui/calendar';
 
 export default function Home() {
-  const { user } = useClerk();
-
-  return <div>Schedule - {user?.id}</div>;
+  return (
+    <div>
+      <Calendar />
+    </div>
+  );
 }

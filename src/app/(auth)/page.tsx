@@ -79,6 +79,28 @@ export default function SignIn() {
           />
           Faça login com o Google
         </Button>
+
+        <Button
+          variant="outline"
+          className="flex w-full gap-2"
+          onClick={() => handleSignIn('oauth_apple')}
+        >
+          <Image
+            src="/logos/icons8-apple.svg"
+            width={24}
+            height={24}
+            alt="Logo apple"
+            className="hidden dark:flex"
+          />
+          <Image
+            src="/logos/icons8-apple-black.svg"
+            width={24}
+            height={24}
+            alt="Logo apple"
+            className="dark:hidden"
+          />
+          Faça login com a Apple
+        </Button>
       </div>
     </div>
   );
