@@ -1,0 +1,32 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_7304_1681)">
+<path d="M48 24C48 12.9543 39.0457 4 28 4C16.9543 4 8 12.9543 8 24C8 35.0457 16.9543 44 28 44C39.0457 44 48 35.0457 48 24Z" fill="white"/>
+<path d="M37 14H18V37H37V14Z" fill="#66E1FF"/>
+<path d="M35 14H18V34L35 14Z" fill="#C2F3FF"/>
+<path d="M16 37H39" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M37 14H18V37H37V14Z" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 14H39" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M35 14V12C35 11.7348 34.9071 11.4804 34.7416 11.2929C34.5761 11.1054 34.3517 11 34.1177 11H20.8824C20.6483 11 20.4239 11.1054 20.2584 11.2929C20.093 11.4804 20 11.7348 20 12V14H35Z" fill="#B2B2B2" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M26 37V34.2C26 33.8818 26.1581 33.5766 26.4394 33.3515C26.7207 33.1265 27.1022 33 27.5 33C27.8978 33 28.2794 33.1265 28.5607 33.3515C28.8419 33.5766 29 33.8818 29 34.2V37H26Z" fill="white" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 33H24" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M31 33H33" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 27H26" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29 27H33" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 24H26" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29 24H33" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 19H26" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29 19H33" stroke="#191919" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<filter id="filter0_d_7304_1681" x="0" y="0" width="56" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7304_1681"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7304_1681" result="shape"/>
+</filter>
+</defs>
+</svg>

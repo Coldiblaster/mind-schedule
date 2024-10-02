@@ -10,7 +10,7 @@ export interface AvailableTimesProps {
   night?: TimeProps[];
 }
 
-interface AddressProps {
+export interface AddressProps {
   street: string;
   neighborhood: string;
   number: string;
