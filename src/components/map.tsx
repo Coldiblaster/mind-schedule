@@ -5,6 +5,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
+import React from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import { AddressProps } from '@/data/mock/professional';
@@ -20,7 +21,7 @@ interface MapProps {
   address: AddressProps;
 }
 
-export default function Map({ address }: MapProps) {
+function Map({ address }: MapProps) {
   return (
     <>
       <MapContainer
@@ -54,3 +55,5 @@ export default function Map({ address }: MapProps) {
     </>
   );
 }
+
+export default React.memo(Map);
