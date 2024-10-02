@@ -20,8 +20,6 @@ import { Skeleton } from './ui/skeleton';
 export function AccountMenu() {
   const { signOut, user } = useClerk();
 
-  console.log(user);
-
   return (
     <Dialog>
       <DropdownMenu>

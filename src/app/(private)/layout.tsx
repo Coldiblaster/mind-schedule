@@ -9,7 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <TooltipProvider>
-      <div className="flex min-h-screen w-full">
+      <div className="flex min-h-svh w-full">
         <SidebarDesktop />
 
         <div className="flex w-full flex-col">
