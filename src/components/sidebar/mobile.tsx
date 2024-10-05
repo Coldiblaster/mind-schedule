@@ -1,6 +1,5 @@
 'use client';
 
-import { Brain, PanelLeft } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -18,7 +17,8 @@ export function SidebarMobile() {
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden">
-            <PanelLeft className="h-5 w-5" />
+            <Icon name="LuPanelLeft" className="h-5 w-5" />
+
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
@@ -28,7 +28,11 @@ export function SidebarMobile() {
               href="#"
               className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
             >
-              <Brain className="h-5 w-5 transition-all group-hover:scale-110" />
+              <Icon
+                name="LuBrain"
+                className="h-5 w-5 transition-all group-hover:scale-110"
+              />
+
               <span className="sr-only">mind.schedule</span>
             </Link>
 

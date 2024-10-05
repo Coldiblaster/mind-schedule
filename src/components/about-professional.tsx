@@ -1,22 +1,12 @@
 'use client';
 
-import {
-  Calendar,
-  ClipboardList,
-  Copy,
-  GraduationCap,
-  Languages,
-  MapPin,
-  Phone,
-  Shield,
-  User,
-} from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
 import { useMultiStepForm } from '@/hooks/multistep-form';
 
 import { CardProfessional } from './card-professional';
+import { Icon } from './icon';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 
@@ -44,7 +34,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
-        <Phone className="h-4 w-4 text-primary" />
+        <Icon name="LuPhone" className="h-4 w-4 text-primary" />
         <h2 className="font-semibold">Contato</h2>
       </div>
       <div className="flex flex-col gap-2">
@@ -89,7 +79,8 @@ const CopyableInfo: React.FC<CopyableInfoProps> = ({
         className="flex items-center gap-1 text-sm text-primary"
         onClick={handleCopy}
       >
-        <Copy className="h-4 w-4" /> {copied ? 'Copiado!' : 'Copiar'}
+        <Icon name="LuCopy" className="h-4 w-4" />
+        {copied ? 'Copiado!' : 'Copiar'}
       </button>
     </div>
   );
@@ -138,7 +129,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {/* Perfil do profissional */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <User className="h-4 w-4 text-primary" />
+              <Icon name="LuUser" className="h-4 w-4 text-primary" />
+
               <h1 className="font-semibold">Perfil do profissional</h1>
             </div>
             <span className="text-sm text-muted-foreground">
@@ -149,7 +141,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {/* Especialidades */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-primary" />
+              <Icon name="LuShield" className="h-4 w-4 text-primary" />
+
               <h2 className="font-semibold">Especialidades</h2>
             </div>
             <span className="text-sm text-muted-foreground">
@@ -161,7 +154,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {professional.education && (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <GraduationCap className="h-4 w-4 text-primary" />
+                <Icon name="LuGraduationCap" className="h-4 w-4 text-primary" />
+
                 <h2 className="font-semibold">Formação Acadêmica</h2>
               </div>
               <ul className="list-inside list-disc text-muted-foreground">
@@ -177,7 +171,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {/* Anos de Experiência */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-primary" />
+              <Icon name="LuCalendar" className="h-4 w-4 text-primary" />
+
               <h2 className="font-semibold">Anos de Experiência</h2>
             </div>
             <span className="text-sm text-muted-foreground">
@@ -189,7 +184,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {professional.servicesOffered && (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <ClipboardList className="h-4 w-4 text-primary" />
+                <Icon name="LuClipboardList" className="h-4 w-4 text-primary" />
+
                 <h2 className="font-semibold">Serviços Oferecidos</h2>
               </div>
               <ul className="list-inside list-disc text-muted-foreground">
@@ -206,7 +202,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {professional.languages && (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <Languages className="h-4 w-4 text-primary" />
+                <Icon name="LuLanguages" className="h-4 w-4 text-primary" />
+
                 <h2 className="font-semibold">Idiomas</h2>
               </div>
               <span className="text-sm text-muted-foreground">
@@ -227,7 +224,8 @@ export function AboutProfessional({ setIsOpen }: AboutProfessionalProps) {
           {professional.address && (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary" />
+                <Icon name="LuMapPin" className="h-4 w-4 text-primary" />
+
                 <h2 className="font-semibold">Endereço do Consultório</h2>
               </div>
               <span className="text-sm text-muted-foreground">

@@ -3,13 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { CalendarIcon, CircleArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { AvailableTimes } from '@/components/available-times';
 import { CardProfessional } from '@/components/card-professional';
+import { Icon } from '@/components/icon';
 // import { toast } from '@/components/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -103,7 +103,7 @@ export function Step02() {
           variant="ghost"
           onClick={handleBackStep}
         >
-          <CircleArrowLeft />
+          <Icon name="LuArrowLeftCircle" size={20} />
         </Button>
 
         <div className="flex flex-col gap-1">
@@ -148,7 +148,10 @@ export function Step02() {
                         ) : (
                           <span>Selecione uma data</span>
                         )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        <Icon
+                          name="LuCalendar"
+                          className="ml-auto h-4 w-4 opacity-50"
+                        />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>

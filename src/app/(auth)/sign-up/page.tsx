@@ -1,6 +1,6 @@
-import { Brain } from 'lucide-react';
 import Link from 'next/link';
 
+import { Icon } from '@/components/icon';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,7 +11,7 @@ export default function Home() {
     <div className="animate-fade p-8 animate-delay-150 animate-duration-500">
       <div className="absolute right-0 top-8 flex w-full justify-between gap-2 px-8 md:right-8 md:w-auto md:gap-4">
         <div className="flex items-center gap-2 md:hidden">
-          <Brain className="h-5 w-5" />
+          <Icon name="LuBrain" className="h-5 w-5" />
           <span className="font-semibold">mind.schedule</span>
         </div>
 

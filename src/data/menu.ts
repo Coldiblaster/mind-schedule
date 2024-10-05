@@ -9,12 +9,12 @@ interface MenuProps {
 export const MenuData: MenuProps[] = [
   {
     title: 'Dashboard',
-    icon: 'Home',
+    icon: 'LuHome',
     link: '/dashboard',
   },
   {
     title: 'Agenda',
-    icon: 'CalendarDays',
+    icon: 'LuCalendar',
     link: '/schedule',
   },
 ];

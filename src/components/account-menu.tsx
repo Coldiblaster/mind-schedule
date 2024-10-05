@@ -1,7 +1,6 @@
 'use client';
 
 import { useClerk } from '@clerk/nextjs';
-import { ChevronDown, LogOut, UserRoundPen } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
@@ -14,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import { Icon } from './icon';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Skeleton } from './ui/skeleton';
 
@@ -47,7 +47,7 @@ export function AccountMenu() {
                 <Skeleton className="h-5 w-20" />
               )}
             </div>
-            <ChevronDown className="h-4 w-4" />
+            <Icon name="LuChevronDown" className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
 
@@ -65,7 +65,8 @@ export function AccountMenu() {
           <DropdownMenuSeparator />
           <DialogTrigger asChild>
             <DropdownMenuItem>
-              <UserRoundPen className="mr-2 h-4 w-4" />
+              <Icon name="LuUser" className="mr-2 h-4 w-4" />
+
               <span>Meus Dados</span>
             </DropdownMenuItem>
           </DialogTrigger>
@@ -73,7 +74,8 @@ export function AccountMenu() {
             onClick={() => signOut()}
             className="text-rose-500 dark:text-rose-400"
           >
-            <LogOut className="mr-2 h-4 w-4" />
+            <Icon name="LuLogOut" className="mr-2 h-4 w-4" />
+
             <span>Sair</span>
           </DropdownMenuItem>
         </DropdownMenuContent>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { CardProfessional } from '@/components/card-professional';
+import { Input } from '@/components/ui/input';
 import {
   Pagination,
   PaginationContent,
@@ -113,6 +114,15 @@ export function Step01() {
         <span className="text-xs text-muted-foreground md:text-sm">
           Selecione o profissional ideal para o seu atendimento
         </span>
+      </div>
+
+      <div className="grid w-full items-center gap-1.5">
+        <Input
+          id="picture"
+          type="text"
+          placeholder="Pesquise por um profissional"
+          autoComplete="off"
+        />
       </div>
 
       <div className="flex h-full w-full animate-fade flex-col overflow-auto">

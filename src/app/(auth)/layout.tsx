@@ -1,4 +1,4 @@
-import { Brain } from 'lucide-react';
+import { Icon } from '@/components/icon';
 
 export default function RootLayout({
   children,
@@ -9,7 +9,7 @@ export default function RootLayout({
     <div className="grid min-h-screen md:grid-cols-2">
       <div className="hidden h-full flex-col justify-between border-r border-foreground/60 bg-muted p-10 text-muted-foreground md:flex">
         <div className="flex items-center gap-3 text-lg text-foreground">
-          <Brain className="h-5 w-5" />
+          <Icon name="LuBrain" className="h-5 w-5" />
           <span className="font-semibold">mind.schedule</span>
         </div>
       </div>
