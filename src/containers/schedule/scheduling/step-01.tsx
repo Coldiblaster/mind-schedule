@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { CardProfessional } from '@/components/card-professional';
+import { FilterOptions } from '@/components/filter-options';
 import { Input } from '@/components/ui/input';
 import {
   Pagination,
@@ -20,15 +21,33 @@ export function Step01() {
   const { updatePropertyForm } = useMultiStepForm();
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const itemsPerPage = 5;
 
-  const totalPages = Math.ceil((professionalData?.length || 0) / itemsPerPage);
+  const normalizeString = (str: string) =>
+    str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+
+  const doesNameMatch = (name: string, search: string) => {
+    const normalizedName = normalizeString(name);
+    const normalizedSearch = normalizeString(search);
+    return normalizedName.includes(normalizedSearch);
+  };
+
+  const filteredProfessionals = professionalData.filter(professional =>
+    doesNameMatch(professional.name, searchTerm),
+  );
+
+  const totalPages = Math.ceil(
+    (filteredProfessionals?.length || 0) / itemsPerPage,
+  );
 
   const maxPageLinks = 5;
-
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProfessional = professionalData?.slice(
+  const paginatedProfessional = filteredProfessionals.slice(
     startIndex,
     startIndex + itemsPerPage,
   );
@@ -107,45 +126,65 @@ export function Step01() {
 
   return (
     <>
-      <div className="flex flex-col gap-1">
-        <h1 className="text-lg font-bold md:text-2xl">
-          Escolha seu profissional
-        </h1>
-        <span className="text-xs text-muted-foreground md:text-sm">
-          Selecione o profissional ideal para o seu atendimento
-        </span>
-      </div>
+      <div className="flex w-full items-center justify-between">
+        <div className="flex w-full flex-col gap-1">
+          <div className="flex w-full items-center justify-between">
+            <h1 className="text-lg font-bold md:text-2xl">
+              Escolha seu profissional
+            </h1>
 
-      <div className="grid w-full items-center gap-1.5">
+            <FilterOptions />
+          </div>
+          <span className="text-xs text-muted-foreground md:text-sm">
+            Selecione o profissional ideal para o seu atendimento
+          </span>
+        </div>
+      </div>
+      <div className="w-full">
         <Input
-          id="picture"
+          id="name"
           type="text"
           placeholder="Pesquise por um profissional"
           autoComplete="off"
+          icon="LuSearch"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
         />
       </div>
-
       <div className="flex h-full w-full animate-fade flex-col overflow-auto">
-        {paginatedProfessional.map((item, index) => {
-          const { name, avatar, specialty, advice } = item;
-
-          return (
-            <button key={index} onClick={() => handleSelectProfessional(item)}>
-              <CardProfessional
-                name={name}
-                avatar={avatar}
-                specialty={specialty}
-                advice={advice}
-                className="hover:bg-background"
-              />
-            </button>
-          );
-        })}
+        {paginatedProfessional.length > 0 ? (
+          <>
+            {paginatedProfessional.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => handleSelectProfessional(item)}
+              >
+                <CardProfessional
+                  name={item.name}
+                  avatar={item.avatar}
+                  specialty={item.specialty}
+                  advice={item.advice}
+                  className="hover:bg-background"
+                />
+              </button>
+            ))}
+          </>
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <h2 className="text-lg font-semibold text-muted-foreground">
+              Nenhum profissional corresponde à sua busca.
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Tente usar um nome diferente ou ajustar os critérios de pesquisa.
+            </p>
+          </div>
+        )}
       </div>
-
-      <Pagination>
-        <PaginationContent>{generatePagination()}</PaginationContent>
-      </Pagination>
+      {paginatedProfessional.length > 0 && (
+        <Pagination>
+          <PaginationContent>{generatePagination()}</PaginationContent>
+        </Pagination>
+      )}
     </>
   );
 }
