@@ -3,10 +3,12 @@
     "@rocketseat/eslint-config/react"
   ],
   "plugins": [
-    "simple-import-sort"
+    "simple-import-sort",
+    "@tanstack/query"
   ],
   "rules": {
     "simple-import-sort/imports": "error",
+    "@tanstack/query/exhaustive-deps": "error",
     "prettier/prettier": [
       "error",
       {
