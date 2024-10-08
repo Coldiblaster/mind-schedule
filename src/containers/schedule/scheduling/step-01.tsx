@@ -15,7 +15,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { professionalData, ProfessionalProps } from '@/data/mock/professional';
-import { useMultiStepForm } from '@/hooks/multistep-form';
+import { useMultiStepForm } from '@/hooks/use-multistep-form';
 
 export function Step01() {
   const { updatePropertyForm } = useMultiStepForm();

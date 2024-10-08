@@ -1,6 +1,6 @@
 'use client';
 
-import { useMultiStepForm } from '@/hooks/multistep-form';
+import { useMultiStepForm } from '@/hooks/use-multistep-form';
 
 import { Step01 } from './step-01';
 import { Step02 } from './step-02';

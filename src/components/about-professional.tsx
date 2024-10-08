@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-import { useMultiStepForm } from '@/hooks/multistep-form';
+import { useMultiStepForm } from '@/hooks/use-multistep-form';
 
 import { CardProfessional } from './card-professional';
 import { Icon } from './icon';

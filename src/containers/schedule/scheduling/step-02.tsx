@@ -28,7 +28,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { AvailableTimesProps } from '@/data/mock/professional';
-import { useMultiStepForm } from '@/hooks/multistep-form';
+import { useMultiStepForm } from '@/hooks/use-multistep-form';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 

@@ -2,7 +2,7 @@
 
 import { Scheduling } from '@/containers/schedule/scheduling';
 import YourSchedule from '@/containers/schedule/your-schedule';
-import { MultiStepFormProvider } from '@/hooks/multistep-form';
+import { MultiStepFormProvider } from '@/hooks/use-multistep-form';
 
 export default function Schedule() {
   return (
