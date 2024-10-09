@@ -6,11 +6,14 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { MenuData } from '@/data/menu';
+import { useAuth } from '@/hooks/use-auth';
 
 import { Icon } from '../icon';
+import { PermissionWrapper } from '../permission-wrapper';
 
 export function SidebarMobile() {
   const currentPath = usePathname();
+  const { isLoading } = useAuth();
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -36,20 +39,33 @@ export function SidebarMobile() {
               <span className="sr-only">mind.schedule</span>
             </Link>
 
-            {MenuData.map(({ icon, link, title }, index) => {
-              const isActive = currentPath === link;
+            {isLoading ? (
+              <div className="h-9 w-9 animate-pulse rounded-lg bg-muted-foreground md:h-8 md:w-8" />
+            ) : (
+              <>
+                {MenuData.map(
+                  ({ title, link, icon, allowedUserTypes }, index) => {
+                    const isActive = currentPath === link;
 
-              return (
-                <Link
-                  key={index}
-                  href={link}
-                  className={`${isActive && 'rounded-lg bg-accent'} flex h-9 items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground`}
-                >
-                  <Icon className="h-5 w-5" name={icon} />
-                  {title}
-                </Link>
-              );
-            })}
+                    return (
+                      <PermissionWrapper
+                        key={index}
+                        allowedUserTypes={allowedUserTypes}
+                      >
+                        <Link
+                          key={index}
+                          href={link}
+                          className={`${isActive && 'rounded-lg bg-accent'} flex h-9 items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground`}
+                        >
+                          <Icon className="h-5 w-5" name={icon} />
+                          {title}
+                        </Link>
+                      </PermissionWrapper>
+                    );
+                  },
+                )}
+              </>
+            )}
           </nav>
         </SheetContent>
       </Sheet>
