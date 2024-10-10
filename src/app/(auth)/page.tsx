@@ -18,8 +18,8 @@ export default function SignIn() {
   const signInWith = (strategy: OAuthStrategy) => {
     return signIn.authenticateWithRedirect({
       strategy,
-      redirectUrl: '/',
-      redirectUrlComplete: '/dashboard',
+      redirectUrl: '/login-callback',
+      redirectUrlComplete: '/login-callback',
     });
   };
 
@@ -34,8 +34,8 @@ export default function SignIn() {
       // Cria a conta do usuário com OAuth e redireciona
       await signUp.authenticateWithRedirect({
         strategy,
-        redirectUrl: '/',
-        redirectUrlComplete: '/dashboard',
+        redirectUrl: '/login-callback',
+        redirectUrlComplete: '/login-callback',
       });
     } else {
       // Se o usuário já tem uma conta, faz o login com OAuth
