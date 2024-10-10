@@ -9,6 +9,7 @@
   "rules": {
     "simple-import-sort/imports": "error",
     "@tanstack/query/exhaustive-deps": "error",
+    "react-hooks/exhaustive-deps": "off",
     "prettier/prettier": [
       "error",
       {
