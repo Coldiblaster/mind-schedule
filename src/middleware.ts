@@ -14,8 +14,8 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 // Definição de rotas específicas
-const patientRoutes = ['/schedule', '/dashboard'];
-const professionalRoutes = ['/dashboard'];
+const patientRoutes = ['/schedule', '/dashboard', '/login-callback'];
+const professionalRoutes = ['/dashboard', '/login-callback'];
 
 // Função para buscar o tipo de usuário (patient ou professional)
 async function getUserType(userId: string) {
