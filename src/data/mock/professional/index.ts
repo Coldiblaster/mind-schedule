@@ -68,7 +68,7 @@ export const professionalData: ProfessionalProps[] = [
     servicesOffered: ['Terapia presencial', 'Terapia online'],
     time: [
       {
-        day: new Date(2024, 9, 2),
+        day: new Date(2024, 9, 11),
         morning: [
           { available: true, time: '07:00' },
           { available: false, time: '07:30' },
@@ -106,7 +106,7 @@ export const professionalData: ProfessionalProps[] = [
         ],
       },
       {
-        day: new Date(2024, 9, 3),
+        day: new Date(2024, 9, 12),
         morning: [
           { available: true, time: '07:00' },
           { available: false, time: '07:30' },
@@ -175,7 +175,7 @@ export const professionalData: ProfessionalProps[] = [
     ],
     time: [
       {
-        day: new Date(2024, 9, 4),
+        day: new Date(2024, 9, 10),
         morning: [
           {
             available: true,
