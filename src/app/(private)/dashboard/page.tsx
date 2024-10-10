@@ -2,11 +2,11 @@
 
 import { DashboardPatient } from '@/containers/dashboard/patient';
 import { DashboardProfessional } from '@/containers/dashboard/professional';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 import { UserTypes } from '@/types/user-types';
 
 export default function Home() {
-  const { isLoading, userType } = useAuth();
+  const { isLoading, userType } = useAuthPermissions();
 
   if (isLoading) {
     return <h1>Carregando...</h1>;

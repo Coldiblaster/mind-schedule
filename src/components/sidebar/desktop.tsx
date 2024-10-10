@@ -10,14 +10,14 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { MenuData } from '@/data/menu';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 
 import { Icon } from '../icon';
 import { PermissionWrapper } from '../permission-wrapper';
 
 export function SidebarDesktop() {
   const currentPath = usePathname();
-  const { isLoading } = useAuth();
+  const { isLoading } = useAuthPermissions();
 
   return (
     <aside className="z-10 hidden w-14 flex-col border-r bg-background sm:flex">

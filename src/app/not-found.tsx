@@ -3,11 +3,11 @@
 import React from 'react';
 
 import { Icon } from '@/components/icon';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 import { UserTypes } from '@/types/user-types';
 
 const NotFoundPage = () => {
-  const { userType } = useAuth();
+  const { userType } = useAuthPermissions();
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">

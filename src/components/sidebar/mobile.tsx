@@ -6,14 +6,14 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { MenuData } from '@/data/menu';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 
 import { Icon } from '../icon';
 import { PermissionWrapper } from '../permission-wrapper';
 
 export function SidebarMobile() {
   const currentPath = usePathname();
-  const { isLoading } = useAuth();
+  const { isLoading } = useAuthPermissions();
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">

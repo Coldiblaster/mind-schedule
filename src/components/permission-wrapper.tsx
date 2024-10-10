@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from 'react';
 
-import { useAuth } from '@/hooks/use-auth';
+import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 import { UserTypes } from '@/types/user-types'; // Ajuste o caminho conforme necessário
 
 interface PermissionWrapperProps {
@@ -14,7 +14,7 @@ export const PermissionWrapper = ({
   allowedUserTypes,
   children,
 }: PermissionWrapperProps) => {
-  const { userType } = useAuth();
+  const { userType } = useAuthPermissions();
 
   // Verifica se o tipo de usuário está na lista de tipos permitidos
   if (allowedUserTypes.includes(userType as UserTypes)) {
