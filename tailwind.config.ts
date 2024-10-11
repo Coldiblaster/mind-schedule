@@ -79,6 +79,9 @@ const config: Config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      clipPath: {
+        'polygon-clip': 'polygon(0 0, 100% 0, 100% 100vh, 0% 100%)',
+      },
     },
   },
   plugins: [
@@ -88,6 +91,21 @@ const config: Config = {
       nocompatible: true,
       preferredStrategy: 'pseudoelements',
     }),
+    function ({
+      addUtilities,
+    }: {
+      addUtilities: (
+        utilities: Record<string, string | Record<string, string>>,
+      ) => void;
+    }) {
+      addUtilities({
+        '.clip-polygon-clip': {
+          clipPath: 'polygon(0 0, 100% 0, 100% 100vh, 0% 100%)',
+          '-webkit-clip-path': 'polygon(0 0, 100% 0, 100% 100vh, 0% 100%)',
+        },
+      });
+    }, // Aqui estamos informando que é um plugin do Tailwind
   ],
 };
+
 export default config;
