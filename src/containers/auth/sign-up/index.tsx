@@ -1,4 +1,6 @@
-import Link from 'next/link';
+'use client';
+
+import { useRouter } from 'next/navigation';
 
 import { Icon } from '@/components/icon';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
@@ -6,9 +8,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function Home() {
+export function SignUp() {
+  const router = useRouter();
+
   return (
-    <div className="animate-fade p-8 animate-delay-150 animate-duration-500">
+    <div className="flex h-full w-full animate-fade justify-center p-8 animate-delay-150 animate-duration-500">
       <div className="absolute right-0 top-8 flex w-full justify-between gap-2 px-8 md:right-8 md:w-auto md:gap-4">
         <div className="flex items-center gap-2 md:hidden">
           <Icon name="LuBrain" className="h-5 w-5" />
@@ -16,8 +20,8 @@ export default function Home() {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          <Button variant="ghost" asChild>
-            <Link href="/">Fazer login</Link>
+          <Button variant="ghost" onClick={() => router.push('/')}>
+            Fazer login
           </Button>
 
           <ThemeToggle />
