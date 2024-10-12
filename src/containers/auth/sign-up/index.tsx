@@ -1,13 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
 import { Icon } from '@/components/icon';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useStepsStore } from '@/store/stepsStore';
 
 const businessTypes = [
   { icon: '✂️', label: 'Salão de Beleza' },
@@ -24,33 +24,11 @@ const businessTypes = [
   { icon: '❓', label: 'Outros segmentos' },
 ];
 
-const steps = [
-  {
-    value: 'negocio',
-    label: 'Sobre o seu negócio',
-    description: 'Começando a conhecer melhor o seu negócio',
-  },
-  {
-    value: 'localizacao',
-    label: 'Localização',
-    description: 'Com seu endereço, ajudamos a encontrarem você',
-  },
-  {
-    value: 'servicos',
-    label: 'Serviços sugeridos',
-    description: 'Defina preços, tempo de trabalho para os seus serviços',
-  },
-  {
-    value: 'expediente',
-    label: 'Expediente',
-    description: 'Para finalizar, configure os seus horários de atendimento',
-  },
-];
-
 export function SignUp() {
   const router = useRouter();
+  const { steps, currentStepIndex, nextStep, goToStep } = useStepsStore();
 
-  const [activeStep, setActiveStep] = useState('negocio');
+  const activeStep = steps[currentStepIndex];
 
   return (
     <div className="flex h-full w-full animate-fade justify-center p-4 animate-delay-150 animate-duration-500 md:p-8">
@@ -59,24 +37,28 @@ export function SignUp() {
           <Icon name="LuBrain" className="h-5 w-5" />
           <span className="font-semibold">mind.schedule</span>
         </div>
-
         <div className="flex items-center gap-2 md:gap-4">
           <Button variant="ghost" onClick={() => router.push('/')}>
             Fazer login
           </Button>
-
           <ThemeToggle />
         </div>
       </div>
 
       <div className="flex h-full w-full flex-col justify-center gap-4 overflow-y-auto">
-        <Tabs value={activeStep} onValueChange={setActiveStep} className="mb-8">
+        <Tabs
+          value={activeStep.value}
+          onValueChange={value =>
+            goToStep(steps.findIndex(step => step.value === value))
+          }
+          className="mb-8"
+        >
           <TabsList className="grid w-full grid-cols-4 gap-2">
             {steps.map((step, index) => (
               <TabsTrigger
                 key={step.value}
                 value={step.value}
-                className="flex h-20 flex-col items-center justify-start px-2 py-1 text-center xl:h-16"
+                className={`flex h-20 flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
               >
                 <span className="mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 text-white lg:h-8 lg:w-8">
                   {index + 1}
@@ -88,8 +70,9 @@ export function SignUp() {
             ))}
           </TabsList>
         </Tabs>
+
         <div className="mt-4 flex h-12 items-center justify-center text-center text-sm font-bold text-foreground">
-          {steps.find(step => step.value === activeStep)?.description}
+          {activeStep.description}
         </div>
 
         <Card>
@@ -111,7 +94,10 @@ export function SignUp() {
                 </Button>
               ))}
             </div>
-            <Button className="mt-6 w-full">Continuar</Button>
+
+            <Button className="mt-6 w-full" onClick={nextStep}>
+              Continuar
+            </Button>
           </CardContent>
         </Card>
       </div>
