@@ -44,8 +44,8 @@ export default function SignIn() {
   }
 
   return (
-    <div className="animate-fade p-8 animate-delay-150 animate-duration-500">
-      <div className="absolute right-0 top-8 flex w-full justify-between gap-2 px-8 md:right-8 md:w-auto md:gap-4">
+    <div className="flex h-full w-full animate-fade justify-center p-8 animate-delay-150 animate-duration-500">
+      <div className="absolute right-0 top-8 z-50 flex w-full justify-between gap-2 px-8 md:right-8 md:w-auto md:gap-4">
         <div className="flex items-center gap-2 md:hidden">
           <Icon name="LuBrain" className="h-5 w-5" />
           <span className="font-semibold">mind.schedule</span>
@@ -101,6 +101,15 @@ export default function SignIn() {
           />
           Faça login com a Apple
         </Button>
+      </div>
+
+      <div className="absolute bottom-8 rounded-full bg-primary/80 text-foreground">
+        <Icon
+          name="MdKeyboardArrowDown"
+          size={32}
+          className="animate-bounce pt-2 animate-delay-200 animate-duration-1000"
+        />
+        <span className="sr-only">Scroll down for more content</span>
       </div>
     </div>
   );
