@@ -49,8 +49,8 @@ export function SignIn() {
   };
 
   return (
-    <div className="flex h-full w-full animate-fade justify-center p-8 animate-delay-150 animate-duration-500">
-      <div className="absolute right-0 top-8 z-50 flex w-full justify-between gap-2 px-8 md:right-8 md:w-auto md:gap-4">
+    <div className="flex h-full w-full animate-fade justify-center p-4 animate-delay-150 animate-duration-500 md:p-8">
+      <div className="absolute right-0 top-8 z-50 flex w-full justify-between gap-2 px-4 md:right-8 md:w-auto md:gap-4 md:px-8">
         <div className="flex items-center gap-2 md:hidden">
           <Icon name="LuBrain" className="h-5 w-5" />
           <span className="font-semibold">mind.schedule</span>

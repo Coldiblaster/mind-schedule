@@ -1,18 +1,59 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { Icon } from '@/components/icon';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const businessTypes = [
+  { icon: '✂️', label: 'Salão de Beleza' },
+  { icon: '💆', label: 'Clínica de Estética' },
+  { icon: '💈', label: 'Barbearia' },
+  { icon: '👣', label: 'Podologia' },
+  { icon: '💅', label: 'Esmalteria' },
+  { icon: '👨‍⚕️', label: 'Clínica médica' },
+  { icon: '💆‍♂️', label: 'SPA e massagem' },
+  { icon: '🐾', label: 'Pet e Veterinário' },
+  { icon: '🎨', label: 'Estúdio de tatuagem' },
+  { icon: '🦷', label: 'Clínica odontológica' },
+  { icon: '🏋️', label: 'Personal e fitness' },
+  { icon: '❓', label: 'Outros segmentos' },
+];
+
+const steps = [
+  {
+    value: 'negocio',
+    label: 'Sobre o seu negócio',
+    description: 'Começando a conhecer melhor o seu negócio',
+  },
+  {
+    value: 'localizacao',
+    label: 'Localização',
+    description: 'Com seu endereço, ajudamos a encontrarem você',
+  },
+  {
+    value: 'servicos',
+    label: 'Serviços sugeridos',
+    description: 'Defina preços, tempo de trabalho para os seus serviços',
+  },
+  {
+    value: 'expediente',
+    label: 'Expediente',
+    description: 'Para finalizar, configure os seus horários de atendimento',
+  },
+];
 
 export function SignUp() {
   const router = useRouter();
 
+  const [activeStep, setActiveStep] = useState('negocio');
+
   return (
-    <div className="flex h-full w-full animate-fade justify-center p-8 animate-delay-150 animate-duration-500">
+    <div className="flex h-full w-full animate-fade justify-center p-4 animate-delay-150 animate-duration-500 md:p-8">
       <div className="absolute right-0 top-8 flex w-full justify-between gap-2 px-8 md:right-8 md:w-auto md:gap-4">
         <div className="flex items-center gap-2 md:hidden">
           <Icon name="LuBrain" className="h-5 w-5" />
@@ -28,47 +69,51 @@ export function SignUp() {
         </div>
       </div>
 
-      <div className="flex max-w-[350px] flex-col justify-center gap-6">
-        <div className="flex flex-col gap-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Criar conta grátis
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Crie sua conta e agende sua consulta com facilidade.
-          </p>
+      <div className="flex h-full w-full flex-col justify-center gap-4 overflow-y-auto">
+        <Tabs value={activeStep} onValueChange={setActiveStep} className="mb-8">
+          <TabsList className="grid w-full grid-cols-4 gap-2">
+            {steps.map((step, index) => (
+              <TabsTrigger
+                key={step.value}
+                value={step.value}
+                className="flex h-20 flex-col items-center justify-start px-2 py-1 text-center xl:h-16"
+              >
+                <span className="mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 text-white lg:h-8 lg:w-8">
+                  {index + 1}
+                </span>
+                <span className="text-wrap text-xs xl:text-nowrap">
+                  {step.label}
+                </span>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+        <div className="mt-4 flex h-12 items-center justify-center text-center text-sm font-bold text-foreground">
+          {steps.find(step => step.value === activeStep)?.description}
         </div>
 
-        <form className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="managerName">Seu nome</Label>
-            <Input id="managerName" type="text" />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">Seu e-mail</Label>
-            <Input id="email" type="email" />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="phone">Seu celular</Label>
-            <Input id="phone" type="tel" />
-          </div>
-
-          <Button className="w-full" type="submit">
-            Finalizar cadastro
-          </Button>
-
-          <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
-            Ao continuar, você concorda com nossos{' '}
-            <a href="" className="underline underline-offset-4">
-              termos de serviço
-            </a>{' '}
-            e{' '}
-            <a href="" className="underline underline-offset-4">
-              políticas de privacidade
-            </a>
-          </p>
-        </form>
+        <Card>
+          <CardContent className="p-4 lg:p-6">
+            <h2 className="mb-4 text-2xl font-bold">Segmento de atuação</h2>
+            <p className="mb-6 text-gray-600">
+              Para que você tenha um ambiente personalizado, é importante saber
+              qual o seu tipo de negócio.
+            </p>
+            <div className="grid gap-2 md:grid-cols-2 lg:gap-4">
+              {businessTypes.map(type => (
+                <Button
+                  key={type.label}
+                  variant="outline"
+                  className="justify-start px-1 text-left lg:px-4"
+                >
+                  <span className="mr-2">{type.icon}</span>
+                  {type.label}
+                </Button>
+              ))}
+            </div>
+            <Button className="mt-6 w-full">Continuar</Button>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
