@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { getAddress } from '@/services/cep';
 
 export function LocationForm({
   onNext,
@@ -8,6 +9,11 @@ export function LocationForm({
   onNext: () => void;
   onBack: () => void;
 }) {
+  const handleChangeCep = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const cep = e.target.value;
+    if (cep.length === 8) await getAddress(cep).then(console.log);
+  };
+
   return (
     <div className="animate-fade-left">
       <h2 className="mb-4 text-2xl font-bold">Localização</h2>
@@ -16,12 +22,12 @@ export function LocationForm({
         encontrá-lo.
       </p>
       <form className="mb-4 grid gap-4 md:grid-cols-2">
-        <Input placeholder="CEP" autoFocus />
-        <Input placeholder="Rua" />
+        <Input placeholder="CEP" autoFocus onChange={handleChangeCep} />
+        <Input placeholder="Rua" disabled />
         <Input placeholder="Número" />
-        <Input placeholder="Bairro" />
-        <Input placeholder="Cidade" />
-        <Input placeholder="Estado" />
+        <Input placeholder="Bairro" disabled />
+        <Input placeholder="Cidade" disabled />
+        <Input placeholder="Estado" disabled />
       </form>
       <div className="flex justify-between">
         <Button variant="ghost" onClick={onBack}>
