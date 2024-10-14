@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { CardProfessional } from '@/components/card-professional';
 import { FilterOptions } from '@/components/filter-options';
+import { CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
   Pagination,
@@ -126,7 +127,7 @@ export function Step01() {
 
   return (
     <>
-      <div className="flex w-full items-center justify-between">
+      <CardHeader className="flex w-full items-center justify-between">
         <div className="flex w-full flex-col gap-1">
           <div className="flex w-full items-center justify-between">
             <h1 className="text-lg font-bold md:text-2xl">
@@ -139,52 +140,57 @@ export function Step01() {
             Selecione o profissional ideal para o seu atendimento
           </span>
         </div>
-      </div>
-      <div className="w-full">
-        <Input
-          id="name"
-          type="text"
-          placeholder="Pesquise por um profissional"
-          autoComplete="off"
-          icon="LuSearch"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
-      </div>
-      <div className="flex h-full w-full animate-fade flex-col overflow-auto">
-        {paginatedProfessional.length > 0 ? (
-          <>
-            {paginatedProfessional.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => handleSelectProfessional(item)}
-              >
-                <CardProfessional
-                  name={item.name}
-                  avatar={item.avatar}
-                  specialty={item.specialty}
-                  advice={item.advice}
-                  className="hover:bg-background"
-                />
-              </button>
-            ))}
-          </>
-        ) : (
-          <div className="flex h-full flex-col items-center justify-center text-center">
-            <h2 className="text-lg font-semibold text-muted-foreground">
-              Nenhum profissional corresponde à sua busca.
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Tente usar um nome diferente ou ajustar os critérios de pesquisa.
-            </p>
-          </div>
+      </CardHeader>
+      <CardContent>
+        <div className="w-full">
+          <Input
+            id="name"
+            type="text"
+            placeholder="Pesquise por um profissional"
+            autoComplete="off"
+            icon="LuSearch"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="flex h-full w-full animate-fade flex-col overflow-auto">
+          {paginatedProfessional.length > 0 ? (
+            <>
+              {paginatedProfessional.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSelectProfessional(item)}
+                >
+                  <CardProfessional
+                    name={item.name}
+                    avatar={item.avatar}
+                    specialty={item.specialty}
+                    advice={item.advice}
+                    className="hover:bg-background"
+                  />
+                </button>
+              ))}
+            </>
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center text-center">
+              <h2 className="text-lg font-semibold text-muted-foreground">
+                Nenhum profissional corresponde à sua busca.
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Tente usar um nome diferente ou ajustar os critérios de
+                pesquisa.
+              </p>
+            </div>
+          )}
+        </div>
+      </CardContent>
+      <CardFooter>
+        {paginatedProfessional.length > 0 && (
+          <Pagination>
+            <PaginationContent>{generatePagination()}</PaginationContent>
+          </Pagination>
         )}
-      </div>
-      {paginatedProfessional.length > 0 && (
-        <Pagination>
-          <PaginationContent>{generatePagination()}</PaginationContent>
-        </Pagination>
-      )}
+      </CardFooter>
     </>
   );
 }

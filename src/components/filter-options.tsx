@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -93,7 +93,7 @@ export function FilterOptions() {
       <PopoverTrigger asChild>
         <Button
           size="sm"
-          variant="outline"
+          variant="default"
           className="flex items-center space-x-2"
         >
           <Icon name="MdFilterList" size={20} />

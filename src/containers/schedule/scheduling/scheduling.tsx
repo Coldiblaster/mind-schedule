@@ -1,5 +1,6 @@
 'use client';
 
+import { Card } from '@/components/ui/card';
 import { useMultiStepForm } from '@/hooks/use-multistep-form';
 
 import { Step01 } from './step-01';
@@ -9,9 +10,9 @@ export function Scheduling() {
   const { data } = useMultiStepForm();
 
   return (
-    <div className="relative flex min-h-full w-full flex-col items-start gap-4 rounded-lg bg-muted p-4 md:max-w-lg md:p-12">
+    <Card className="min-h-full w-full md:max-w-lg">
       {data.stepNumber === 1 && <Step01 />}
       {data.stepNumber === 2 && <Step02 />}
-    </div>
+    </Card>
   );
 }

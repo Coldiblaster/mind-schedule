@@ -16,7 +16,7 @@ export function LocationForm({
         encontrá-lo.
       </p>
       <form className="mb-4 grid gap-4 md:grid-cols-2">
-        <Input placeholder="CEP" />
+        <Input placeholder="CEP" autoFocus />
         <Input placeholder="Rua" />
         <Input placeholder="Número" />
         <Input placeholder="Bairro" />
