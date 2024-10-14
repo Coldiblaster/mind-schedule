@@ -33,7 +33,6 @@
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
     "dlx": "^0.2.1",
-    "firebase": "^10.13.2",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "next": "14.2.13",

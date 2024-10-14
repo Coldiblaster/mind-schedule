@@ -1,31 +1,44 @@
 'use client';
 
 import { useAuth } from '@clerk/nextjs';
-import { signInWithCustomToken } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
-import { auth } from '@/services';
 
 const LoginCallback = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const { getToken, userId, isLoaded } = useAuth();
+  const { userId, isLoaded } = useAuth();
+
+  // useEffect(() => {
+  //   // Certifique-se de que os dados do Clerk estão carregados
+  //   if (isLoaded && userId) {
+  //     const signIntoFirebaseWithClerk = async () => {
+  //       const token = await getToken({ template: 'integration_firebase' });
+
+  //       await signInWithCustomToken(auth, token || '');
+  //       setLoading(false);
+  //       // Redireciona para o dashboard após a autenticação
+  //       router.push('/dashboard');
+  //     };
+
+  //     signIntoFirebaseWithClerk();
+  //   }
+  // }, [isLoaded, userId, router]);
 
   useEffect(() => {
     // Certifique-se de que os dados do Clerk estão carregados
     if (isLoaded && userId) {
-      const signIntoFirebaseWithClerk = async () => {
-        const token = await getToken({ template: 'integration_firebase' });
-
-        await signInWithCustomToken(auth, token || '');
-        setLoading(false);
-        // Redireciona para o dashboard após a autenticação
-        router.push('/dashboard');
+      const simulateFirebaseSignIn = () => {
+        // Simula um atraso de 2 segundos
+        setTimeout(() => {
+          // Redireciona para o dashboard após a simulação
+          setLoading(true);
+          router.push('/dashboard');
+        }, 2000);
       };
 
-      signIntoFirebaseWithClerk();
+      simulateFirebaseSignIn();
     }
   }, [isLoaded, userId, router]);
 
