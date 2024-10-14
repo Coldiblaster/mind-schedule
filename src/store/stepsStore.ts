@@ -1,4 +1,3 @@
-// store/stepsStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -9,6 +8,7 @@ export interface Step {
   label: string;
   description: string;
   active: boolean;
+  complete: boolean;
 }
 
 interface StepsState {
@@ -28,6 +28,7 @@ const initialSteps: Step[] = [
     label: 'Sobre o seu negócio',
     description: 'Começando a conhecer melhor o seu negócio',
     active: true,
+    complete: false,
   },
   {
     id: 2,
@@ -35,6 +36,7 @@ const initialSteps: Step[] = [
     label: 'Localização',
     description: 'Com seu endereço, ajudamos a encontrarem você',
     active: false,
+    complete: false,
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ const initialSteps: Step[] = [
     label: 'Serviços sugeridos',
     description: 'Defina preços, tempo de trabalho para os seus serviços',
     active: false,
+    complete: false,
   },
   {
     id: 4,
@@ -49,6 +52,7 @@ const initialSteps: Step[] = [
     label: 'Expediente',
     description: 'Configure os horários de atendimento',
     active: false,
+    complete: false,
   },
 ];
 
@@ -62,11 +66,13 @@ export const useStepsStore = create<StepsState>()(
       nextStep: () => {
         const { steps, currentStepIndex } = get();
         const nextIndex = Math.min(currentStepIndex + 1, steps.length - 1);
+
         set(state => ({
           currentStepIndex: nextIndex,
           steps: state.steps.map((step, index) => ({
             ...step,
             active: index === nextIndex,
+            complete: index === currentStepIndex ? true : step.complete,
           })),
         }));
       },
@@ -75,6 +81,7 @@ export const useStepsStore = create<StepsState>()(
       prevStep: () => {
         const { currentStepIndex } = get();
         const prevIndex = Math.max(currentStepIndex - 1, 0);
+
         set(state => ({
           currentStepIndex: prevIndex,
           steps: state.steps.map((step, index) => ({
@@ -91,6 +98,7 @@ export const useStepsStore = create<StepsState>()(
           steps: state.steps.map((step, i) => ({
             ...step,
             active: i === index,
+            complete: i < index || step.complete, // Marca os steps anteriores como completos
           })),
         }));
       },
