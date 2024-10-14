@@ -11,7 +11,7 @@
     "@tanstack/query/exhaustive-deps": "error",
     "react-hooks/exhaustive-deps": "off",
     "prettier/prettier": [
-      "error",
+      "warn",
       {
         "plugins": [
           "prettier-plugin-tailwindcss"
