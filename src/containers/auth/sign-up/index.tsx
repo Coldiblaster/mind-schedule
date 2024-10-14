@@ -7,7 +7,7 @@ import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useStepsStore } from '@/store/stepsStore';
+import { useStepsStore } from '@/store/steps-store';
 
 import { LocationForm, ScheduleForm, SegmentForm, ServicesForm } from './steps';
 
