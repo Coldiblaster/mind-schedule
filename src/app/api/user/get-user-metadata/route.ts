@@ -1,12 +1,10 @@
-'use server';
-
+// src/app/api/user/get-user-metadata/route.ts
 import { clerkClient } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId'); // Obtém o userId dos parâmetros da URL
+    const { userId } = await request.json(); // Captura o userId do corpo da requisição
 
     if (!userId) {
       return NextResponse.json(
@@ -15,8 +13,7 @@ export async function GET(request: Request) {
       );
     }
 
-    // Obtém o usuário do Clerk com base no userId
-    const user = await clerkClient().users.getUser(userId);
+    const user = await clerkClient.users.getUser(userId);
 
     // Retorna os metadados privados do usuário
     return NextResponse.json(user.privateMetadata);

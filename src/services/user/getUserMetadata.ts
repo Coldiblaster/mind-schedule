@@ -2,8 +2,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 const getUserMetadata = async (userId: string) => {
-  const response = await fetch(`/api/user/get-user-metadata?userId=${userId}`, {
-    method: 'GET',
+  const response = await fetch('/api/user/get-user-metadata', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId }),
   });
 
   if (!response.ok) {
