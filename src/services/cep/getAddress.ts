@@ -1,6 +1,8 @@
-// src/services/useCep.ts
+import { useQuery } from '@tanstack/react-query';
 
-export const getAddress = async (cep: string) => {
+import { LocationData } from '@/schemas/schemas-sign-up';
+
+export const getAddress = async (cep: string): Promise<LocationData> => {
   const response = await fetch(`/api/cep/${cep}`, {
     method: 'GET',
   });
@@ -10,4 +12,13 @@ export const getAddress = async (cep: string) => {
   }
 
   return response.json();
+};
+
+export const useGetAddress = (cep: string | undefined) => {
+  return useQuery({
+    queryKey: ['userMetadata', cep],
+    queryFn: () => getAddress(cep!),
+    enabled: cep?.length === 8,
+    refetchOnWindowFocus: false,
+  });
 };

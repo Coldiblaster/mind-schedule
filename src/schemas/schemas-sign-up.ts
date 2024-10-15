@@ -1,3 +1,4 @@
+import { isCEP } from 'brazilian-values';
 import { z } from 'zod';
 
 export const BusinessSchema = z.object({
@@ -8,12 +9,13 @@ export const BusinessSchema = z.object({
 });
 
 export const LocationSchema = z.object({
-  cep: z.string().min(8, 'CEP inválido'),
+  cep: z.string().refine(isCEP, 'CEP inválido'),
   street: z.string().min(1, 'Rua é obrigatória'),
   number: z.string().min(1, 'Número é obrigatório'),
-  district: z.string().min(1, 'Bairro é obrigatório'),
+  neighborhood: z.string().min(1, 'Bairro é obrigatório'),
   city: z.string().min(1, 'Cidade é obrigatória'),
   state: z.string().min(1, 'Estado é obrigatório'),
+  complement: z.string().optional(),
 });
 
 export const ServiceSchema = z.object({
