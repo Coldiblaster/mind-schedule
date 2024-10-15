@@ -4,12 +4,15 @@ import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 
 export const LandingPage = () => (
-  <main className="relative flex w-full flex-col items-center pb-32">
+  <main
+    id="landing-page"
+    className="relative flex w-full flex-col items-center pb-32"
+  >
     <div className="relative flex h-[calc(100vh+170px)] w-full flex-col items-center justify-center">
       <div className="absolute top-0 h-full w-full bg-gradient-to-b from-violet-950 to-violet-800 clip-polygon-clip dark:bg-violet-950">
-        <div className="bg-gradient-balls-top-left absolute -left-[550px] -top-[550px] h-[960px] w-[960px] rounded-full" />
-        <div className="bg-gradient-balls-top-right absolute -right-[450px] -top-[300px] h-[1024px] w-[1024px] rounded-full" />
-        <div className="bg-gradient-balls-bottom-left absolute -bottom-[550px] -left-[550px] h-[960px] w-[960px] rounded-full" />
+        <div className="absolute -left-[550px] -top-[550px] h-[960px] w-[960px] rounded-full bg-gradient-balls-top-left" />
+        <div className="absolute -right-[450px] -top-[300px] h-[1024px] w-[1024px] rounded-full bg-gradient-balls-top-right" />
+        <div className="absolute -bottom-[550px] -left-[550px] h-[960px] w-[960px] rounded-full bg-gradient-balls-bottom-left" />
       </div>
 
       <section className="absolute top-0 flex min-h-screen flex-col items-center justify-center text-white">

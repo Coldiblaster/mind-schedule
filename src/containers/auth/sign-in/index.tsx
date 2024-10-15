@@ -3,6 +3,7 @@
 import { useSignIn, useSignUp } from '@clerk/nextjs';
 import { OAuthStrategy } from '@clerk/types';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Icon } from '@/components/icon';
@@ -105,14 +106,17 @@ export function SignIn() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 rounded-full bg-primary/80 text-white md:hidden">
+      <Link
+        href="#landing-page"
+        className="absolute bottom-8 rounded-full bg-primary/80 text-white md:hidden"
+      >
         <Icon
           name="MdKeyboardArrowDown"
           size={32}
           className="animate-bounce pt-2 animate-delay-200 animate-duration-1000"
         />
         <span className="sr-only">Scroll down for more content</span>
-      </div>
+      </Link>
     </div>
   );
 }
