@@ -82,6 +82,14 @@ const config: Config = {
       clipPath: {
         'polygon-clip': 'polygon(0 0, 100% 0, 100% 100vh, 0% 100%)',
       },
+      backgroundImage: {
+        'gradient-balls-top-left':
+          'linear-gradient(320deg, rgb(41 8 72 / 13%) 15%, rgba(8, 39, 72, 0) 50%)',
+        'gradient-balls-top-right':
+          'linear-gradient(55deg, rgba(8, 39, 72, 0.133) 20%, rgba(8, 39, 72, 0) 60%)',
+        'gradient-balls-bottom-left':
+          'linear-gradient(200deg, rgba(8, 39, 72, 0.133) 30%, rgba(8, 39, 72, 0) 60%)',
+      },
     },
   },
   plugins: [

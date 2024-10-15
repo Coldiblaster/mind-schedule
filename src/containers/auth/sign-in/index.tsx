@@ -105,7 +105,7 @@ export function SignIn() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 rounded-full bg-primary/80 text-foreground md:hidden">
+      <div className="absolute bottom-8 rounded-full bg-primary/80 text-white md:hidden">
         <Icon
           name="MdKeyboardArrowDown"
           size={32}

@@ -6,22 +6,22 @@ import { Button } from '@/components/ui/button';
 export const LandingPage = () => (
   <main className="relative flex w-full flex-col items-center pb-32">
     <div className="relative flex h-[calc(100vh+170px)] w-full flex-col items-center justify-center">
-      <div className="absolute top-0 h-full w-full bg-background clip-polygon-clip">
-        <div className="absolute -left-[550px] -top-[550px] h-[960px] w-[960px] rounded-full bg-primary/40" />
-        <div className="absolute -right-[450px] -top-[300px] h-[1024px] w-[1024px] rounded-full bg-primary/40" />
-        <div className="absolute -bottom-[550px] -left-[550px] h-[960px] w-[960px] rounded-full bg-primary/40" />
+      <div className="absolute top-0 h-full w-full bg-gradient-to-b from-violet-950 to-violet-800 clip-polygon-clip dark:bg-violet-950">
+        <div className="bg-gradient-balls-top-left absolute -left-[550px] -top-[550px] h-[960px] w-[960px] rounded-full" />
+        <div className="bg-gradient-balls-top-right absolute -right-[450px] -top-[300px] h-[1024px] w-[1024px] rounded-full" />
+        <div className="bg-gradient-balls-bottom-left absolute -bottom-[550px] -left-[550px] h-[960px] w-[960px] rounded-full" />
       </div>
 
-      <section className="absolute top-0 flex min-h-screen flex-col items-center justify-center text-foreground">
+      <section className="absolute top-0 flex min-h-screen flex-col items-center justify-center text-white">
         <div className="mt-auto flex flex-col items-center">
-          <div className="flex items-center gap-3 text-lg text-foreground">
+          <div className="flex items-center gap-3 text-lg">
             <Icon name="LuBrain" className="h-5 w-5" />
             <span className="font-semibold">mind.schedule</span>
           </div>
           <div className="mt-[10vh] flex flex-col items-center gap-4">
             <span>Scroll down</span>
-            <div className="relative flex h-8 w-6 items-center justify-center rounded-3xl border-2 border-muted-foreground">
-              <div className="absolute top-2 h-2 w-1 animate-bounce rounded-3xl bg-muted-foreground" />
+            <div className="relative flex h-8 w-6 items-center justify-center rounded-3xl border-2 border-white">
+              <div className="absolute top-2 h-2 w-1 animate-bounce rounded-3xl bg-white" />
             </div>
           </div>
         </div>
