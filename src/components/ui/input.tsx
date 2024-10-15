@@ -6,10 +6,11 @@ import { Icon, IconName } from '../icon';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: IconName;
+  isLoading?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, icon, ...props }, ref) => {
+  ({ className, type, icon, isLoading, ...props }, ref) => {
     return (
       <div className="relative flex items-center">
         <input
@@ -23,6 +24,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
 
         {icon && <Icon className="absolute right-3" name={icon} />}
+        {isLoading && (
+          <Icon
+            className="absolute right-3 animate-spin animate-duration-1000"
+            name="PiSpinnerGap"
+          />
+        )}
       </div>
     );
   },
