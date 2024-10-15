@@ -56,7 +56,7 @@ export function SignUp() {
           }
           className="mb-8"
         >
-          <TabsList className="grid w-full grid-cols-4 gap-2">
+          <TabsList className="grid w-full grid-cols-4 md:gap-2">
             {steps.map((step, index) => (
               <TabsTrigger
                 disabled={
@@ -64,7 +64,7 @@ export function SignUp() {
                 }
                 key={step.value}
                 value={step.value}
-                className={`flex h-20 flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
+                className={`flex h-full flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
               >
                 <div
                   className={`${step.complete && 'bg-green-600'} mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 lg:h-8 lg:w-8`}

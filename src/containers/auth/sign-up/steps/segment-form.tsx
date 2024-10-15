@@ -59,7 +59,7 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid w-full gap-2 md:grid-cols-4 lg:gap-4">
+          <div className="grid w-full gap-2 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
             {businessTypes.map(type => (
               <FormField
                 key={type.id}
@@ -71,7 +71,7 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
                       <Button
                         type="button"
                         variant={value.id === type.id ? 'secondary' : 'outline'}
-                        className="w-full justify-start px-1 text-left md:flex md:h-20 md:flex-col md:justify-center md:text-center lg:px-4"
+                        className="w-full justify-start gap-2 px-1 text-left text-xs md:flex md:h-20 md:flex-col md:justify-center md:gap-0 md:text-center lg:px-4 lg:text-sm"
                         onClick={() => onChange(type)}
                       >
                         <span className="mb-1 text-2xl">{type.icon}</span>
