@@ -1,3 +1,5 @@
+import { auth } from '@clerk/nextjs/server';
+
 import { Header } from '@/components/header';
 import { SidebarDesktop } from '@/components/sidebar/desktop';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -7,6 +9,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { orgId, userId, sessionClaims } = auth().protect();
+  console.log(orgId, userId, sessionClaims);
+
   return (
     <TooltipProvider>
       <div className="flex min-h-svh w-full">
