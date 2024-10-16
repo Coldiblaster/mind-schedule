@@ -237,7 +237,7 @@ export function LocationForm({
             <Button variant="ghost" onClick={onBack}>
               Voltar
             </Button>
-            <Button type="submit" disabled={isSuccess}>
+            <Button type="submit" disabled={!isSuccess}>
               Continuar
             </Button>
           </div>
