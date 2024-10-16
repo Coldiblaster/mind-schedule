@@ -1,17 +1,13 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
-import { CompanyLogo } from '@/components/company-logo';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { SignIn } from '@/containers/auth/sign-in';
 import { SignUp } from '@/containers/auth/sign-up';
 import { LandingPage } from '@/containers/landing-page';
 
 export default function Auth() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const isRegister = searchParams.get('register') === 'true';
 
