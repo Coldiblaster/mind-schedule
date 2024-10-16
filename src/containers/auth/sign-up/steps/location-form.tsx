@@ -23,7 +23,7 @@ export function LocationForm({
   onNext: () => void;
   onBack: () => void;
 }) {
-  const { updateFormData } = useStepsDataStore();
+  const { updateFormData, formData } = useStepsDataStore();
   const [fieldsDisabled, setFieldsDisabled] = useState({
     city: '',
     neighborhood: '',
@@ -36,13 +36,13 @@ export function LocationForm({
     reValidateMode: 'onChange',
     resolver: zodResolver(LocationSchema),
     defaultValues: {
-      cep: '',
-      city: '',
-      neighborhood: '',
-      number: '',
-      state: '',
-      street: '',
-      complement: '',
+      cep: formData.location?.cep || '',
+      city: formData.location?.city || '',
+      neighborhood: formData.location?.neighborhood || '',
+      number: formData.location?.number || '',
+      state: formData.location?.state || '',
+      street: formData.location?.street || '',
+      complement: formData.location?.complement || '',
     },
   });
 
@@ -74,8 +74,6 @@ export function LocationForm({
       });
     }
   }, [isFetching, isSuccess]);
-
-  console.log(fieldsDisabled);
 
   return (
     <div className="animate-fade-left">
