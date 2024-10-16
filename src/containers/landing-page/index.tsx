@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { CompanyLogo } from '@/components/company-logo';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 
@@ -17,8 +18,8 @@ export const LandingPage = () => (
 
       <section className="absolute top-0 flex min-h-screen flex-col items-center justify-center text-white">
         <div className="mt-auto flex flex-col items-center">
-          <div className="flex items-center gap-3 text-lg">
-            <Icon name="LuBrain" className="h-5 w-5" />
+          <div className="flex flex-col items-center gap-3 text-lg">
+            <CompanyLogo width={140} height={140} />
             <span className="font-semibold">mind.schedule</span>
           </div>
           <div className="mt-[10vh] flex flex-col items-center gap-4">

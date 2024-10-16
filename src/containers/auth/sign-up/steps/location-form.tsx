@@ -233,16 +233,14 @@ export function LocationForm({
             )}
           </div>
 
-          {isSuccess && (
-            <div className="flex justify-between">
-              <Button variant="ghost" onClick={onBack}>
-                Voltar
-              </Button>
-              <Button type="submit" disabled={isFetching}>
-                Continuar
-              </Button>
-            </div>
-          )}
+          <div className="flex justify-between">
+            <Button variant="ghost" onClick={onBack}>
+              Voltar
+            </Button>
+            <Button type="submit" disabled={isSuccess}>
+              Continuar
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

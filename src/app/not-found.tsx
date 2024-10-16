@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Icon } from '@/components/icon';
+import { CompanyLogo } from '@/components/company-logo';
 import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 import { UserTypes } from '@/types/user-types';
 
@@ -11,8 +11,8 @@ const NotFoundPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">
-      <div className="mb-4 flex h-40 w-40 items-center justify-center rounded-full bg-primary text-primary-foreground">
-        <Icon name="LuBrain" size={128} className="animate-pulse" />
+      <div className="mb-8 animate-pulse">
+        <CompanyLogo width={128} height={128} />
       </div>
 
       <h1 className="text-6xl font-bold text-foreground">404</h1>
