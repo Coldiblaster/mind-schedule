@@ -2,15 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { CustomInput } from '@/components/custom-input';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Form } from '@/components/ui/form';
 import { LocationData, LocationSchema } from '@/schemas/schemas-sign-up';
 import { useGetAddress } from '@/services/cep';
 import { useStepsDataStore } from '@/store/steps-data-store';
@@ -45,7 +39,9 @@ export function LocationForm({
     },
   });
 
-  const { data, isFetching, isSuccess } = useGetAddress(form.getValues('cep'));
+  const { data, isFetching, isSuccess } = useGetAddress(
+    form.getValues('cep').replace(/\D/g, ''),
+  );
 
   const onSubmit = (data: LocationData) => {
     const validation = LocationSchema.safeParse(data);
@@ -65,6 +61,7 @@ export function LocationForm({
       form.setValue('neighborhood', neighborhood);
       form.setValue('state', state);
       form.setValue('street', street);
+
       setFieldsDisabled({
         city,
         neighborhood,
@@ -73,8 +70,6 @@ export function LocationForm({
       });
     }
   }, [isFetching, isSuccess]);
-
-  console.log(fieldsDisabled);
 
   return (
     <div className="animate-fade-left">
@@ -85,143 +80,57 @@ export function LocationForm({
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="mb-4 grid gap-4 md:grid-cols-2">
-            <FormField
-              name="cep"
+          <div className="mb-4 grid gap-4 md:grid-cols-3">
+            <CustomInput
               control={form.control}
-              render={({ field: { onChange, value } }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="CEP"
-                      onChange={onChange}
-                      value={value}
-                      autoComplete="none"
-                      isLoading={isFetching}
-                      type="number"
-                      maxLength={8}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
+              registerName="cep"
+              placeholder="18200-020"
+              type="text"
+              maskName="cep"
+              labelText="CEP:"
+              isFetching={isFetching}
+              autoFocus
             />
+          </div>
+          <div className="mb-4 grid gap-4 md:grid-cols-3">
             {isFetching && <div>Buscando endereço...</div>}
             {isSuccess && (
               <>
-                <FormField
-                  name="street"
+                <CustomInput
                   control={form.control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Rua"
-                          onChange={onChange}
-                          value={value}
-                          autoComplete="none"
-                          disabled={Boolean(fieldsDisabled.street)}
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  registerName="street"
+                  placeholder="nome da rua completo"
+                  labelText="Rua:"
+                  disabled={Boolean(fieldsDisabled.city)}
                 />
-                <FormField
-                  name="number"
+                <CustomInput
                   control={form.control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="N°"
-                          onChange={onChange}
-                          value={value}
-                          autoComplete="none"
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  registerName="number"
+                  labelText="N°"
                 />
-                <FormField
-                  name="neighborhood"
+                <CustomInput
                   control={form.control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Bairro"
-                          onChange={onChange}
-                          value={value}
-                          autoComplete="none"
-                          disabled={Boolean(fieldsDisabled.neighborhood)}
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  registerName="complement"
+                  labelText="Complemento"
                 />
-                <FormField
-                  name="city"
+                <CustomInput
                   control={form.control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Cidade"
-                          onChange={onChange}
-                          value={value}
-                          autoComplete="none"
-                          disabled={Boolean(fieldsDisabled.city)}
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  registerName="neighborhood"
+                  labelText="Bairro"
+                  disabled={Boolean(fieldsDisabled.neighborhood)}
                 />
-                <FormField
-                  name="state"
+                <CustomInput
                   control={form.control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Estado"
-                          onChange={onChange}
-                          value={value}
-                          autoComplete="none"
-                          disabled={Boolean(fieldsDisabled.state)}
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  registerName="city"
+                  labelText="Cidade"
+                  disabled={Boolean(fieldsDisabled.city)}
                 />
 
-                <FormField
-                  name="complement"
+                <CustomInput
                   control={form.control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormItem className="mb-4">
-                      <FormControl>
-                        <Input
-                          placeholder="Complemento"
-                          autoComplete="none"
-                          onChange={onChange}
-                          value={value}
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  registerName="state"
+                  labelText="Estado"
+                  disabled={Boolean(fieldsDisabled.state)}
                 />
               </>
             )}

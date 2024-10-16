@@ -4,12 +4,13 @@ import { cn } from '@/lib/utils';
 
 import { Icon, IconName } from '../icon';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface IInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: IconName;
   isLoading?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, IInputProps>(
   ({ className, type, icon, isLoading, ...props }, ref) => {
     return (
       <div className="relative flex items-center">
