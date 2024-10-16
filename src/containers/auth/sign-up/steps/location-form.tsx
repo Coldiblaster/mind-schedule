@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -107,7 +108,12 @@ export function LocationForm({
                 </FormItem>
               )}
             />
-            {isFetching && <div>Buscando endereço...</div>}
+            {isFetching && (
+              <div className="flex items-center space-x-2 text-purple-500 animate-duration-1000">
+                <Icon name="LuLoader2" className="h-4 w-4 animate-spin" />
+                <span className="animate-pulse">Buscando endereço...</span>
+              </div>
+            )}
             {isSuccess && (
               <>
                 <FormField
