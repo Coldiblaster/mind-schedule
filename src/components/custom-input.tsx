@@ -51,7 +51,7 @@ export const CustomInput = ({
       control={control}
       name={registerName}
       render={({ field }) => (
-        <FormItem className="space-y-0">
+        <FormItem className="space-y-1">
           <FormLabel htmlFor={registerName} className="text-xs">
             {labelText}
           </FormLabel>
