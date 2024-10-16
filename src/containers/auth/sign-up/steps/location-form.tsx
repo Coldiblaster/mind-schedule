@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
@@ -23,6 +23,12 @@ export function LocationForm({
   onBack: () => void;
 }) {
   const { updateFormData } = useStepsDataStore();
+  const [fieldsDisabled, setFieldsDisabled] = useState({
+    city: '',
+    neighborhood: '',
+    state: '',
+    street: '',
+  });
 
   const form = useForm<LocationData>({
     mode: 'onChange',
@@ -59,13 +65,21 @@ export function LocationForm({
       form.setValue('neighborhood', neighborhood);
       form.setValue('state', state);
       form.setValue('street', street);
+      setFieldsDisabled({
+        city,
+        neighborhood,
+        state,
+        street,
+      });
     }
   }, [isFetching, isSuccess]);
+
+  console.log(fieldsDisabled);
 
   return (
     <div className="animate-fade-left">
       <h2 className="mb-4 text-2xl font-bold">Localização</h2>
-      <p className="mb-6 text-gray-600">
+      <p className="mb-6 text-muted-foreground">
         Insira o endereço do seu negócio para que seus clientes possam
         encontrá-lo.
       </p>
@@ -84,6 +98,8 @@ export function LocationForm({
                       value={value}
                       autoComplete="none"
                       isLoading={isFetching}
+                      type="number"
+                      maxLength={8}
                     />
                   </FormControl>
 
@@ -91,123 +107,136 @@ export function LocationForm({
                 </FormItem>
               )}
             />
-            <FormField
-              name="street"
-              control={form.control}
-              render={({ field: { onChange, value } }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Rua"
-                      onChange={onChange}
-                      value={value}
-                      autoComplete="none"
-                    />
-                  </FormControl>
+            {isFetching && <div>Buscando endereço...</div>}
+            {isSuccess && (
+              <>
+                <FormField
+                  name="street"
+                  control={form.control}
+                  render={({ field: { onChange, value } }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="Rua"
+                          onChange={onChange}
+                          value={value}
+                          autoComplete="none"
+                          disabled={Boolean(fieldsDisabled.street)}
+                        />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="number"
-              control={form.control}
-              render={({ field: { onChange, value } }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="N°"
-                      onChange={onChange}
-                      value={value}
-                      autoComplete="none"
-                    />
-                  </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="number"
+                  control={form.control}
+                  render={({ field: { onChange, value } }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="N°"
+                          onChange={onChange}
+                          value={value}
+                          autoComplete="none"
+                        />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="neighborhood"
-              control={form.control}
-              render={({ field: { onChange, value } }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Bairro"
-                      onChange={onChange}
-                      value={value}
-                      autoComplete="none"
-                    />
-                  </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="neighborhood"
+                  control={form.control}
+                  render={({ field: { onChange, value } }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="Bairro"
+                          onChange={onChange}
+                          value={value}
+                          autoComplete="none"
+                          disabled={Boolean(fieldsDisabled.neighborhood)}
+                        />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="city"
-              control={form.control}
-              render={({ field: { onChange, value } }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Cidade"
-                      onChange={onChange}
-                      value={value}
-                      autoComplete="none"
-                    />
-                  </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="city"
+                  control={form.control}
+                  render={({ field: { onChange, value } }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="Cidade"
+                          onChange={onChange}
+                          value={value}
+                          autoComplete="none"
+                          disabled={Boolean(fieldsDisabled.city)}
+                        />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="state"
-              control={form.control}
-              render={({ field: { onChange, value } }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Estado"
-                      onChange={onChange}
-                      value={value}
-                      autoComplete="none"
-                    />
-                  </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="state"
+                  control={form.control}
+                  render={({ field: { onChange, value } }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="Estado"
+                          onChange={onChange}
+                          value={value}
+                          autoComplete="none"
+                          disabled={Boolean(fieldsDisabled.state)}
+                        />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            name="complement"
-            control={form.control}
-            render={({ field: { onChange, value } }) => (
-              <FormItem className="mb-4">
-                <FormControl>
-                  <Input
-                    placeholder="Complemento"
-                    autoComplete="none"
-                    onChange={onChange}
-                    value={value}
-                  />
-                </FormControl>
+                <FormField
+                  name="complement"
+                  control={form.control}
+                  render={({ field: { onChange, value } }) => (
+                    <FormItem className="mb-4">
+                      <FormControl>
+                        <Input
+                          placeholder="Complemento"
+                          autoComplete="none"
+                          onChange={onChange}
+                          value={value}
+                        />
+                      </FormControl>
 
-                <FormMessage />
-              </FormItem>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
             )}
-          />
-
-          <div className="flex justify-between">
-            <Button variant="ghost" onClick={onBack}>
-              Voltar
-            </Button>
-            <Button type="submit">Continuar</Button>
           </div>
+
+          {isSuccess && (
+            <div className="flex justify-between">
+              <Button variant="ghost" onClick={onBack}>
+                Voltar
+              </Button>
+              <Button type="submit" disabled={isFetching}>
+                Continuar
+              </Button>
+            </div>
+          )}
         </form>
       </Form>
     </div>
