@@ -1,18 +1,14 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { Icon } from '@/components/icon';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useStepsStore } from '@/store/steps-store';
 
+import { HeaderAuth } from '../header-auth';
 import { LocationForm, ScheduleForm, SegmentForm, ServicesForm } from './steps';
 
 export function SignUp() {
-  const router = useRouter();
   const { steps, currentStepIndex, nextStep, goToStep, prevStep, resetSteps } =
     useStepsStore();
 
@@ -34,66 +30,53 @@ export function SignUp() {
   };
 
   return (
-    <div className="flex h-full w-full animate-fade flex-col justify-center gap-8 p-4 animate-delay-150 animate-duration-500 md:p-8">
-      <div className="flex w-full justify-end gap-2 px-8 md:right-8 md:w-auto md:gap-4">
-        <div className="flex items-center gap-2 md:hidden">
-          <Icon name="LuBrain" className="h-5 w-5" />
-          <span className="font-semibold">mind.schedule</span>
-        </div>
-        <div className="flex items-center gap-2 md:gap-4">
-          <Button variant="ghost" onClick={() => router.push('/')}>
-            Fazer login
-          </Button>
-          <ThemeToggle />
-        </div>
-      </div>
+    <div className="flex h-full w-full animate-fade flex-col gap-4 overflow-y-auto animate-delay-150 animate-duration-500">
+      <HeaderAuth />
 
-      <div className="flex h-full w-full flex-col justify-start gap-4 overflow-y-auto">
-        <Tabs
-          value={activeStep.value}
-          onValueChange={value =>
-            goToStep(steps.findIndex(step => step.value === value))
-          }
-          className="mb-8"
-        >
-          <TabsList className="grid w-full grid-cols-4 md:gap-2">
-            {steps.map((step, index) => (
-              <TabsTrigger
-                disabled={
-                  !step.complete && index > steps.findIndex(s => s.active) // Bloqueia apenas steps futuros
-                }
-                key={step.value}
-                value={step.value}
-                className={`flex h-full flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
+      <Tabs
+        value={activeStep.value}
+        onValueChange={value =>
+          goToStep(steps.findIndex(step => step.value === value))
+        }
+        className="mb-8"
+      >
+        <TabsList className="grid w-full grid-cols-4 md:gap-2">
+          {steps.map((step, index) => (
+            <TabsTrigger
+              disabled={
+                !step.complete && index > steps.findIndex(s => s.active) // Bloqueia apenas steps futuros
+              }
+              key={step.value}
+              value={step.value}
+              className={`flex h-full flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
+            >
+              <div
+                className={`${step.complete && 'bg-green-600'} mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 lg:h-8 lg:w-8`}
               >
-                <div
-                  className={`${step.complete && 'bg-green-600'} mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 lg:h-8 lg:w-8`}
-                >
-                  {step.complete ? (
-                    <Icon name="MdCheck" className="text-white" size={18} />
-                  ) : (
-                    <span className="text-white">{index + 1}</span>
-                  )}
-                </div>
+                {step.complete ? (
+                  <Icon name="MdCheck" className="text-white" size={18} />
+                ) : (
+                  <span className="text-white">{index + 1}</span>
+                )}
+              </div>
 
-                <span className="text-wrap text-xs xl:text-nowrap">
-                  {step.label}
-                </span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+              <span className="text-wrap text-xs xl:text-nowrap">
+                {step.label}
+              </span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
-        <div className="mt-4 flex h-12 items-center justify-center text-center text-sm font-bold text-foreground transition-all">
-          {activeStep.description}
-        </div>
-
-        <Card>
-          <CardContent className="overflow-x-hidden p-4 lg:p-6">
-            {renderForm()}
-          </CardContent>
-        </Card>
+      <div className="mt-4 flex h-12 items-center justify-center text-center text-sm font-bold text-foreground transition-all">
+        {activeStep.description}
       </div>
+
+      <Card>
+        <CardContent className="overflow-x-hidden p-4 lg:p-6">
+          {renderForm()}
+        </CardContent>
+      </Card>
     </div>
   );
 }

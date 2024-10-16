@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { CustomInput } from '@/components/custom-input';
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { LocationData, LocationSchema } from '@/schemas/schemas-sign-up';
@@ -16,7 +17,7 @@ export function LocationForm({
   onNext: () => void;
   onBack: () => void;
 }) {
-  const { updateFormData } = useStepsDataStore();
+  const { updateFormData, formData } = useStepsDataStore();
   const [fieldsDisabled, setFieldsDisabled] = useState({
     city: '',
     neighborhood: '',
@@ -29,13 +30,13 @@ export function LocationForm({
     reValidateMode: 'onChange',
     resolver: zodResolver(LocationSchema),
     defaultValues: {
-      cep: '',
-      city: '',
-      neighborhood: '',
-      number: '',
-      state: '',
-      street: '',
-      complement: '',
+      cep: formData.location?.cep || '',
+      city: formData.location?.city || '',
+      neighborhood: formData.location?.neighborhood || '',
+      number: formData.location?.number || '',
+      state: formData.location?.state || '',
+      street: formData.location?.street || '',
+      complement: formData.location?.complement || '',
     },
   });
 
@@ -93,7 +94,12 @@ export function LocationForm({
             />
           </div>
           <div className="mb-4 grid gap-4 md:grid-cols-3">
-            {isFetching && <div>Buscando endereço...</div>}
+            {isFetching && (
+              <div className="flex items-center space-x-2 text-purple-500 animate-duration-1000">
+                <Icon name="LuLoader2" className="h-4 w-4 animate-spin" />
+                <span className="animate-pulse">Buscando endereço...</span>
+              </div>
+            )}
             {isSuccess && (
               <>
                 <CustomInput
@@ -136,16 +142,14 @@ export function LocationForm({
             )}
           </div>
 
-          {isSuccess && (
-            <div className="flex justify-between">
-              <Button variant="ghost" onClick={onBack}>
-                Voltar
-              </Button>
-              <Button type="submit" disabled={isFetching}>
-                Continuar
-              </Button>
-            </div>
-          )}
+          <div className="flex justify-between">
+            <Button variant="ghost" onClick={onBack}>
+              Voltar
+            </Button>
+            <Button type="submit" disabled={!isSuccess}>
+              Continuar
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

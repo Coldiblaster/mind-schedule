@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { MenuData } from '@/data/menu';
 import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 
+import { CompanyLogo } from '../company-logo';
 import { Icon } from '../icon';
 import { PermissionWrapper } from '../permission-wrapper';
 
@@ -27,13 +28,11 @@ export function SidebarMobile() {
         </SheetTrigger>
         <SheetContent side="left" className="sm:max-w-xs">
           <nav className="grid gap-4 text-lg font-medium">
-            <Link
-              href="#"
-              className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-            >
-              <Icon
-                name="LuBrain"
-                className="h-5 w-5 transition-all group-hover:scale-110"
+            <Link href="#" className="group">
+              <CompanyLogo
+                width={40}
+                height={40}
+                className="transition-all group-hover:scale-110"
               />
 
               <span className="sr-only">mind.schedule</span>

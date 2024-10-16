@@ -7,8 +7,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Icon } from '@/components/icon';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
+
+import { HeaderAuth } from '../header-auth';
 
 export function SignIn() {
   const { signIn } = useSignIn();
@@ -50,15 +51,8 @@ export function SignIn() {
   };
 
   return (
-    <div className="flex h-full w-full animate-fade justify-center p-4 animate-delay-150 animate-duration-500 md:p-8">
-      <div className="absolute right-0 top-8 z-50 flex w-full justify-between gap-2 px-4 md:right-8 md:w-auto md:gap-4 md:px-8">
-        <div className="flex items-center gap-2 md:hidden">
-          <Icon name="LuBrain" className="h-5 w-5" />
-          <span className="font-semibold">mind.schedule</span>
-        </div>
-
-        <ThemeToggle />
-      </div>
+    <div className="relative flex h-full w-full animate-fade justify-center animate-delay-150 animate-duration-500">
+      <HeaderAuth className="absolute md:right-0" />
       <div className="flex max-w-[350px] flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
