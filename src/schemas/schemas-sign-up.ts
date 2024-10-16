@@ -1,6 +1,8 @@
 import { isCEP } from 'brazilian-values';
 import { z } from 'zod';
 
+import { cepRegex } from './mask';
+
 export const BusinessSchema = z.object({
   businessType: z.object({
     id: z.number().min(1, 'Selecione um tipo de negócio'),
@@ -9,7 +11,7 @@ export const BusinessSchema = z.object({
 });
 
 export const LocationSchema = z.object({
-  cep: z.string().refine(isCEP, 'CEP inválido'),
+  cep: z.string().regex(cepRegex, 'CEP inválido').refine(isCEP, 'CEP inválido'),
   street: z.string().min(1, 'Rua é obrigatória'),
   number: z.string().min(1, 'Número é obrigatório'),
   neighborhood: z.string().min(1, 'Bairro é obrigatório'),
