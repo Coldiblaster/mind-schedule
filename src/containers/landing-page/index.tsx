@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import { CompanyLogo } from '@/components/company-logo';
-import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 
 export const LandingPage = () => (
