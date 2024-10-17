@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { shallow } from 'zustand/shallow';
 
 import {
   BusinessData,
@@ -28,6 +29,7 @@ export const useStepsDataStore = create<StepsState>()(
         set(state => ({
           formData: { ...state.formData, ...data },
         })),
+      shallow,
     }),
     { name: 'steps-form-data' },
   ),

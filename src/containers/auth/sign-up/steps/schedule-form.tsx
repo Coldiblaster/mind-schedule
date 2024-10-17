@@ -10,10 +10,11 @@ export function ScheduleForm({
 }) {
   return (
     <div className="animate-fade-left">
-      <h2 className="mb-4 text-2xl font-bold">Expediente</h2>
-      <p className="mb-6 text-gray-600">
+      <h2 className="mb-2 text-2xl font-bold">Expediente</h2>
+      <p className="mb-6 text-sm text-muted-foreground">
         Configure os horários de atendimento do seu negócio.
       </p>
+
       <Input placeholder="Horário de Abertura" className="mb-4" />
       <Input placeholder="Horário de Fechamento" className="mb-4" />
       <div className="flex justify-between">

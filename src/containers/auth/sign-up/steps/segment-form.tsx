@@ -3,31 +3,9 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { businessTypes } from '@/data/mock/steps';
 import { BusinessData, BusinessSchema } from '@/schemas/schemas-sign-up';
 import { useStepsDataStore } from '@/store/steps-data-store'; // ajuste o caminho para o seu store
-
-const businessTypes = [
-  { id: 1, icon: '✂️', label: 'Salão de Beleza' },
-  { id: 2, icon: '💆', label: 'Clínica de Estética' },
-  { id: 3, icon: '💈', label: 'Barbearia' },
-  { id: 4, icon: '👣', label: 'Podologia' },
-  { id: 5, icon: '💅', label: 'Esmalteria' },
-  { id: 6, icon: '👨‍⚕️', label: 'Clínica médica' },
-  { id: 7, icon: '💆‍♂️', label: 'SPA e massagem' },
-  { id: 8, icon: '🐾', label: 'Pet e Veterinário' },
-  { id: 9, icon: '💉', label: 'Estúdio de tatuagem' },
-  { id: 10, icon: '🦷', label: 'Clínica odontológica' },
-  { id: 11, icon: '🏋️', label: 'Personal e fitness' },
-  { id: 12, icon: '🍏', label: 'Nutricionista' },
-  { id: 13, icon: '👩‍⚕️', label: 'Psicólogo' },
-  { id: 14, icon: '🧑‍🏫', label: 'Professor de idiomas' },
-  { id: 15, icon: '🎸', label: 'Professor de música' },
-  { id: 16, icon: '⚖️', label: 'Advogado' },
-  { id: 17, icon: '🔧', label: 'Serviços gerais' },
-  { id: 18, icon: '🧑‍🔧', label: 'Mecânico' },
-  { id: 19, icon: '🧘', label: 'Instrutor de yoga' },
-  { id: 20, icon: '❓', label: 'Outros segmentos' },
-];
 
 export function SegmentForm({ onNext }: { onNext: () => void }) {
   const { updateFormData, formData } = useStepsDataStore();
@@ -40,7 +18,6 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
   });
 
   const onSubmit = (data: BusinessData) => {
-    console.log(data);
     const validation = BusinessSchema.safeParse(data);
     if (validation.success) {
       updateFormData({ business: { businessType: data.businessType } });
@@ -52,8 +29,8 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
 
   return (
     <div className="w-full animate-fade-right">
-      <h2 className="mb-4 text-2xl font-bold">Segmento de atuação</h2>
-      <p className="mb-6 text-muted-foreground">
+      <h2 className="mb-2 text-2xl font-bold">Segmento de atuação</h2>
+      <p className="mb-6 text-sm text-muted-foreground">
         Para que você tenha um ambiente personalizado, é importante saber qual o
         seu tipo de negócio.
       </p>

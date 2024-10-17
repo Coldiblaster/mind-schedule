@@ -63,10 +63,11 @@ export function ServicesForm({
       role="region"
       aria-label="Gerenciamento de Serviços"
     >
-      <h2 className="mb-4 text-2xl font-bold">Valores</h2>
-      <p className="mb-6 text-muted-foreground">
+      <h2 className="mb-2 text-2xl font-bold">Serviços </h2>
+      <p className="mb-6 text-sm text-muted-foreground">
         Adicione os serviços que você oferece e seus respectivos valores.
       </p>
+
       <div className="text-end">
         <Button
           variant="link"

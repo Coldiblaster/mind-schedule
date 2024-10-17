@@ -1,5 +1,7 @@
 'use client';
 
+import { useCallback, useMemo } from 'react';
+
 import { Icon } from '@/components/icon';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,7 +16,8 @@ export function SignUp() {
 
   const activeStep = steps[currentStepIndex];
 
-  const renderForm = () => {
+  // Memoiza o formulário para evitar re-renderizações desnecessárias
+  const renderForm = useMemo(() => {
     switch (activeStep.id) {
       case 1:
         return <SegmentForm onNext={nextStep} />;
@@ -27,7 +30,13 @@ export function SignUp() {
       default:
         return null;
     }
-  };
+  }, [activeStep, nextStep, prevStep, resetSteps]);
+
+  // Função callback para troca de abas, otimizada com useCallback
+  const handleTabChange = useCallback(
+    (value: string) => goToStep(steps.findIndex(step => step.value === value)),
+    [goToStep, steps],
+  );
 
   return (
     <div className="flex h-full w-full animate-fade flex-col gap-4 overflow-y-auto animate-delay-150 animate-duration-500">
@@ -35,19 +44,17 @@ export function SignUp() {
 
       <Tabs
         value={activeStep.value}
-        onValueChange={value =>
-          goToStep(steps.findIndex(step => step.value === value))
-        }
+        onValueChange={handleTabChange}
         className="mb-8"
       >
         <TabsList className="grid w-full grid-cols-4 md:gap-2">
           {steps.map((step, index) => (
             <TabsTrigger
-              disabled={
-                !step.complete && index > steps.findIndex(s => s.active) // Bloqueia apenas steps futuros
-              }
               key={step.value}
               value={step.value}
+              disabled={
+                !step.complete && index > steps.findIndex(s => s.active)
+              }
               className={`flex h-full flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
             >
               <div
@@ -74,7 +81,7 @@ export function SignUp() {
 
       <Card>
         <CardContent className="overflow-x-hidden bg-background p-4 lg:p-6">
-          {renderForm()}
+          {renderForm}
         </CardContent>
       </Card>
     </div>

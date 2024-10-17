@@ -74,11 +74,12 @@ export function LocationForm({
 
   return (
     <div className="animate-fade-left">
-      <h2 className="mb-4 text-2xl font-bold">Localização</h2>
-      <p className="mb-6 text-muted-foreground">
+      <h2 className="mb-2 text-2xl font-bold">Localização</h2>
+      <p className="mb-6 text-sm text-muted-foreground">
         Insira o endereço do seu negócio para que seus clientes possam
         encontrá-lo.
       </p>
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="mb-4 grid gap-4 md:grid-cols-3">
