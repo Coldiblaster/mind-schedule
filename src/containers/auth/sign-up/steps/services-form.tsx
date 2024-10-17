@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
@@ -102,7 +102,7 @@ export function ServicesForm({
             {services.map(service => (
               <li
                 key={service.id}
-                className="flex items-center justify-between rounded-lg bg-gray-800 p-3"
+                className="flex items-center justify-between rounded-lg border border-input bg-slate-100 p-3 dark:bg-gray-800"
               >
                 <div className="flex items-center space-x-3">
                   <button

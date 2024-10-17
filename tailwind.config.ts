@@ -18,6 +18,9 @@ const config: Config = {
           '2xl': '1400px',
         },
       },
+      boxShadow: {
+        '3xl': '0px 0px 0px 0.2rem',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

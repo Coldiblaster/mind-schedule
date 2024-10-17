@@ -14,7 +14,7 @@ export default function Auth() {
   return (
     <>
       <ScrollArea
-        className={`transform p-4 md:p-8 ${isRegister ? 'md:translate-x-full' : 'md:translate-x-0'} fixed h-svh w-full bg-white transition-transform duration-700 ease-in-out dark:bg-black md:relative md:w-1/2`}
+        className={`${isRegister ? 'md:translate-x-full' : 'md:translate-x-0'} fixed h-svh w-full transform bg-white p-4 transition-transform duration-700 ease-in-out dark:bg-black md:relative md:w-1/2 md:p-8`}
       >
         {isRegister ? <SignUp /> : <SignIn />}
       </ScrollArea>

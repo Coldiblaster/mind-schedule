@@ -73,7 +73,7 @@ export function SignUp() {
       </div>
 
       <Card>
-        <CardContent className="overflow-x-hidden p-4 lg:p-6">
+        <CardContent className="overflow-x-hidden bg-background p-4 lg:p-6">
           {renderForm()}
         </CardContent>
       </Card>
