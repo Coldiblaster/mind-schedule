@@ -1,7 +1,15 @@
+import { Gluten } from 'next/font/google';
 import Image from 'next/image';
 
 import { CompanyLogo } from '@/components/company-logo';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+const gluten = Gluten({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['100'],
+});
 
 export const LandingPage = () => (
   <main
@@ -9,7 +17,7 @@ export const LandingPage = () => (
     className="relative flex w-full flex-col items-center pb-32"
   >
     <div className="relative flex h-[calc(100vh+170px)] w-full flex-col items-center justify-center">
-      <div className="absolute top-0 h-full w-full bg-gradient-to-b from-violet-950 to-violet-800 clip-polygon-clip dark:bg-violet-950">
+      <div className="to-dark absolute top-0 h-full w-full bg-gradient-to-b from-primary clip-polygon-clip dark:bg-primary">
         <div className="absolute -left-[550px] -top-[550px] h-[960px] w-[960px] rounded-full bg-gradient-balls-top-left" />
         <div className="absolute -right-[450px] -top-[300px] h-[1024px] w-[1024px] rounded-full bg-gradient-balls-top-right" />
         <div className="absolute -bottom-[550px] -left-[550px] h-[960px] w-[960px] rounded-full bg-gradient-balls-bottom-left" />
@@ -19,7 +27,9 @@ export const LandingPage = () => (
         <div className="mt-auto flex flex-col items-center">
           <div className="flex flex-col items-center gap-3 text-lg">
             <CompanyLogo width={140} height={140} />
-            <span className="font-semibold">mind.schedule</span>
+            <span className={cn(gluten.className, 'mt-5 text-7xl')}>
+              my.mind
+            </span>
           </div>
           <div className="mt-[10vh] flex flex-col items-center gap-4">
             <span>Scroll down</span>
@@ -28,12 +38,16 @@ export const LandingPage = () => (
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-col px-4 py-11 md:max-w-[450px]">
-          <h1 className="text-2xl font-bold lg:text-3xl">Welcome</h1>
+        <div className="flex w-full flex-col px-4 py-11 md:max-w-[600px]">
+          <h1 className="text-2xl font-bold lg:text-3xl">
+            Agende fácil seu dia!
+          </h1>
           <p className="mt-4 text-sm lg:text-lg">
-            Qualem igitur hominem natura inchoavit? De ingenio eius in his
-            disputationibus, non de moribus quaeritur.Qua tu etiam inprudens
-            utebare non numquam. Itaque contra est, ac dicitis
+            Transforme sua rotina e conquiste mais clientes!
+          </p>
+          <p className="mt-4 text-sm lg:text-lg">
+            Gerencie agendamentos com eficiência, otimize atendimentos e aumente
+            a satisfação dos seus clientes.
           </p>
         </div>
       </section>
