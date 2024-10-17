@@ -75,7 +75,7 @@ export function LocationForm({
   return (
     <div className="animate-fade-left">
       <h2 className="mb-2 text-2xl font-bold">Localização</h2>
-      <p className="mb-6 text-sm text-muted-foreground">
+      <p className="mb-4 text-sm text-muted-foreground md:mb-6">
         Insira o endereço do seu negócio para que seus clientes possam
         encontrá-lo.
       </p>

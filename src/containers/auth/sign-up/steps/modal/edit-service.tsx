@@ -47,10 +47,10 @@ export function EditServiceModal({
       <DialogTrigger asChild>
         <button
           onClick={() => editService(service)}
-          className="rounded-full p-1 text-blue-400 hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           aria-label={`Editar ${service.name}`}
         >
-          <Icon size={18} name="MdEdit" />
+          <Icon size={18} name="MdOutlineEdit" />
         </button>
       </DialogTrigger>
 
