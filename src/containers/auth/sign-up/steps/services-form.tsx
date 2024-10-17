@@ -67,10 +67,14 @@ export function ServicesForm({
 
   return (
     <div
-      className="flex w-full animate-fade-right flex-col justify-center gap-4"
+      className="w-full animate-fade-right"
       role="region"
       aria-label="Gerenciamento de Serviços"
     >
+      <h2 className="mb-4 text-2xl font-bold">Valores</h2>
+      <p className="mb-6 text-muted-foreground">
+        Adicione os serviços que você oferece e seus respectivos valores.
+      </p>
       <div className="text-end">
         <Button
           variant="link"

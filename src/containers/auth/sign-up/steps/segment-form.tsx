@@ -53,7 +53,7 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
   return (
     <div className="w-full animate-fade-right">
       <h2 className="mb-4 text-2xl font-bold">Segmento de atuação</h2>
-      <p className="mb-6 text-sm text-gray-300">
+      <p className="mb-6 text-muted-foreground">
         Para que você tenha um ambiente personalizado, é importante saber qual o
         seu tipo de negócio.
       </p>
