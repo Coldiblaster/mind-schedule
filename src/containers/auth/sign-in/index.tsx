@@ -80,7 +80,7 @@ export function SignIn() {
             Não tem uma conta?
             <Button
               variant="link"
-              className="h-auto px-1"
+              className="h-auto px-2"
               onClick={() => goToRegister()}
             >
               Criar conta grátis

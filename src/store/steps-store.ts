@@ -25,7 +25,7 @@ const initialSteps: Step[] = [
   {
     id: 1,
     value: 'negocio',
-    label: 'Sobre o seu negócio',
+    label: 'Seu negócio',
     description: 'Começando a conhecer melhor o seu negócio',
     active: true,
     complete: false,
@@ -41,7 +41,7 @@ const initialSteps: Step[] = [
   {
     id: 3,
     value: 'servicos',
-    label: 'Serviços sugeridos',
+    label: 'Serviços',
     description: 'Defina preços, tempo de trabalho para os seus serviços',
     active: false,
     complete: false,

@@ -55,7 +55,7 @@ export function SignUp() {
               disabled={
                 !step.complete && index > steps.findIndex(s => s.active)
               }
-              className={`flex h-full flex-col items-center justify-start px-2 py-1 text-center xl:h-16 ${step.active ? 'border-blue-600' : ''}`}
+              className={`flex h-full flex-col items-center justify-start p-3 text-center ${step.active ? 'border-blue-600' : ''}`}
             >
               <div
                 className={`${step.complete && 'bg-green-600'} mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 lg:h-8 lg:w-8`}

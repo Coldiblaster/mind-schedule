@@ -126,7 +126,9 @@ export const LandingPage = () => {
             o sucesso!
           </p>
           <div className="mt-8">
-            <Button onClick={() => goToRegister()}>Criar conta grátis</Button>
+            <Button size="lg" onClick={() => goToRegister()}>
+              Criar conta grátis
+            </Button>
           </div>
         </div>
       </section>
