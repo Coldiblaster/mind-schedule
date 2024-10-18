@@ -2,11 +2,11 @@ import './globals.css';
 
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
-import { Ubuntu } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
 import { Providers } from './providers';
 
-const font = Ubuntu({
+const font = Inter({
   subsets: ['latin'],
   display: 'swap',
   weight: ['400', '500', '700'],

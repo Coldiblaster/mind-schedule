@@ -87,11 +87,11 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-balls-top-left':
-          'linear-gradient(320deg, rgb(41 8 72 / 13%) 15%, rgba(8, 39, 72, 0) 50%)',
+          'linear-gradient(30deg, rgba(41, 8, 72, 0.05) 15%, rgba(8, 39, 72, 0) 50%)',
         'gradient-balls-top-right':
-          'linear-gradient(55deg, rgba(8, 39, 72, 0.133) 20%, rgba(8, 39, 72, 0) 60%)',
+          'linear-gradient(347deg, rgba(8, 39, 72, 0.05) 20%, rgba(8, 39, 72, 0) 60%)',
         'gradient-balls-bottom-left':
-          'linear-gradient(200deg, rgba(8, 39, 72, 0.133) 30%, rgba(8, 39, 72, 0) 60%)',
+          'linear-gradient(200deg, rgba(8, 39, 72, 0.05) 30%, rgba(8, 39, 72, 0) 60%)',
       },
     },
   },

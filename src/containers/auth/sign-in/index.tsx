@@ -51,7 +51,7 @@ export function SignIn() {
   };
 
   return (
-    <div className="relative flex h-full w-full animate-fade justify-center animate-delay-150 animate-duration-500">
+    <div className="relative flex h-full w-full animate-fade justify-center py-4 animate-delay-150 animate-duration-500 md:py-8">
       <HeaderAuth className="absolute md:right-0" />
       <div className="flex max-w-[350px] flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
@@ -83,7 +83,7 @@ export function SignIn() {
               className="h-auto px-1"
               onClick={() => goToRegister()}
             >
-              Registre-se
+              Criar conta grátis
             </Button>
           </div>
           <div className="text-center text-xs text-gray-500">
@@ -107,7 +107,7 @@ export function SignIn() {
         <Icon
           name="MdKeyboardArrowDown"
           size={32}
-          className="animate-bounce pt-2 animate-delay-200 animate-duration-1000"
+          className="animate-bounce pt-0 animate-delay-200 animate-duration-1000"
         />
         <span className="sr-only">Scroll down for more content</span>
       </Link>

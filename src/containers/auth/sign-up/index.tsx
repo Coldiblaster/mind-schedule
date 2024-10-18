@@ -39,7 +39,7 @@ export function SignUp() {
   );
 
   return (
-    <div className="flex h-full w-full animate-fade flex-col gap-4 overflow-y-auto animate-delay-150 animate-duration-500">
+    <div className="flex h-full w-full animate-fade flex-col gap-4 overflow-y-auto py-4 animate-delay-150 animate-duration-500 md:py-8">
       <HeaderAuth />
 
       <Tabs
@@ -75,11 +75,11 @@ export function SignUp() {
         </TabsList>
       </Tabs>
 
-      <div className="mt-4 flex h-12 items-center justify-center text-center text-sm font-bold text-foreground transition-all">
+      <div className="mt-4 flex h-12 items-center justify-center text-sm font-bold text-foreground transition-all md:justify-start">
         {activeStep.description}
       </div>
 
-      <Card>
+      <Card className="rounded-none">
         <CardContent className="overflow-x-hidden bg-background p-4 lg:p-6">
           {renderForm}
         </CardContent>

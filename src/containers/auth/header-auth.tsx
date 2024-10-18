@@ -26,7 +26,7 @@ export const HeaderAuth = ({ className }: HeaderAuthProps) => {
         <span className="font-semibold">mind.schedule</span>
       </div>
 
-      <div className="flex items-center gap-2 md:gap-4">
+      <div className="mr-1 flex items-center gap-2 md:gap-4">
         {isRegister && (
           <Button variant="ghost" onClick={() => router.push('/')}>
             Fazer login

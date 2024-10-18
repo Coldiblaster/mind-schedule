@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { businessTypes } from '@/data/mock/steps';
+import { cn } from '@/lib/utils';
 import { BusinessData, BusinessSchema } from '@/schemas/schemas-sign-up';
 import { useStepsDataStore } from '@/store/steps-data-store'; // ajuste o caminho para o seu store
 
@@ -30,30 +31,34 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
   return (
     <div className="w-full animate-fade-right">
       <h2 className="mb-2 text-2xl font-bold">Segmento de atuação</h2>
-      <p className="mb-4 text-sm text-muted-foreground md:mb-6">
+      <p className="mb-6 text-sm text-muted-foreground">
         Para que você tenha um ambiente personalizado, é importante saber qual o
         seu tipo de negócio.
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid w-full gap-2 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          <div className="grid w-full grid-cols-2 gap-2 lg:grid-cols-3">
             {businessTypes.map(type => (
               <FormField
                 key={type.id}
                 name="businessType"
                 control={form.control}
                 render={({ field: { onChange, value } }) => (
-                  <FormItem>
+                  <FormItem className="flex">
                     <FormControl>
-                      <Button
-                        type="button"
-                        variant={value.id === type.id ? 'secondary' : 'outline'}
-                        className="w-full justify-start gap-2 px-1 text-left text-xs md:flex md:h-20 md:flex-col md:justify-center md:gap-0 md:text-center lg:px-4 lg:text-sm"
+                      <div
+                        className={cn(
+                          'flex w-full cursor-pointer select-none flex-col items-center justify-between gap-2 border border-input bg-white p-2 text-center text-xs transition dark:border-slate-900 dark:bg-black md:flex md:h-20 md:flex-col md:justify-center md:gap-0 md:text-center lg:px-4 lg:text-sm',
+                          {
+                            'border-primary bg-slate-100 shadow-3xl shadow-primary/25 dark:border-primary dark:bg-blue-700':
+                              type.id === value.id,
+                          },
+                        )}
                         onClick={() => onChange(type)}
                       >
-                        <span className="mb-1 text-2xl">{type.icon}</span>
+                        <span className="text-2xl md:mb-1">{type.icon}</span>
                         {type.label}
-                      </Button>
+                      </div>
                     </FormControl>
                   </FormItem>
                 )}
@@ -70,6 +75,7 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
           <Button
             className="mt-6 w-full"
             type="submit"
+            size="lg"
             disabled={!form.getValues('businessType')}
           >
             Continuar
