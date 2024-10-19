@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
+import { formatCurrency, formatDuration } from '@/lib/format';
 
 import { AddServiceModal } from './modal/add-service';
 import { EditServiceModal } from './modal/edit-service';
@@ -95,14 +96,24 @@ export function ServicesForm({
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          <ul
-            className="grid gap-4 2xl:grid-cols-2"
-            aria-label="Lista de serviços"
-          >
+          <ul className="grid grid-cols-2 gap-2" aria-label="Lista de serviços">
+            {/* <div
+              className={cn(
+                "flex w-full cursor-pointer select-none flex-col items-center justify-between gap-2 border border-input bg-white p-2 text-center text-xs transition dark:border-slate-900 dark:bg-black md:flex md:h-20 md:flex-col md:justify-center md:gap-0 md:text-center lg:px-4 lg:text-sm",
+                {
+                  "border-primary bg-slate-100 shadow-3xl shadow-primary/25 dark:border-primary dark:bg-blue-700":
+                    type.id === value.id,
+                },
+              )}
+              onClick={() => onChange(type)}
+            >
+              <span className="text-2xl md:mb-1">{type.icon}</span>
+              {type.label}
+            </div> */}
             {services.map(service => (
               <li
                 key={service.id}
-                className="relative flex flex-col items-start justify-between rounded-lg border border-input bg-slate-100 p-3 dark:bg-gray-800"
+                className="relative flex flex-col items-start justify-between gap-1 border border-input bg-white p-3 text-xs transition hover:border-primary hover:bg-slate-100 hover:shadow-3xl hover:shadow-primary/25 dark:border-slate-900 dark:bg-black hover:dark:border-primary hover:dark:bg-blue-700 md:gap-2 lg:px-4 lg:text-sm"
               >
                 <div className="flex w-full items-center justify-between">
                   <span className="text-sm">{service.name}</span>
@@ -115,22 +126,22 @@ export function ServicesForm({
 
                     <button
                       onClick={() => removeService(service.id)}
-                      className="rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="rounded-full p-1 text-gray-400 hover:text-destructive focus:outline-none focus:ring-2 focus:ring-blue-500 hover:dark:text-red-500"
                       aria-label={`Remover ${service.name}`}
                     >
-                      <Icon name="LuX" size={18} />
+                      <Icon name="PiTrash" size={18} />
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-400">
-                  <span className="flex items-center gap-0.5 text-sm">
-                    <Icon name="MdOutlineMonetizationOn" />
-                    {service.price} reais
-                  </span>
-                  <span className="flex items-center gap-0.5 text-sm">
-                    <Icon name="MdAccessTime" />
-                    {service.duration} minutos
-                  </span>
+                <div className="flex w-full items-center justify-between space-x-2 text-sm text-gray-400">
+                  <div className="flex justify-center gap-1 text-sm">
+                    <Icon name="PiCurrencyCircleDollar" size={18} />
+                    {formatCurrency(service.price)}
+                  </div>
+                  <div className="flex justify-center gap-0.5 text-sm">
+                    <Icon name="PiClock" size={18} />
+                    {formatDuration(service.duration)}
+                  </div>
                 </div>
               </li>
             ))}

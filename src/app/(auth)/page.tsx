@@ -19,7 +19,7 @@ export default function Auth() {
         {isRegister ? <SignUp /> : <SignIn />}
       </ScrollArea>
       <ScrollArea
-        className={`${isRegister && 'hidden md:flex'} relative right-0 z-20 mt-[100vh] h-full w-full transform overflow-x-hidden bg-slate-100 transition-transform duration-700 ease-in-out dark:bg-background md:fixed md:mt-0 md:h-screen md:w-1/2 md:overflow-y-auto ${isRegister ? 'md:-translate-x-full' : 'md:translate-x-0'} `}
+        className={`${isRegister && 'hidden md:flex'} z-20 h-full w-full transform overflow-x-hidden bg-slate-100 transition-transform duration-700 ease-in-out dark:bg-background md:fixed md:right-0 md:mt-0 md:h-screen md:w-1/2 md:overflow-y-auto ${isRegister ? 'md:-translate-x-full' : 'md:translate-x-0'} `}
       >
         <LandingPage />
       </ScrollArea>

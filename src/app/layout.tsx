@@ -2,14 +2,14 @@ import './globals.css';
 
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
 import { Providers } from './providers';
 
-const font = Inter({
+const font = Roboto({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '500', '700'],
+  weight: ['300', '400', '500', '700'],
 });
 
 export const metadata: Metadata = {

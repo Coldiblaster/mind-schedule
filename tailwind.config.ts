@@ -94,6 +94,9 @@ const config: Config = {
           'linear-gradient(200deg, rgba(8, 39, 72, 0.05) 30%, rgba(8, 39, 72, 0) 60%)',
       },
     },
+    fontFamily: {
+      display: ['"Ubuntu"', 'sans-serif'],
+    },
   },
   plugins: [
     require('tailwindcss-animate'),

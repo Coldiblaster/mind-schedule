@@ -94,7 +94,7 @@ export function LocationForm({
               autoFocus
             />
           </div>
-          <div className="mb-4 grid gap-4 md:grid-cols-3">
+          <div className="mb-8 grid gap-4 md:grid-cols-3">
             {isFetching && (
               <div className="flex items-center space-x-2 text-purple-500 animate-duration-1000">
                 <Icon name="LuLoader2" className="h-4 w-4 animate-spin" />
@@ -144,7 +144,7 @@ export function LocationForm({
           </div>
           {isSuccess && (
             <div className="flex justify-between">
-              <Button variant="ghost" onClick={onBack}>
+              <Button variant="outline" onClick={onBack}>
                 Voltar
               </Button>
               <Button type="submit" disabled={!isSuccess}>

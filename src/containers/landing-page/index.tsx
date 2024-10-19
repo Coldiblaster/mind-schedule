@@ -1,16 +1,9 @@
-import { Gluten } from 'next/font/google';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { CompanyLogo } from '@/components/company-logo';
+import { Caption, Display2 } from '@/components/typography';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-
-const gluten = Gluten({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['100'],
-});
 
 export const LandingPage = () => {
   const router = useRouter();
@@ -34,9 +27,9 @@ export const LandingPage = () => {
           <div className="mt-auto flex flex-col items-center">
             <div className="flex flex-col items-center gap-3 text-lg">
               <CompanyLogo width={140} height={140} />
-              <span className={cn(gluten.className, 'mt-5 text-7xl')}>
-                my.mind
-              </span>
+              <Caption as="100" className="mt-5">
+                my.mynd
+              </Caption>
             </div>
             <div className="mt-[10vh] flex flex-col items-center gap-4">
               <span>Saiba mais</span>
@@ -48,13 +41,11 @@ export const LandingPage = () => {
             </div>
           </div>
           <div className="flex w-full flex-col px-4 py-11 md:max-w-[600px]">
-            <h1 className="text-2xl font-bold lg:text-3xl">
-              Agende fácil seu dia!
-            </h1>
+            <Display2 as="700">Agende fácil seu dia!</Display2>
             <p className="mt-4 text-sm lg:text-lg">
               Transforme sua rotina e conquiste mais clientes!
-            </p>
-            <p className="mt-4 text-sm lg:text-lg">
+              <br />
+              <br />
               Gerencie agendamentos com eficiência, otimize atendimentos e
               aumente a satisfação dos seus clientes.
             </p>
@@ -74,9 +65,9 @@ export const LandingPage = () => {
             />
           </div>
           <div className="w-full p-4 lg:max-w-[330px]">
-            <h2 className="text-2xl font-bold text-foreground lg:text-3xl">
+            <Display2 as="700" className="text-foreground">
               Facilite os agendamentos!
-            </h2>
+            </Display2>
             <p className="mt-4 text-sm text-muted-foreground lg:text-lg">
               Facilite a vida dos seus clientes com agendamentos online e
               personalizados.
@@ -88,9 +79,9 @@ export const LandingPage = () => {
       <section className="relative z-10 mt-16 lg:mt-32">
         <div className="mx-auto flex flex-col-reverse items-center gap-12 md:flex-row">
           <div className="p-4 text-right lg:w-1/2">
-            <h2 className="text-2xl font-bold text-foreground lg:text-3xl">
+            <Display2 as="700" className="text-foreground">
               Agilidade e eficiência!
-            </h2>
+            </Display2>
             <p className="mt-4 text-sm text-muted-foreground lg:text-lg">
               Com o cliente agendando online, você tem mais tempo para focar no
               que realmente importa: o atendimento.
