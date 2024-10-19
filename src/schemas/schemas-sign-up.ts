@@ -3,13 +3,6 @@ import { z } from 'zod';
 
 import { cepRegex } from './mask';
 
-export const BusinessSchema = z.object({
-  businessType: z.object({
-    id: z.number().min(1, 'Selecione um tipo de negócio'),
-    label: z.string(),
-  }),
-});
-
 export const LocationSchema = z.object({
   cep: z.string().regex(cepRegex, 'CEP inválido').refine(isCEP, 'CEP inválido'),
   street: z.string().min(1, 'Rua é obrigatória'),
@@ -18,6 +11,13 @@ export const LocationSchema = z.object({
   city: z.string().min(1, 'Cidade é obrigatória'),
   state: z.string().min(1, 'Estado é obrigatório'),
   complement: z.string().optional(),
+});
+
+export const BusinessSchema = z.object({
+  businessType: z.object({
+    id: z.number().min(1, 'Selecione um tipo de negócio'),
+    label: z.string(),
+  }),
 });
 
 export const ServiceSchema = z.object({
