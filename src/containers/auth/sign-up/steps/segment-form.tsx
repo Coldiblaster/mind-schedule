@@ -29,7 +29,11 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
   };
 
   return (
-    <div className="w-full animate-fade-right">
+    <div
+      className="w-full animate-fade-down"
+      role="tabpanel"
+      aria-label="Segmento de atuação"
+    >
       <h2 className="mb-2 text-2xl font-bold">Segmento de atuação</h2>
       <p className="mb-6 text-sm text-muted-foreground">
         Para que você tenha um ambiente personalizado, é importante saber qual o

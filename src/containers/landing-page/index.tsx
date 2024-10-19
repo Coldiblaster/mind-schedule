@@ -109,9 +109,9 @@ export const LandingPage = () => {
         />
 
         <div className="relative mx-auto flex h-full w-full flex-col items-center gap-6 p-4">
-          <h2 className="text-2xl font-bold text-foreground lg:text-3xl">
+          <Display2 as="700" className="text-foreground">
             Vamos voar juntos! 🚀
-          </h2>
+          </Display2>
           <p className="max-w-lg text-center text-sm text-muted-foreground lg:text-lg">
             Com a my.mind, você tem tudo o que precisa para decolar e conquistar
             o sucesso!

@@ -60,11 +60,11 @@ export function ServicesForm({
 
   return (
     <div
-      className="w-full animate-fade-right"
-      role="region"
+      className="w-full animate-fade-down"
+      role="tabpanel"
       aria-label="Gerenciamento de Serviços"
     >
-      <h2 className="mb-2 text-2xl font-bold">Serviços </h2>
+      <h2 className="mb-2 text-2xl font-bold">Serviços</h2>
       <p className="mb-4 text-sm text-muted-foreground md:mb-6">
         Adicione os serviços que você oferece e seus respectivos valores.
       </p>

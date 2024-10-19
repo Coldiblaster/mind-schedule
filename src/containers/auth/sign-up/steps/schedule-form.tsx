@@ -9,7 +9,11 @@ export function ScheduleForm({
   resetSteps: () => void;
 }) {
   return (
-    <div className="animate-fade-left">
+    <div
+      className="w-full animate-fade-down"
+      role="tabpanel"
+      aria-label="Horário de funcionamento"
+    >
       <h2 className="mb-2 text-2xl font-bold">Expediente</h2>
       <p className="mb-4 text-sm text-muted-foreground md:mb-6">
         Configure os horários de atendimento do seu negócio.
