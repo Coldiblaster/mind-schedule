@@ -8,11 +8,11 @@ import { Form } from '@/components/ui/form';
 import { ScheduleSchema } from '@/schemas/schemas-sign-up';
 
 export function ScheduleForm({
+  onNext,
   onBack,
-  resetSteps,
 }: {
+  onNext: () => void;
   onBack: () => void;
-  resetSteps: () => void;
 }) {
   const defaultDaysWork = [
     {
@@ -141,7 +141,7 @@ export function ScheduleForm({
           <Button variant="ghost" onClick={onBack}>
             Voltar
           </Button>
-          <Button onClick={resetSteps}>Finalizar</Button>
+          <Button onClick={onNext}>Continuar</Button>
         </div>
       </Form>
     </div>

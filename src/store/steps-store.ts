@@ -54,6 +54,14 @@ const initialSteps: Step[] = [
     active: false,
     complete: false,
   },
+  {
+    id: 5,
+    value: 'finalizado',
+    label: 'Tudo certo',
+    description: 'Seu cadastro foi finalizado com sucesso',
+    active: false,
+    complete: false,
+  },
 ];
 
 export const useStepsStore = create<StepsState>()(

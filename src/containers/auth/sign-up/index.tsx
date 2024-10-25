@@ -8,7 +8,13 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useStepsStore } from '@/store/steps-store';
 
 import { HeaderAuth } from '../header-auth';
-import { LocationForm, ScheduleForm, SegmentForm, ServicesForm } from './steps';
+import {
+  LocationForm,
+  ScheduleForm,
+  SegmentForm,
+  ServicesForm,
+  SuccessCreate,
+} from './steps';
 
 export function SignUp() {
   const { steps, currentStepIndex, nextStep, goToStep, prevStep, resetSteps } =
@@ -26,7 +32,9 @@ export function SignUp() {
       case 3:
         return <ServicesForm onNext={nextStep} onBack={prevStep} />;
       case 4:
-        return <ScheduleForm onBack={prevStep} resetSteps={resetSteps} />;
+        return <ScheduleForm onNext={nextStep} onBack={prevStep} />;
+      case 5:
+        return <SuccessCreate resetSteps={resetSteps} />;
       default:
         return null;
     }
@@ -47,7 +55,7 @@ export function SignUp() {
         onValueChange={handleTabChange}
         className="mb-8"
       >
-        <TabsList className="grid w-full grid-cols-4 md:gap-2">
+        <TabsList className="grid w-full grid-cols-5 md:gap-2">
           {steps.map((step, index) => (
             <TabsTrigger
               key={step.value}
