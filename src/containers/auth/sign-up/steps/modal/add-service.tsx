@@ -44,7 +44,7 @@ export function AddServiceModal({
           Adicionar mais
         </Button>
       </DialogTrigger> */}
-      <DialogContent className="bg-gray-800 text-white">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Adicionar Novo Serviço</DialogTitle>
         </DialogHeader>
@@ -64,7 +64,6 @@ export function AddServiceModal({
               onChange={e =>
                 setNewService({ ...newService, name: e.target.value })
               }
-              className="bg-gray-700 text-white"
               required
             />
           </div>
@@ -80,7 +79,6 @@ export function AddServiceModal({
                   price: Number(e.target.value),
                 })
               }
-              className="bg-gray-700 text-white"
               min="0"
               step="0.01"
               required
@@ -98,7 +96,6 @@ export function AddServiceModal({
                   duration: Number(e.target.value),
                 })
               }
-              className="bg-gray-700 text-white"
               min="1"
               required
             />

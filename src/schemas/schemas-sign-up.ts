@@ -27,8 +27,36 @@ export const ServiceSchema = z.object({
 });
 
 export const ScheduleSchema = z.object({
-  opening: z.string().min(1, 'Horário de abertura é obrigatório'),
-  closing: z.string().min(1, 'Horário de fechamento é obrigatório'),
+  open: z
+    .string()
+    .min(1, 'Horário de abertura é obrigatório')
+    .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
+  close: z
+    .string()
+    .min(1, 'Horário de fechamento é obrigatório')
+    .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
+  days: z
+    .array(
+      z.object({
+        day: z.enum([
+          'Segunda',
+          'Terça',
+          'Quarta',
+          'Quinta',
+          'Sexta',
+          'Sábado',
+          'Domingo',
+        ]),
+        open: z
+          .string()
+          .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
+        close: z
+          .string()
+          .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
+        isOpen: z.boolean().default(true), // Caso queira definir se está aberto ou fechado
+      }),
+    )
+    .nonempty('É necessário ter pelo menos um dia cadastrado'),
 });
 
 // Tipos derivados dos schemas Zod
