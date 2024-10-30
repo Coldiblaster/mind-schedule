@@ -5,7 +5,7 @@ import {
 } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-// Definição de rotas públicas
+// rotas públicas
 const isPublicRoute = createRouteMatcher([
   '/',
   '/sign-up',
