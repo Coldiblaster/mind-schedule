@@ -1,4 +1,6 @@
+import { useAuth, useSignIn } from '@clerk/nextjs';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 import { Icon } from '@/components/icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -21,6 +23,18 @@ import {
 } from '@/components/ui/table';
 
 export const DashboardProfessional = () => {
+  const { getToken } = useAuth();
+
+  const handleToken = async () => {
+    const token = await getToken({ template: 'development-jwt' });
+
+    console.log(token);
+  };
+
+  useEffect(() => {
+    handleToken();
+  }, []);
+
   return (
     <div className="flex flex-1 flex-col gap-4 md:gap-8">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
