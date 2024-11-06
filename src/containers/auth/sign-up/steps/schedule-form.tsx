@@ -1,11 +1,34 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { PiCalendar, PiSun } from 'react-icons/pi';
 
-import { CustomCheckBox } from '@/components/custom-checkbox';
-import { CustomSelect } from '@/components/custom-select';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { ScheduleSchema } from '@/schemas/schemas-sign-up';
+
+const timeOptions = Array.from({ length: 24 }, (_, i) => {
+  const hour = i.toString().padStart(2, '0');
+  return { value: `${hour}:00`, label: `${hour}:00` };
+});
+
+const weekDays = [
+  { id: 'domingo', label: 'Domingo', icon: PiSun },
+  { id: 'segunda', label: 'Segunda-Feira', icon: PiCalendar },
+  { id: 'terca', label: 'Terça-Feira', icon: PiCalendar },
+  { id: 'quarta', label: 'Quarta-Feira', icon: PiCalendar },
+  { id: 'quinta', label: 'Quinta-Feira', icon: PiCalendar },
+  { id: 'sexta', label: 'Sexta-Feira', icon: PiCalendar },
+  { id: 'sabado', label: 'Sábado', icon: PiCalendar },
+];
 
 export function ScheduleForm({
   onNext,
@@ -14,78 +37,43 @@ export function ScheduleForm({
   onNext: () => void;
   onBack: () => void;
 }) {
-  const defaultDaysWork = [
-    {
-      day: 'Domingo',
-      open: '9',
-      close: '18',
-      isOpen: false,
-    },
-    {
-      day: 'Segunda-Feira',
-      open: '9',
-      close: '18',
-      isOpen: true,
-    },
-    {
-      day: 'Terça-Feira',
-      open: '9',
-      close: '18',
-      isOpen: true,
-    },
-    {
-      day: 'Quarta-Feira',
-      open: '9',
-      close: '18',
-      isOpen: true,
-    },
-    {
-      day: 'Quinta-Feira',
-      open: '9',
-      close: '18',
-      isOpen: true,
-    },
-    {
-      day: 'Sexta-Feira',
-      open: '9',
-      close: '18',
-      isOpen: true,
-    },
-    {
-      day: 'Sábado',
-      open: '9',
-      close: '18',
-      isOpen: true,
-    },
-  ];
+  type Schedule = {
+    [key: string]: {
+      enabled: boolean;
+      start: string;
+      end: string;
+    };
+  };
 
-  const defaultHours = [
-    { value: '6', label: '06:00' },
-    { value: '7', label: '07:00' },
-    { value: '8', label: '08:00' },
-    { value: '9', label: '09:00' },
-    { value: '10', label: '10:00' },
-    { value: '11', label: '11:00' },
-    { value: '12', label: '12:00' },
-    { value: '13', label: '13:00' },
-    { value: '14', label: '14:00' },
-    { value: '15', label: '15:00' },
-    { value: '16', label: '16:00' },
-    { value: '17', label: '17:00' },
-    { value: '18', label: '18:00' },
-    { value: '19', label: '19:00' },
-    { value: '20', label: '20:00' },
-    { value: '21', label: '21:00' },
-    { value: '22', label: '22:00' },
-  ];
+  const [schedules, setSchedules] = useState<Schedule>(
+    weekDays.reduce(
+      (acc, day) => ({
+        ...acc,
+        [day.id]: {
+          enabled: day.id !== 'domingo',
+          start: '09:00',
+          end: '18:00',
+        },
+      }),
+      {},
+    ),
+  );
+
+  const handleCheckboxChange = (dayId: string) => {
+    setSchedules(prev => ({
+      ...prev,
+      [dayId]: {
+        ...prev[dayId],
+        enabled: !prev[dayId].enabled,
+      },
+    }));
+  };
 
   const form = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(ScheduleSchema),
-    defaultValues: {
-      days: defaultDaysWork,
-    },
+    defaultValues: {},
   });
 
   console.log('formData', form.getValues());
@@ -102,47 +90,81 @@ export function ScheduleForm({
         estabelecimento?
       </p>
       <Form {...form}>
-        <div className="flex flex-col gap-4">
-          {defaultDaysWork.map(item => (
+        <div className="grid gap-4">
+          {weekDays.map(day => (
             <div
-              key={item.day}
-              className="flex w-full flex-col gap-4 lg:flex-row lg:items-center"
+              key={day.id}
+              className={`flex items-center rounded-lg p-4 transition-colors ${schedules[day.id].enabled ? 'bg-blue-200/30' : 'bg-gray-200/50'}`}
             >
-              <CustomCheckBox
-                control={form.control}
-                registerName={item.day}
-                labelText={item.day}
-              />
-
-              <div className="flex w-full items-center gap-4 border-b pb-4 lg:border-none lg:pb-0">
-                {!item.isOpen ? (
-                  <span className="text-muted-foreground">Fechado</span>
-                ) : (
-                  <>
-                    <CustomSelect
-                      control={form.control}
-                      registerName="open"
-                      labelText="Horário:"
-                      defaultValue="9"
-                      options={defaultHours}
-                      required
-                    />
-                    <span className="mx-3 text-muted-foreground">às</span>
-                    <CustomSelect
-                      control={form.control}
-                      registerName="close"
-                      labelText="Horário:"
-                      defaultValue="9"
-                      options={defaultHours}
-                      required
-                    />
-                  </>
-                )}
+              <div className="flex w-48 items-center">
+                <Checkbox
+                  id={day.id}
+                  checked={schedules[day.id].enabled}
+                  onCheckedChange={() => handleCheckboxChange(day.id)}
+                  className="mr-3"
+                />
+                <div className="flex items-center">
+                  <day.icon className="mr-2 h-4 w-4 text-gray-500" />
+                  <label htmlFor={day.id} className="font-medium">
+                    {day.label}
+                  </label>
+                </div>
               </div>
+
+              {schedules[day.id].enabled ? (
+                <div className="ml-4 flex items-center space-x-2">
+                  <Select
+                    value={schedules[day.id].start}
+                    onValueChange={value =>
+                      setSchedules(prev => ({
+                        ...prev,
+                        [day.id]: { ...prev[day.id], start: value },
+                      }))
+                    }
+                  >
+                    <SelectTrigger className="w-32">
+                      <SelectValue placeholder="Início" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeOptions.map(time => (
+                        <SelectItem key={time.value} value={time.value}>
+                          {time.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <span className="text-gray-500">às</span>
+
+                  <Select
+                    value={schedules[day.id].end}
+                    onValueChange={value =>
+                      setSchedules(prev => ({
+                        ...prev,
+                        [day.id]: { ...prev[day.id], end: value },
+                      }))
+                    }
+                  >
+                    <SelectTrigger className="w-32">
+                      <SelectValue placeholder="Fim" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeOptions.map(time => (
+                        <SelectItem key={time.value} value={time.value}>
+                          {time.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              ) : (
+                <span className="ml-4 text-gray-500">Fechado</span>
+              )}
             </div>
           ))}
         </div>
-        <div className="mt-4 flex justify-between">
+
+        <div className="mt-8 flex justify-between border-t pt-4">
           <Button variant="ghost" onClick={onBack}>
             Voltar
           </Button>
