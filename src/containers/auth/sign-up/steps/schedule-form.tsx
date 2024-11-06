@@ -104,40 +104,45 @@ export function ScheduleForm({
       <Form {...form}>
         <div className="flex flex-col gap-4">
           {defaultDaysWork.map(item => (
-            <div key={item.day} className="flex w-full items-center gap-4">
+            <div
+              key={item.day}
+              className="flex w-full flex-col gap-4 lg:flex-row lg:items-center"
+            >
               <CustomCheckBox
                 control={form.control}
                 registerName={item.day}
                 labelText={item.day}
               />
 
-              {!item.isOpen ? (
-                <span className="text-muted-foreground">Fechado</span>
-              ) : (
-                <>
-                  <CustomSelect
-                    control={form.control}
-                    registerName="open"
-                    labelText="Horário:"
-                    defaultValue="9"
-                    options={defaultHours}
-                    required
-                  />
-                  <span className="mx-3 text-muted-foreground">às</span>
-                  <CustomSelect
-                    control={form.control}
-                    registerName="close"
-                    labelText="Horário:"
-                    defaultValue="9"
-                    options={defaultHours}
-                    required
-                  />
-                </>
-              )}
+              <div className="flex w-full items-center gap-4 border-b pb-4 lg:border-none lg:pb-0">
+                {!item.isOpen ? (
+                  <span className="text-muted-foreground">Fechado</span>
+                ) : (
+                  <>
+                    <CustomSelect
+                      control={form.control}
+                      registerName="open"
+                      labelText="Horário:"
+                      defaultValue="9"
+                      options={defaultHours}
+                      required
+                    />
+                    <span className="mx-3 text-muted-foreground">às</span>
+                    <CustomSelect
+                      control={form.control}
+                      registerName="close"
+                      labelText="Horário:"
+                      defaultValue="9"
+                      options={defaultHours}
+                      required
+                    />
+                  </>
+                )}
+              </div>
             </div>
           ))}
         </div>
-        <div className="flex justify-between">
+        <div className="mt-4 flex justify-between">
           <Button variant="ghost" onClick={onBack}>
             Voltar
           </Button>

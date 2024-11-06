@@ -13,7 +13,7 @@ export function SuccessCreate({ resetSteps }: { resetSteps: () => void }) {
       </p>
       <div className="flex flex-col gap-4">Imagem ilustrativa</div>
       <div className="flex justify-between">
-        <Button onClick={resetSteps} className="mt-6 w-full" size="lg">
+        <Button onClick={resetSteps} className="mt-4 w-full" size="lg">
           Entrar agora
         </Button>
       </div>

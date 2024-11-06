@@ -63,7 +63,7 @@ export function SignUp() {
               disabled={
                 !step.complete && index > steps.findIndex(s => s.active)
               }
-              className={`flex h-full flex-col items-center justify-start p-3 text-center ${step.active ? 'border-blue-600' : ''}`}
+              className={`flex h-full flex-col items-center justify-start p-1 text-center md:p-2 lg:p-3 ${step.active ? 'border-blue-600' : ''}`}
             >
               <div
                 className={`${step.complete && 'bg-green-600'} mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 lg:h-8 lg:w-8`}
@@ -75,9 +75,7 @@ export function SignUp() {
                 )}
               </div>
 
-              <span className="text-wrap text-xs xl:text-nowrap">
-                {step.label}
-              </span>
+              <span className="md:text-md text-[11px]">{step.label}</span>
             </TabsTrigger>
           ))}
         </TabsList>

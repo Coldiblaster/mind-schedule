@@ -96,7 +96,10 @@ export function ServicesForm({
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          <ul className="grid grid-cols-2 gap-2" aria-label="Lista de serviços">
+          <ul
+            className="grid grid-cols-1 gap-2 md:grid-cols-2"
+            aria-label="Lista de serviços"
+          >
             {/* <div
               className={cn(
                 "flex w-full cursor-pointer select-none flex-col items-center justify-between gap-2 border border-input bg-white p-2 text-center text-xs transition dark:border-slate-900 dark:bg-black md:flex md:h-20 md:flex-col md:justify-center md:gap-0 md:text-center lg:px-4 lg:text-sm",
