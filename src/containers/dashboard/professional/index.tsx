@@ -1,4 +1,4 @@
-import { useAuth, useSignIn } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
