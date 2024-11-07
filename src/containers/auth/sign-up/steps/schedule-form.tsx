@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { PiCalendar, PiSun } from 'react-icons/pi';
+import { PiCalendar, PiCalendarX, PiSun } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -14,6 +14,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ScheduleSchema } from '@/schemas/schemas-sign-up';
+import { getRegister } from '@/services/register';
+import {
+  CreateCompanySchema,
+  createCompanySchema,
+} from '@/services/register/type';
 
 const timeOptions = Array.from({ length: 24 }, (_, i) => {
   const hour = i.toString().padStart(2, '0');
@@ -50,7 +55,7 @@ export function ScheduleForm({
       (acc, day) => ({
         ...acc,
         [day.id]: {
-          enabled: day.id !== 'domingo',
+          enabled: true,
           start: '09:00',
           end: '18:00',
         },
@@ -76,7 +81,56 @@ export function ScheduleForm({
     defaultValues: {},
   });
 
-  console.log('formData', form.getValues());
+  const dataMock = {
+    address: {
+      cep: '47092',
+      street: 'Conner Orchard',
+      number: '4641161880018294',
+      neighborhood: 'Pakistan',
+      city: 'New Tod',
+      state: 'New York',
+    },
+    email: 'johndoe2122@example.com',
+    customSegment: 'Barbearia',
+    clerkId: '1',
+    operatingHours: {
+      days: [
+        {
+          startTime: '8:00',
+          endTime: '18:00',
+          isOpen: true,
+          weekday: 'Segunda-Feira',
+        },
+      ],
+    },
+    services: [
+      {
+        description: 'Cabelo',
+        time: '00:50',
+        value: 30,
+      },
+      {
+        description: 'Barba',
+        time: '00:20',
+        value: 20,
+      },
+      {
+        description: 'Barba + Cabelo',
+        time: '01:10',
+        value: 20,
+      },
+    ],
+  };
+
+  const handleSubmit = async (data: CreateCompanySchema) => {
+    const validation = createCompanySchema.safeParse(data);
+    if (validation.success) {
+      await getRegister(data);
+      onNext();
+    } else {
+      console.error(validation.error.format());
+    }
+  };
 
   return (
     <div
@@ -94,9 +148,9 @@ export function ScheduleForm({
           {weekDays.map(day => (
             <div
               key={day.id}
-              className={`flex items-center rounded-lg p-4 transition-colors ${schedules[day.id].enabled ? 'bg-blue-200/30' : 'bg-gray-200/50'}`}
+              className={`flex flex-col items-start gap-2 rounded-lg border border-gray-200/45 p-4 transition-colors sm:items-center md:gap-4 lg:flex-row ${schedules[day.id].enabled ? 'bg-white' : 'bg-gray-200/50'}`}
             >
-              <div className="flex w-48 items-center">
+              <div className="flex min-w-40 flex-1 items-center">
                 <Checkbox
                   id={day.id}
                   checked={schedules[day.id].enabled}
@@ -104,7 +158,12 @@ export function ScheduleForm({
                   className="mr-3"
                 />
                 <div className="flex items-center">
-                  <day.icon className="mr-2 h-4 w-4 text-gray-500" />
+                  {schedules[day.id].enabled ? (
+                    <PiSun className="mr-2 h-4 w-4 text-gray-500" />
+                  ) : (
+                    <PiCalendarX className="mr-2 h-4 w-4 text-gray-500" />
+                  )}
+
                   <label htmlFor={day.id} className="font-medium">
                     {day.label}
                   </label>
@@ -112,7 +171,7 @@ export function ScheduleForm({
               </div>
 
               {schedules[day.id].enabled ? (
-                <div className="ml-4 flex items-center space-x-2">
+                <div className="flex items-center space-x-2">
                   <Select
                     value={schedules[day.id].start}
                     onValueChange={value =>
@@ -122,7 +181,7 @@ export function ScheduleForm({
                       }))
                     }
                   >
-                    <SelectTrigger className="w-32">
+                    <SelectTrigger className="w-24 lg:w-28">
                       <SelectValue placeholder="Início" />
                     </SelectTrigger>
                     <SelectContent>
@@ -145,7 +204,7 @@ export function ScheduleForm({
                       }))
                     }
                   >
-                    <SelectTrigger className="w-32">
+                    <SelectTrigger className="w-24 lg:w-28">
                       <SelectValue placeholder="Fim" />
                     </SelectTrigger>
                     <SelectContent>
@@ -168,7 +227,7 @@ export function ScheduleForm({
           <Button variant="ghost" onClick={onBack}>
             Voltar
           </Button>
-          <Button onClick={onNext}>Continuar</Button>
+          <Button onClick={() => handleSubmit(dataMock)}>Continuar</Button>
         </div>
       </Form>
     </div>

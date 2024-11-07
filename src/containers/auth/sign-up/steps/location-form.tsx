@@ -147,7 +147,7 @@ export function LocationForm({
             )}
           </div>
           {isSuccess && (
-            <div className="flex justify-between">
+            <div className="mt-8 flex justify-between border-t pt-4">
               <Button variant="outline" onClick={onBack}>
                 Voltar
               </Button>

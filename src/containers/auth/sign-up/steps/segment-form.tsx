@@ -8,7 +8,13 @@ import { cn } from '@/lib/utils';
 import { BusinessData, BusinessSchema } from '@/schemas/schemas-sign-up';
 import { useStepsDataStore } from '@/store/steps-data-store'; // ajuste o caminho para o seu store
 
-export function SegmentForm({ onNext }: { onNext: () => void }) {
+export function SegmentForm({
+  onNext,
+  onBack,
+}: {
+  onNext: () => void;
+  onBack: () => void;
+}) {
   const { updateFormData, formData } = useStepsDataStore();
 
   const form = useForm<BusinessData>({
@@ -76,14 +82,14 @@ export function SegmentForm({ onNext }: { onNext: () => void }) {
             </p>
           )}
 
-          <Button
-            className="mt-6 w-full"
-            type="submit"
-            size="lg"
-            disabled={!form.getValues('businessType')}
-          >
-            Continuar
-          </Button>
+          <div className="mt-8 flex justify-between border-t pt-4">
+            <Button variant="outline" onClick={onBack}>
+              Voltar
+            </Button>
+            <Button type="submit" disabled={!form.getValues('businessType')}>
+              Continuar
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

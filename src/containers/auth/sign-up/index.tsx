@@ -26,7 +26,7 @@ export function SignUp() {
   const renderForm = useMemo(() => {
     switch (activeStep.id) {
       case 1:
-        return <SegmentForm onNext={nextStep} />;
+        return <SegmentForm onNext={nextStep} onBack={prevStep} />;
       case 2:
         return <LocationForm onNext={nextStep} onBack={prevStep} />;
       case 3:
@@ -75,7 +75,7 @@ export function SignUp() {
                 )}
               </div>
 
-              <span className="md:text-md text-[11px]">{step.label}</span>
+              <span className="text-[10px] md:text-sm">{step.label}</span>
             </TabsTrigger>
           ))}
         </TabsList>

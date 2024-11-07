@@ -73,6 +73,7 @@ export function ServicesForm({
         <Button
           variant="link"
           className="text-sm text-primary hover:text-blue-300 hover:no-underline focus:outline-none"
+          onClick={onNext}
         >
           Pular e cadastrar depois
         </Button>
@@ -171,8 +172,8 @@ export function ServicesForm({
         </div>
       )}
 
-      <div className="mt-4 flex justify-between">
-        <Button variant="ghost" onClick={onBack}>
+      <div className="mt-8 flex justify-between border-t pt-4">
+        <Button variant="outline" onClick={onBack}>
           Voltar
         </Button>
         <Button onClick={onNext}>Continuar</Button>
