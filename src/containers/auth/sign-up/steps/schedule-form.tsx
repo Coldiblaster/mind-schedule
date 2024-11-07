@@ -50,6 +50,8 @@ export function ScheduleForm({
     };
   };
 
+  const [loading, setLoading] = useState(false);
+
   const [schedules, setSchedules] = useState<Schedule>(
     weekDays.reduce(
       (acc, day) => ({
@@ -123,12 +125,14 @@ export function ScheduleForm({
   };
 
   const handleSubmit = async (data: CreateCompanySchema) => {
+    setLoading(true);
     const validation = createCompanySchema.safeParse(data);
     if (validation.success) {
       await getRegister(data);
       onNext();
     } else {
       console.error(validation.error.format());
+      setLoading(false);
     }
   };
 
@@ -227,7 +231,9 @@ export function ScheduleForm({
           <Button variant="ghost" onClick={onBack}>
             Voltar
           </Button>
-          <Button onClick={() => handleSubmit(dataMock)}>Continuar</Button>
+          <Button onClick={() => handleSubmit(dataMock)} loading={loading}>
+            Continuar
+          </Button>
         </div>
       </Form>
     </div>
