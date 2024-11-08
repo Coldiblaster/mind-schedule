@@ -44,7 +44,7 @@ export const CreateAccountSchema = z.object({
   services: z.array(ServiceSchema).optional(),
   operatingHours: ScheduleSchema,
   email: z.string().email('O e-mail deve ser um endereço válido'),
-  clerkId: z.string(),
+  providerId: z.string(),
 });
 
 // Tipos derivados dos schemas Zod

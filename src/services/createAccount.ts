@@ -1,14 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
-
 import { CreateAccountData } from '@/schemas/schemas-sign-up';
 
-export const postRegister = async (body: CreateAccountData) => {
+export const createAccount = async (data: CreateAccountData) => {
   const response = await fetch(`${process.env.API_URL}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(data),
     cache: 'no-cache',
   });
 
@@ -20,10 +18,4 @@ export const postRegister = async (body: CreateAccountData) => {
   }
 
   return response.json();
-};
-
-export const useRegister = () => {
-  return useMutation({
-    mutationFn: (data: CreateAccountData) => postRegister(data),
-  });
 };

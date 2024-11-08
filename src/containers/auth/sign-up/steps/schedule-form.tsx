@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
 import { CreateAccountData, ScheduleSchema } from '@/schemas/schemas-sign-up';
-import { useRegister } from '@/services/register';
+import { createAccount } from '@/services/createAccount';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 const timeOptions = Array.from({ length: 24 }, (_, i) => {
@@ -42,6 +42,7 @@ export function ScheduleForm({
   };
 
   const { formData } = useStepsDataStore();
+  const [isPending, setIsPending] = useState(false);
 
   const [schedules, setSchedules] = useState<Schedule>(
     weekDays.reduce(
@@ -81,9 +82,8 @@ export function ScheduleForm({
     },
   });
 
-  const { isSuccess, mutateAsync, isPending } = useRegister();
-
   const onSubmitForm = async () => {
+    setIsPending(true);
     if (!form.formState.isValid) {
       return;
     }
@@ -98,7 +98,7 @@ export function ScheduleForm({
     };
 
     const data: CreateAccountData = {
-      clerkId: '1',
+      providerId: '1',
       email: 'email-do-teste@gmail.com',
       customSegment: formData.business?.businessType.label,
       address: formData?.location || {
@@ -114,10 +114,13 @@ export function ScheduleForm({
       operatingHours,
     };
 
-    await mutateAsync(data);
-
-    if (isSuccess) {
+    try {
+      await createAccount(data);
       onNext();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPending(false);
     }
   };
 

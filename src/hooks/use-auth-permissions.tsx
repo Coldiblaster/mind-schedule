@@ -3,7 +3,7 @@
 'use client';
 
 import { useClerk } from '@clerk/nextjs';
-import React, {
+import {
   createContext,
   type ReactNode,
   useContext,
@@ -11,8 +11,8 @@ import React, {
   useState,
 } from 'react';
 
-import { useUserMetadata } from '@/services/user'; // Importando o hook para obter metadados do usuário
-import { UserTypes } from '@/types/user-types'; // Importando o tipo ou enum de tipos de usuários
+import { useUserMetadata } from '@/services/getUserMetadata';
+import { UserTypes } from '@/types/user-types';
 
 interface AuthPermissionsContextType {
   userType: UserTypes; // Atualizando para usar o enum UserTypes

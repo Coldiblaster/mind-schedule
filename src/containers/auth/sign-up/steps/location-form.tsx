@@ -7,7 +7,7 @@ import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { LocationData, LocationSchema } from '@/schemas/schemas-sign-up';
-import { useGetAddress } from '@/services/cep';
+import { useGetAddress } from '@/services/getAddress';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 export function LocationForm({
