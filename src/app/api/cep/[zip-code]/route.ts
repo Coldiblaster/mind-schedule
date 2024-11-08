@@ -4,7 +4,6 @@ export async function GET(
   request: Request,
   context: { params: { 'zip-code': string } },
 ) {
-  console.log(context.params['zip-code']);
   try {
     const { 'zip-code': zipCode } = context.params;
 

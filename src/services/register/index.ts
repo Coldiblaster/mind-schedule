@@ -1,1 +1,1 @@
-export * from './getRegister';
+export * from './postRegister';

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { formatCurrency, formatDuration } from '@/lib/format';
+import { useStepsDataStore } from '@/store/steps-data-store';
 
 import { AddServiceModal } from './modal/add-service';
 import { EditServiceModal } from './modal/edit-service';
@@ -31,6 +32,8 @@ export function ServicesForm({
     { id: 7, name: 'Pé + Mãos', price: 50, duration: 30 },
     { id: 8, name: 'Pé + Mãos', price: 50, duration: 30 },
   ]);
+  const { updateFormData } = useStepsDataStore();
+
   const [newService, setNewService] = useState<Omit<Service, 'id'>>({
     name: '',
     price: 0,
@@ -56,6 +59,17 @@ export function ServicesForm({
     } else {
       alert('Por favor, preencha todos os campos corretamente.');
     }
+  };
+
+  const saveServices = (services: Service[]) => {
+    updateFormData({
+      services: services.map(service => ({
+        ...service,
+        price: service.price,
+        duration: service.duration,
+      })),
+    });
+    onNext();
   };
 
   return (
@@ -176,7 +190,7 @@ export function ServicesForm({
         <Button variant="outline" onClick={onBack}>
           Voltar
         </Button>
-        <Button onClick={onNext}>Continuar</Button>
+        <Button onClick={() => saveServices(services)}>Continuar</Button>
       </div>
 
       <AddServiceModal

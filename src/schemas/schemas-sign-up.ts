@@ -22,41 +22,29 @@ export const BusinessSchema = z.object({
 
 export const ServiceSchema = z.object({
   name: z.string().min(1, 'Nome do serviço é obrigatório'),
-  price: z.string().min(1, 'Preço é obrigatório'),
-  duration: z.string().min(1, 'Duração é obrigatória'),
+  price: z.number().min(1, 'Preço é obrigatório'),
+  duration: z.number().min(1, 'Duração é obrigatória'),
 });
 
 export const ScheduleSchema = z.object({
-  open: z
-    .string()
-    .min(1, 'Horário de abertura é obrigatório')
-    .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
-  close: z
-    .string()
-    .min(1, 'Horário de fechamento é obrigatório')
-    .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
-  days: z
-    .array(
-      z.object({
-        day: z.enum([
-          'Segunda',
-          'Terça',
-          'Quarta',
-          'Quinta',
-          'Sexta',
-          'Sábado',
-          'Domingo',
-        ]),
-        open: z
-          .string()
-          .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
-        close: z
-          .string()
-          .regex(/^\d{2}:\d{2}$/, 'Formato de horário inválido (HH:MM)'),
-        isOpen: z.boolean().default(true), // Caso queira definir se está aberto ou fechado
-      }),
-    )
-    .nonempty('É necessário ter pelo menos um dia cadastrado'),
+  days: z.array(
+    z.object({
+      startTime: z.string().min(1, 'Hora de início é obrigatória'),
+      endTime: z.string().min(1, 'Hora de término é obrigatória'),
+      isOpen: z.boolean(),
+      weekday: z.string().min(1, 'Dia da semana é obrigatório'),
+    }),
+  ),
+});
+
+export const CreateAccountSchema = z.object({
+  businessTypeId: z.number().optional(),
+  customSegment: z.string().optional(),
+  address: LocationSchema,
+  services: z.array(ServiceSchema).optional(),
+  operatingHours: ScheduleSchema,
+  email: z.string().email('O e-mail deve ser um endereço válido'),
+  clerkId: z.string(),
 });
 
 // Tipos derivados dos schemas Zod
@@ -64,3 +52,4 @@ export type BusinessData = z.infer<typeof BusinessSchema>;
 export type LocationData = z.infer<typeof LocationSchema>;
 export type ServiceData = z.infer<typeof ServiceSchema>;
 export type ScheduleData = z.infer<typeof ScheduleSchema>;
+export type CreateAccountData = z.infer<typeof CreateAccountSchema>;

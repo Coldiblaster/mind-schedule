@@ -3,22 +3,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PiCalendar, PiCalendarX, PiSun } from 'react-icons/pi';
 
+import { CustomSelect } from '@/components/custom-select';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { ScheduleSchema } from '@/schemas/schemas-sign-up';
-import { getRegister } from '@/services/register';
-import {
-  CreateCompanySchema,
-  createCompanySchema,
-} from '@/services/register/type';
+import { CreateAccountData, ScheduleSchema } from '@/schemas/schemas-sign-up';
+import { useRegister } from '@/services/register';
+import { useStepsDataStore } from '@/store/steps-data-store';
 
 const timeOptions = Array.from({ length: 24 }, (_, i) => {
   const hour = i.toString().padStart(2, '0');
@@ -26,7 +17,7 @@ const timeOptions = Array.from({ length: 24 }, (_, i) => {
 });
 
 const weekDays = [
-  { id: 'domingo', label: 'Domingo', icon: PiSun },
+  { id: 'domingo', label: 'Domingo', icon: PiCalendar },
   { id: 'segunda', label: 'Segunda-Feira', icon: PiCalendar },
   { id: 'terca', label: 'Terça-Feira', icon: PiCalendar },
   { id: 'quarta', label: 'Quarta-Feira', icon: PiCalendar },
@@ -50,7 +41,7 @@ export function ScheduleForm({
     };
   };
 
-  const [loading, setLoading] = useState(false);
+  const { formData } = useStepsDataStore();
 
   const [schedules, setSchedules] = useState<Schedule>(
     weekDays.reduce(
@@ -80,59 +71,53 @@ export function ScheduleForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(ScheduleSchema),
-    defaultValues: {},
+    defaultValues: {
+      days: Object.keys(schedules).map(dayId => ({
+        startTime: schedules[dayId].start,
+        endTime: schedules[dayId].end,
+        isOpen: schedules[dayId].enabled,
+        weekday: dayId,
+      })),
+    },
   });
 
-  const dataMock = {
-    address: {
-      cep: '47092',
-      street: 'Conner Orchard',
-      number: '4641161880018294',
-      neighborhood: 'Pakistan',
-      city: 'New Tod',
-      state: 'New York',
-    },
-    email: 'johndoe2122@example.com',
-    customSegment: 'Barbearia',
-    clerkId: '1',
-    operatingHours: {
-      days: [
-        {
-          startTime: '8:00',
-          endTime: '18:00',
-          isOpen: true,
-          weekday: 'Segunda-Feira',
-        },
-      ],
-    },
-    services: [
-      {
-        description: 'Cabelo',
-        time: '00:50',
-        value: 30,
-      },
-      {
-        description: 'Barba',
-        time: '00:20',
-        value: 20,
-      },
-      {
-        description: 'Barba + Cabelo',
-        time: '01:10',
-        value: 20,
-      },
-    ],
-  };
+  const { isSuccess, mutateAsync, isPending } = useRegister();
 
-  const handleSubmit = async (data: CreateCompanySchema) => {
-    setLoading(true);
-    const validation = createCompanySchema.safeParse(data);
-    if (validation.success) {
-      await getRegister(data);
+  const onSubmitForm = async () => {
+    if (!form.formState.isValid) {
+      return;
+    }
+
+    const operatingHours = {
+      days: Object.keys(schedules).map(dayId => ({
+        startTime: schedules[dayId].start,
+        endTime: schedules[dayId].end,
+        isOpen: schedules[dayId].enabled,
+        weekday: dayId,
+      })),
+    };
+
+    const data: CreateAccountData = {
+      clerkId: '1',
+      email: 'email-do-teste@gmail.com',
+      customSegment: formData.business?.businessType.label,
+      address: formData?.location || {
+        number: '',
+        cep: '',
+        street: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+        complement: '',
+      },
+      services: formData.services,
+      operatingHours,
+    };
+
+    await mutateAsync(data);
+
+    if (isSuccess) {
       onNext();
-    } else {
-      console.error(validation.error.format());
-      setLoading(false);
     }
   };
 
@@ -148,7 +133,7 @@ export function ScheduleForm({
         estabelecimento?
       </p>
       <Form {...form}>
-        <div className="grid gap-4">
+        <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmitForm)}>
           {weekDays.map(day => (
             <div
               key={day.id}
@@ -176,65 +161,38 @@ export function ScheduleForm({
 
               {schedules[day.id].enabled ? (
                 <div className="flex items-center space-x-2">
-                  <Select
-                    value={schedules[day.id].start}
-                    onValueChange={value =>
-                      setSchedules(prev => ({
-                        ...prev,
-                        [day.id]: { ...prev[day.id], start: value },
-                      }))
-                    }
-                  >
-                    <SelectTrigger className="w-24 lg:w-28">
-                      <SelectValue placeholder="Início" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {timeOptions.map(time => (
-                        <SelectItem key={time.value} value={time.value}>
-                          {time.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <CustomSelect
+                    defaultValue="09:00"
+                    registerName={`${day.id}.start`} // Identificador único para o horário de início
+                    control={form.control}
+                    options={timeOptions}
+                    labelText="Início"
+                  />
 
                   <span className="text-gray-500">às</span>
-
-                  <Select
-                    value={schedules[day.id].end}
-                    onValueChange={value =>
-                      setSchedules(prev => ({
-                        ...prev,
-                        [day.id]: { ...prev[day.id], end: value },
-                      }))
-                    }
-                  >
-                    <SelectTrigger className="w-24 lg:w-28">
-                      <SelectValue placeholder="Fim" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {timeOptions.map(time => (
-                        <SelectItem key={time.value} value={time.value}>
-                          {time.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <CustomSelect
+                    defaultValue="18:00"
+                    registerName={`${day.id}.end`} // Identificador único para o horário de fim
+                    control={form.control}
+                    options={timeOptions}
+                    labelText="Fim"
+                  />
                 </div>
               ) : (
                 <span className="ml-4 text-gray-500">Fechado</span>
               )}
             </div>
           ))}
-        </div>
 
-        <div className="mt-8 flex justify-between border-t pt-4">
-          <Button variant="ghost" onClick={onBack}>
-            Voltar
-          </Button>
-          <Button onClick={() => handleSubmit(dataMock)} loading={loading}>
-            Continuar
-          </Button>
-        </div>
+          <div className="mt-8 flex justify-between border-t pt-4">
+            <Button variant="ghost" onClick={onBack}>
+              Voltar
+            </Button>
+            <Button type="submit" loading={isPending}>
+              Continuar
+            </Button>
+          </div>
+        </form>
       </Form>
     </div>
   );
