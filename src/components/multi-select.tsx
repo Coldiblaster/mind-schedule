@@ -23,10 +23,6 @@ import { cn } from '@/lib/utils';
 
 import { Icon } from './icon';
 
-/**
- * Variants for the multi-select component to handle different styles.
- * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
- */
 const multiSelectVariants = cva(
   'm-1 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110',
   {
