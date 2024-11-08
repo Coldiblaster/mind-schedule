@@ -13,12 +13,12 @@ export const MenuData: MenuProps[] = [
     title: 'Dashboard',
     icon: 'LuHome',
     link: '/dashboard',
-    allowedUserTypes: [UserTypes.PROFESSIONAL, UserTypes.PATIENT], // Apenas profissionais
+    allowedUserTypes: [UserTypes.PROFESSIONAL, UserTypes.PATIENT],
   },
   {
     title: 'Agenda',
     icon: 'LuCalendar',
     link: '/schedule',
-    allowedUserTypes: [UserTypes.PATIENT], // Apenas pacientes
+    allowedUserTypes: [UserTypes.PATIENT],
   },
 ];
