@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 
 import { CompanyLogo } from '@/components/company-logo';
 import { useAuthPermissions } from '@/hooks/use-auth-permissions';
