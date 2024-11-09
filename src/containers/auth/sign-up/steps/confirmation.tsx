@@ -2,7 +2,7 @@ import success from '@/assets/animations/success.json';
 import { Animations } from '@/components/animations/animations';
 import { Button } from '@/components/ui/button';
 
-export function SuccessCreate({ resetSteps }: { resetSteps: () => void }) {
+export function Confirmation({ resetSteps }: { resetSteps: () => void }) {
   return (
     <div
       className="w-full animate-fade-down text-center"

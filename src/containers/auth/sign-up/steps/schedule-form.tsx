@@ -7,7 +7,11 @@ import { CustomSelect } from '@/components/custom-select';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
-import { CreateAccountData, ScheduleSchema } from '@/schemas/schemas-sign-up';
+import {
+  CreateAccountData,
+  ScheduleData,
+  ScheduleSchema,
+} from '@/schemas/schemas-sign-up';
 import { createAccount } from '@/services/createAccount';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
@@ -35,13 +39,13 @@ export function ScheduleForm({
 }) {
   type Schedule = {
     [key: string]: {
-      enabled: boolean;
+      isOpen: boolean;
       start: string;
       end: string;
     };
   };
 
-  const { formData } = useStepsDataStore();
+  const { updateFormData, formData } = useStepsDataStore();
   const [isPending, setIsPending] = useState(false);
 
   const [schedules, setSchedules] = useState<Schedule>(
@@ -49,7 +53,7 @@ export function ScheduleForm({
       (acc, day) => ({
         ...acc,
         [day.id]: {
-          enabled: true,
+          isOpen: true,
           start: '09:00',
           end: '18:00',
         },
@@ -57,16 +61,6 @@ export function ScheduleForm({
       {},
     ),
   );
-
-  const handleCheckboxChange = (dayId: string) => {
-    setSchedules(prev => ({
-      ...prev,
-      [dayId]: {
-        ...prev[dayId],
-        enabled: !prev[dayId].enabled,
-      },
-    }));
-  };
 
   const form = useForm({
     mode: 'onChange',
@@ -76,52 +70,70 @@ export function ScheduleForm({
       days: Object.keys(schedules).map(dayId => ({
         startTime: schedules[dayId].start,
         endTime: schedules[dayId].end,
-        isOpen: schedules[dayId].enabled,
+        isOpen: schedules[dayId].isOpen,
         weekday: dayId,
       })),
     },
   });
 
-  const onSubmitForm = async () => {
-    setIsPending(true);
-    if (!form.formState.isValid) {
-      return;
-    }
-
-    const operatingHours = {
-      days: Object.keys(schedules).map(dayId => ({
-        startTime: schedules[dayId].start,
-        endTime: schedules[dayId].end,
-        isOpen: schedules[dayId].enabled,
-        weekday: dayId,
-      })),
-    };
-
-    const data: CreateAccountData = {
-      providerId: '1',
-      email: 'email-do-teste@gmail.com',
-      customSegment: formData.business?.businessType.label,
-      address: formData?.location || {
-        number: '',
-        cep: '',
-        street: '',
-        neighborhood: '',
-        city: '',
-        state: '',
-        complement: '',
+  const handleCheckboxChange = (dayId: string) => {
+    setSchedules(prev => ({
+      ...prev,
+      [dayId]: {
+        ...prev[dayId],
+        isOpen: !prev[dayId].isOpen,
       },
-      services: formData.services,
-      operatingHours,
-    };
+    }));
+  };
 
-    try {
-      await createAccount(data);
+  const onSubmitForm = async (data: ScheduleData) => {
+    setIsPending(true);
+
+    console.log(data);
+
+    // const operatingHours = {
+    //   days: Object.keys(schedules).map(dayId => ({
+    //     startTime: schedules[dayId].start,
+    //     endTime: schedules[dayId].end,
+    //     isOpen: schedules[dayId].isOpen,
+    //     weekday: dayId,
+    //   })),
+    // };
+
+    const validation = ScheduleSchema.safeParse(data);
+
+    if (validation.success) {
+      updateFormData({ schedule: data });
       onNext();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsPending(false);
+    } else {
+      console.error(validation.error.format());
     }
+
+    // const data: CreateAccountData = {
+    //   providerId: '1',
+    //   email: 'email-do-teste@gmail.com',
+    //   customSegment: formData.business?.businessType.label,
+    //   address: formData?.location || {
+    //     number: '',
+    //     cep: '',
+    //     street: '',
+    //     neighborhood: '',
+    //     city: '',
+    //     state: '',
+    //     complement: '',
+    //   },
+    //   services: formData.services,
+    //   operatingHours,
+    // };
+
+    // try {
+    //   await createAccount(data);
+    //   onNext();
+    // } catch (error) {
+    //   console.error(error);
+    // } finally {
+    //   setIsPending(false);
+    // }
   };
 
   return (
@@ -140,17 +152,18 @@ export function ScheduleForm({
           {weekDays.map(day => (
             <div
               key={day.id}
-              className={`flex flex-col items-start gap-2 rounded-lg border border-gray-200/45 p-4 transition-colors sm:items-center md:gap-4 lg:flex-row ${schedules[day.id].enabled ? 'bg-white' : 'bg-gray-200/50'}`}
+              data-current={schedules[day.id].isOpen}
+              className="relative flex min-h-[94px] flex-col items-center justify-between gap-2 border border-input/70 bg-white/20 p-3 text-xs transition data-[current=true]:border-input data-[current=true]:bg-white dark:border-slate-900 dark:bg-black/20 data-[current=true]:dark:border-slate-900/60 data-[current=true]:dark:bg-black md:gap-4 lg:min-h-[70px] lg:flex-row lg:px-4 lg:text-sm"
             >
               <div className="flex min-w-40 flex-1 items-center">
                 <Checkbox
                   id={day.id}
-                  checked={schedules[day.id].enabled}
+                  checked={schedules[day.id].isOpen}
                   onCheckedChange={() => handleCheckboxChange(day.id)}
                   className="mr-3"
                 />
                 <div className="flex items-center">
-                  {schedules[day.id].enabled ? (
+                  {schedules[day.id].isOpen ? (
                     <PiSun className="mr-2 h-4 w-4 text-gray-500" />
                   ) : (
                     <PiCalendarX className="mr-2 h-4 w-4 text-gray-500" />
@@ -162,7 +175,7 @@ export function ScheduleForm({
                 </div>
               </div>
 
-              {schedules[day.id].enabled ? (
+              {schedules[day.id].isOpen ? (
                 <div className="flex items-center space-x-2">
                   <CustomSelect
                     defaultValue="09:00"
@@ -182,7 +195,7 @@ export function ScheduleForm({
                   />
                 </div>
               ) : (
-                <span className="ml-4 text-gray-500">Fechado</span>
+                <span className="white ml-4">Fechado</span>
               )}
             </div>
           ))}

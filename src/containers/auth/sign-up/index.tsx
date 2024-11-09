@@ -9,11 +9,11 @@ import { useStepsStore } from '@/store/steps-store';
 
 import { HeaderAuth } from '../header-auth';
 import {
+  Confirmation,
   LocationForm,
   ScheduleForm,
   SegmentForm,
   ServicesForm,
-  SuccessCreate,
 } from './steps';
 
 export function SignUp() {
@@ -34,7 +34,7 @@ export function SignUp() {
       case 4:
         return <ScheduleForm onNext={nextStep} onBack={prevStep} />;
       case 5:
-        return <SuccessCreate resetSteps={resetSteps} />;
+        return <Confirmation resetSteps={resetSteps} />;
       default:
         return null;
     }
