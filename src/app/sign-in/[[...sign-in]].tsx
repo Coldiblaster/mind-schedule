@@ -1,0 +1,114 @@
+'use client';
+
+import { useSignIn } from '@clerk/nextjs';
+import { EmailCodeFactor, SignInFirstFactor } from '@clerk/types';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+export default function SignInForm() {
+  const { isLoaded, signIn, setActive } = useSignIn();
+  const [verifying, setVerifying] = useState(false);
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const router = useRouter();
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (!isLoaded && !signIn) return null;
+
+    try {
+      const { supportedFirstFactors } = await signIn.create({
+        identifier: email,
+      });
+
+      const isMailCodeFactor = (
+        factor: SignInFirstFactor,
+      ): factor is EmailCodeFactor => {
+        return factor.strategy === 'email_code';
+      };
+      const mailCodeFactor = supportedFirstFactors?.find(isMailCodeFactor);
+
+      if (mailCodeFactor) {
+        const { emailAddressId } = mailCodeFactor;
+
+        await signIn.prepareFirstFactor({
+          strategy: 'email_code',
+          emailAddressId,
+        });
+
+        setVerifying(true);
+      }
+    } catch (err) {
+      console.error('Error:', JSON.stringify(err, null, 2));
+    }
+  }
+
+  async function handleVerification(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!isLoaded && !signIn) return null;
+
+    try {
+      const signInAttempt = await signIn.attemptFirstFactor({
+        strategy: 'email_code',
+        code,
+      });
+
+      if (signInAttempt.status === 'complete') {
+        await setActive({ session: signInAttempt.createdSessionId });
+
+        router.push('/');
+      } else {
+        console.error(signInAttempt);
+      }
+    } catch (err) {
+      console.error('Error:', JSON.stringify(err, null, 2));
+    }
+  }
+
+  if (verifying) {
+    return (
+      <form onSubmit={handleVerification}>
+        <label htmlFor="code" className="text-sm text-muted-foreground">
+          Enviamos um código para o seu email. Insira-o abaixo.
+        </label>
+        <Input
+          value={code}
+          id="code"
+          name="code"
+          onChange={e => setCode(e.target.value)}
+          placeholder="Ex: 123456"
+          autoFocus
+        />
+
+        <Button type="submit" className="mt-4 w-full">
+          Confirmar código
+        </Button>
+      </form>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email" className="text-sm text-muted-foreground">
+        Criar conta com e-mail
+      </label>
+      <Input
+        value={email}
+        id="email"
+        name="email"
+        type="email"
+        placeholder="E-mail"
+        onChange={e => setEmail(e.target.value)}
+        autoFocus
+      />
+      <Button type="submit" variant="secondary" className="mt-4 w-full">
+        Continue
+      </Button>
+    </form>
+  );
+}

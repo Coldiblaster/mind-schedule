@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import SignInForm from '@/app/sign-in/[[...sign-in]]';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 
@@ -55,7 +56,9 @@ export function SignIn() {
       <HeaderAuth className="absolute md:right-0" />
       <div className="flex max-w-[350px] flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Entre na sua conta
+          </h1>
           <p className="text-sm text-muted-foreground">
             Gerencie sua agenda, finanças e mais em um só lugar.
           </p>
@@ -74,6 +77,14 @@ export function SignIn() {
           />
           Faça login com o Google
         </Button>
+
+        <div className="inline-flex w-full items-center justify-center">
+          <hr className="my-3 h-1 w-64 rounded border-0 bg-gray-200 dark:bg-gray-700" />
+          <p className="absolute left-1/2 -translate-x-1/2 bg-white px-4 text-center text-muted-foreground dark:bg-gray-900">
+            ou
+          </p>
+        </div>
+        <SignInForm />
 
         <div className="flex flex-col space-y-4">
           <div className="text-center text-sm text-foreground">

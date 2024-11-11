@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { ptBR } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
@@ -41,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={ptBR}>
       <html lang="pt-br" className={font.className}>
         <body className="antialiased">
           <Providers>{children}</Providers>
