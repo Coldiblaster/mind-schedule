@@ -13,9 +13,11 @@ export default function SignInForm() {
   const [verifying, setVerifying] = useState(false);
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
+    setLoading(true);
     e.preventDefault();
 
     if (!isLoaded && !signIn) return null;
@@ -44,10 +46,13 @@ export default function SignInForm() {
       }
     } catch (err) {
       console.error('Error:', JSON.stringify(err, null, 2));
+    } finally {
+      setLoading(false);
     }
   }
 
   async function handleVerification(e: React.FormEvent) {
+    setLoading(true);
     e.preventDefault();
 
     if (!isLoaded && !signIn) return null;
@@ -67,6 +72,8 @@ export default function SignInForm() {
       }
     } catch (err) {
       console.error('Error:', JSON.stringify(err, null, 2));
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -85,7 +92,7 @@ export default function SignInForm() {
           autoFocus
         />
 
-        <Button type="submit" className="mt-4 w-full">
+        <Button type="submit" className="mt-4 w-full" loading={loading}>
           Confirmar código
         </Button>
       </form>
@@ -106,7 +113,12 @@ export default function SignInForm() {
         onChange={e => setEmail(e.target.value)}
         autoFocus
       />
-      <Button type="submit" variant="secondary" className="mt-4 w-full">
+      <Button
+        type="submit"
+        variant="secondary"
+        className="mt-4 w-full"
+        loading={loading}
+      >
         Continue
       </Button>
     </form>
