@@ -113,7 +113,7 @@ export default function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="animate-fade-right">
       <label htmlFor="email" className="text-sm text-muted-foreground">
         Entrar com e-mail
       </label>
