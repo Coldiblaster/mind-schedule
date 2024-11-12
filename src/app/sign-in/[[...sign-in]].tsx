@@ -3,7 +3,7 @@
 import { useSignIn } from '@clerk/nextjs';
 import { EmailCodeFactor, SignInFirstFactor } from '@clerk/types';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,7 @@ export default function SignInForm() {
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const codeRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
@@ -44,6 +45,12 @@ export default function SignInForm() {
         });
 
         setVerifying(true);
+
+        const interval = setTimeout(() => {
+          codeRef.current?.focus();
+        }, 200);
+
+        return () => clearInterval(interval);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -88,7 +95,7 @@ export default function SignInForm() {
 
   if (verifying) {
     return (
-      <form onSubmit={handleVerification}>
+      <form onSubmit={handleVerification} className="mt-6 animate-fade">
         <label htmlFor="code" className="text-sm text-muted-foreground">
           Enviamos um código para o seu email. Insira-o abaixo.
         </label>
@@ -98,10 +105,14 @@ export default function SignInForm() {
           name="code"
           onChange={e => setCode(e.target.value)}
           placeholder="Ex: 123456"
+          ref={codeRef}
           autoFocus
         />
         {error && (
-          <label htmlFor="email" className="text-sm text-destructive">
+          <label
+            htmlFor="email"
+            className="text-sm text-destructive dark:text-destructive-foreground"
+          >
             {error}
           </label>
         )}
@@ -113,7 +124,7 @@ export default function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="animate-fade-right">
+    <form onSubmit={handleSubmit} className="mt-6 animate-fade-right">
       <label htmlFor="email" className="text-sm text-muted-foreground">
         Entrar com e-mail
       </label>

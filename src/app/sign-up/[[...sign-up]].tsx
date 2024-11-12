@@ -2,7 +2,7 @@
 
 import { useSignUp } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,7 @@ export default function SignUpForm() {
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const codeRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -32,6 +33,13 @@ export default function SignUpForm() {
       });
 
       setVerifying(true);
+
+      const interval = setTimeout(() => {
+        codeRef.current?.focus();
+      }, 200);
+
+      return () => clearInterval(interval);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err?.errors?.[0]?.code === 'form_identifier_exists') {
@@ -61,8 +69,11 @@ export default function SignUpForm() {
       } else {
         console.error(JSON.stringify(signUpAttempt, null, 2));
       }
-    } catch (err: unknown) {
-      console.error('Error:', JSON.stringify(err, null, 2));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err?.errors?.[0]?.code === 'form_code_incorrect') {
+        setError('Confirme o código e tente novamente.');
+      }
     } finally {
       setLoading(false);
     }
@@ -71,7 +82,7 @@ export default function SignUpForm() {
   // Display the verification form to capture the OTP code
   if (verifying) {
     return (
-      <form onSubmit={handleVerify}>
+      <form onSubmit={handleVerify} className="mt-6">
         <label htmlFor="code" className="text-sm text-muted-foreground">
           Enviamos um código para o seu email. Insira-o abaixo.
         </label>
@@ -84,6 +95,15 @@ export default function SignUpForm() {
           autoFocus
         />
 
+        {error && (
+          <label
+            htmlFor="email"
+            className="text-sm text-destructive dark:text-destructive-foreground"
+          >
+            {error}
+          </label>
+        )}
+
         <Button type="submit" className="mt-4 w-full" loading={loading}>
           Confirmar código
         </Button>
@@ -93,7 +113,7 @@ export default function SignUpForm() {
 
   // Display the initial sign-up form to capture the email and password
   return (
-    <form onSubmit={handleSubmit} className="animate-fade-left">
+    <form onSubmit={handleSubmit} className="mt-6 animate-fade-left">
       <label htmlFor="email" className="text-sm text-muted-foreground">
         Cadastrar com e-mail
       </label>
@@ -108,7 +128,10 @@ export default function SignUpForm() {
         autoFocus
       />
       {error && (
-        <label htmlFor="email" className="text-sm text-destructive">
+        <label
+          htmlFor="email"
+          className="text-sm text-destructive dark:text-destructive-foreground"
+        >
           {error}
         </label>
       )}
