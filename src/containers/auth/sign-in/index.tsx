@@ -4,18 +4,34 @@ import { useSignIn, useSignUp } from '@clerk/nextjs';
 import { OAuthStrategy } from '@clerk/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import SignInForm from '@/app/sign-in/[[...sign-in]]';
+import SignUpForm from '@/app/sign-up/[[...sign-up]]';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { HeaderAuth } from '../header-auth';
+import { Header } from './header';
 
-export function SignIn() {
+const tabContent = {
+  login: {
+    title: 'Login',
+    description: 'Gerencie sua agenda, finanças e muito mais em um só lugar.',
+  },
+  register: {
+    title: 'Cadastrar',
+    description:
+      'Crie uma conta para começar a usar o sistema e facilite sua agenda.',
+  },
+};
+
+export function SignInPage() {
   const { signIn } = useSignIn();
   const { signUp } = useSignUp();
-  const router = useRouter();
+  const [activeTab, setActiveTab] = useState('login');
+  // const router = useRouter();
 
   if (!signIn || !signUp) return null;
 
@@ -47,21 +63,20 @@ export function SignIn() {
     }
   }
 
-  const goToRegister = () => {
-    router.push('/?register=true');
-  };
+  // const goToRegister = () => {
+  //   router.push('/?register=true');
+  // };
 
   return (
     <div className="relative flex h-full w-full animate-fade justify-center py-4 animate-delay-150 animate-duration-500 md:py-8">
       <HeaderAuth className="absolute md:right-0" />
       <div className="flex max-w-[350px] flex-col justify-center gap-6">
-        <div className="flex flex-col gap-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Entre na sua conta
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Gerencie sua agenda, finanças e mais em um só lugar.
-          </p>
+        <div className="flex flex-col gap-2">
+          {activeTab === 'login' ? (
+            <Header {...tabContent.login} />
+          ) : (
+            <Header {...tabContent.register} />
+          )}
         </div>
 
         <Button
@@ -80,30 +95,39 @@ export function SignIn() {
 
         <div className="inline-flex w-full items-center justify-center">
           <hr className="my-3 h-1 w-64 rounded border-0 bg-gray-200 dark:bg-gray-700" />
-          <p className="absolute left-1/2 -translate-x-1/2 bg-white px-4 text-center text-muted-foreground dark:bg-gray-900">
+          <p className="absolute left-1/2 -translate-x-1/2 bg-white px-4 text-center text-muted-foreground dark:bg-black">
             ou
           </p>
         </div>
-        <SignInForm />
+
+        <Tabs defaultValue="login" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="login" onClick={() => setActiveTab('login')}>
+              Entrar
+            </TabsTrigger>
+            <TabsTrigger
+              value="register"
+              onClick={() => setActiveTab('register')}
+            >
+              Cadastrar
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="login">
+            <SignInForm />
+          </TabsContent>
+          <TabsContent value="register">
+            <SignUpForm />
+          </TabsContent>
+        </Tabs>
 
         <div className="flex flex-col space-y-4">
-          <div className="text-center text-sm text-foreground">
-            Não tem uma conta?
-            <Button
-              variant="link"
-              className="h-auto px-2"
-              onClick={() => goToRegister()}
-            >
-              Criar conta grátis
-            </Button>
-          </div>
           <div className="text-center text-xs text-gray-500">
             Ideal para profissionais de saúde, beleza, e prestadores de
             serviços.
             <Button
               variant="link"
               className="h-auto px-1 py-0"
-              onClick={() => goToRegister()}
+              onClick={() => {}}
             >
               Saiba mais e cadastre sua empresa
             </Button>

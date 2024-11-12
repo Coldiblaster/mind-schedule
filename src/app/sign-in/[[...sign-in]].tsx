@@ -14,6 +14,7 @@ export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
@@ -44,7 +45,11 @@ export default function SignInForm() {
 
         setVerifying(true);
       }
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err?.errors?.[0]?.code === 'form_identifier_exists') {
+        setError('Este e-mail já está cadastrado, faça o login.');
+      }
       console.error('Error:', JSON.stringify(err, null, 2));
     } finally {
       setLoading(false);
@@ -70,7 +75,11 @@ export default function SignInForm() {
       } else {
         console.error(signInAttempt);
       }
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err?.errors?.[0]?.code === 'form_code_incorrect') {
+        setError('Confirme o código e tente novamente.');
+      }
       console.error('Error:', JSON.stringify(err, null, 2));
     } finally {
       setLoading(false);
@@ -91,7 +100,11 @@ export default function SignInForm() {
           placeholder="Ex: 123456"
           autoFocus
         />
-
+        {error && (
+          <label htmlFor="email" className="text-sm text-destructive">
+            {error}
+          </label>
+        )}
         <Button type="submit" className="mt-4 w-full" loading={loading}>
           Confirmar código
         </Button>
@@ -102,7 +115,7 @@ export default function SignInForm() {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="email" className="text-sm text-muted-foreground">
-        Criar conta com e-mail
+        Entrar com e-mail
       </label>
       <Input
         value={email}
@@ -111,8 +124,12 @@ export default function SignInForm() {
         type="email"
         placeholder="E-mail"
         onChange={e => setEmail(e.target.value)}
-        autoFocus
       />
+      {error && (
+        <label htmlFor="email" className="text-sm text-destructive">
+          {error}
+        </label>
+      )}
       <Button
         type="submit"
         variant="secondary"

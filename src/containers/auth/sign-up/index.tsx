@@ -1,13 +1,8 @@
 'use client';
 
-import { useSignIn, useSignUp } from '@clerk/nextjs';
-import { OAuthStrategy } from '@clerk/types';
-import Image from 'next/image';
 import { useCallback, useMemo } from 'react';
 
-import SignInForm from '@/app/sign-in/[[...sign-in]]';
 import { Icon } from '@/components/icon';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useStepsStore } from '@/store/steps-store';
@@ -25,20 +20,7 @@ export function SignUp() {
   const { steps, currentStepIndex, nextStep, goToStep, prevStep, resetSteps } =
     useStepsStore();
 
-  const { signIn } = useSignIn();
-  const { signUp } = useSignUp();
   const activeStep = steps[currentStepIndex];
-
-  const signInWith = (strategy: OAuthStrategy) => {
-    if (signIn) {
-      return signIn.authenticateWithRedirect({
-        strategy,
-        redirectUrl: '/login-callback',
-        redirectUrlComplete: '/login-callback',
-      });
-    }
-    return null;
-  };
 
   // Memoiza o formulário para evitar re-renderizações desnecessárias
   const renderForm = useMemo(() => {
@@ -64,57 +46,10 @@ export function SignUp() {
     [goToStep, steps],
   );
 
-  async function handleSignIn(strategy: OAuthStrategy) {
-    if (!signIn || !signUp) return null;
-
-    // Verifica se o usuário precisa de uma conta nova
-    const userNeedsToBeCreated =
-      signIn.firstFactorVerification.status === 'transferable';
-
-    if (userNeedsToBeCreated) {
-      // Cria a conta do usuário com OAuth e redireciona
-      await signUp.authenticateWithRedirect({
-        strategy,
-        redirectUrl: '/login-callback',
-        redirectUrlComplete: '/login-callback',
-      });
-    } else {
-      // Se o usuário já tem uma conta, faz o login com OAuth
-      signInWith(strategy);
-    }
-  }
-
   return (
     <div className="flex h-full w-full animate-fade flex-col gap-4 overflow-y-auto py-4 animate-delay-150 animate-duration-500 md:py-8">
       <HeaderAuth />
-      <div className="mx-auto flex max-w-[350px] flex-col gap-6">
-        <div className="flex flex-col gap-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Nova conta</h1>
-          <p className="text-sm text-muted-foreground">
-            Gerencie sua agenda, finanças e mais em um só lugar.
-          </p>
-        </div>
-        <Button
-          variant="outline"
-          className="flex w-full gap-2"
-          onClick={() => handleSignIn('oauth_google')}
-        >
-          <Image
-            src="/logos/icons8-google.svg"
-            width={24}
-            height={24}
-            alt="Logo google"
-          />
-          Criar conta com Google
-        </Button>
-        <div className="inline-flex w-full items-center justify-center">
-          <hr className="my-3 h-1 w-64 rounded border-0 bg-gray-200 dark:bg-gray-700" />
-          <p className="absolute left-1/2 -translate-x-1/2 bg-white px-4 text-center text-muted-foreground dark:bg-gray-900">
-            ou
-          </p>
-        </div>
-        <SignInForm />
-      </div>
+
       <Tabs
         value={activeStep.value}
         onValueChange={handleTabChange}

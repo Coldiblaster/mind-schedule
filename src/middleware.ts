@@ -22,6 +22,11 @@ async function getUserType(userId: string) {
   const user = await clerkClient().users.getUser(userId);
   return user.privateMetadata.userType;
 }
+// Função para buscar o tipo de usuário (patient ou professional)
+async function getRegisterType(userId: string) {
+  const user = await clerkClient().users.getUser(userId);
+  return user.privateMetadata.startRegister;
+}
 
 export default clerkMiddleware(async (auth, request) => {
   const { userId } = auth();
@@ -33,6 +38,13 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   if (userId && isPublicRoute(request)) {
+    // const startRegister = await getRegisterType(userId);
+    // console.log('startRegister', startRegister);
+    // // Preciso que ao startRegister redirecione para do registro com parametro ?register=true
+    // if (startRegister && !currentPath.includes('register=true')) {
+    //   return NextResponse.redirect(new URL(`${request.url}?register=true`));
+    // }
+    // return NextResponse.redirect(new URL('?register=true', request.url));
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
