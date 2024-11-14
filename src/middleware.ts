@@ -41,7 +41,7 @@ export default clerkMiddleware(async (auth, request) => {
     const startRegister = await getRegisterType(userId);
     console.log('startRegister', startRegister);
     // Preciso que ao startRegister redirecione para do registro com parametro ?register=true
-    if (startRegister && !currentPath.includes('register=true')) {
+    if (startRegister) {
       return NextResponse.redirect(new URL(`${request.url}/register`));
     }
     return NextResponse.redirect(new URL('/dashboard', request.url));
