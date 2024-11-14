@@ -21,9 +21,9 @@ export const BusinessSchema = z.object({
 });
 
 export const ServiceSchema = z.object({
-  name: z.string().min(1, 'Nome do serviço é obrigatório'),
-  price: z.number().min(1, 'Preço é obrigatório'),
-  duration: z.number().min(1, 'Duração é obrigatória'),
+  description: z.string().min(1, 'Nome do serviço é obrigatório'),
+  value: z.number().min(1, 'Preço é obrigatório'),
+  time: z.number().min(1, 'Duração é obrigatória'),
 });
 
 export const ScheduleSchema = z.object({

@@ -1,10 +1,11 @@
 import { CreateAccountData } from '@/schemas/schemas-sign-up';
 
-export const createAccount = async (data: CreateAccountData) => {
-  const response = await fetch(`${process.env.API_URL}/register`, {
+export const createAccount = async (data: CreateAccountData, token: string) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
     cache: 'no-cache',

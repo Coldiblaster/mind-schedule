@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useAuth } from '@clerk/nextjs';
+import { useEffect, useState } from 'react';
 
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { formatCurrency, formatDuration } from '@/lib/format';
+import { getServices } from '@/services/getServices';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 import { AddServiceModal } from './modal/add-service';
@@ -22,16 +24,32 @@ export function ServicesForm({
   onNext: () => void;
   onBack: () => void;
 }) {
-  const [services, setServices] = useState<Service[]>([
-    { id: 1, name: 'Corte Feminino', price: 30, duration: 30 },
-    { id: 2, name: 'Manicure', price: 50000, duration: 45 },
-    { id: 3, name: 'Corte Masculino', price: 100, duration: 30 },
-    { id: 4, name: 'Pé + Mãos', price: 50, duration: 30 },
-    { id: 5, name: 'Pé + Mãos', price: 50, duration: 30 },
-    { id: 6, name: 'Pé + Mãos', price: 50, duration: 30 },
-    { id: 7, name: 'Pé + Mãos', price: 50, duration: 30 },
-    { id: 8, name: 'Pé + Mãos', price: 50, duration: 30 },
-  ]);
+  const { getToken } = useAuth();
+  const [token, setToken] = useState<string | null>(null);
+  const { formData } = useStepsDataStore();
+
+  const handleToken = async () => {
+    setToken(await getToken({ template: 'development-jwt' }));
+  };
+
+  useEffect(() => {
+    handleToken();
+    handleGetService();
+  }, []);
+
+  const handleGetService = async () => {
+    try {
+      if (token) {
+        setServices(
+          await getServices(formData.business?.businessType?.id, token),
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [services, setServices] = useState<Service[]>([]);
   const { updateFormData } = useStepsDataStore();
 
   const [newService, setNewService] = useState<Omit<Service, 'id'>>({

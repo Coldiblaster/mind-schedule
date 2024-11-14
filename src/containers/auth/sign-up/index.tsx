@@ -34,7 +34,7 @@ export function SignUp() {
       case 4:
         return <ScheduleForm onNext={nextStep} onBack={prevStep} />;
       case 5:
-        return <Confirmation resetSteps={resetSteps} />;
+        return <Confirmation />;
       default:
         return null;
     }
