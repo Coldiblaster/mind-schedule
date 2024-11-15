@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
-import { toast } from '@/hooks/use-toast';
+import { Skeleton } from '@/components/ui/skeleton';
 import { formatCurrency, formatDuration } from '@/lib/format';
 import {
   ServiceSuggestionProps,
-  useServiceSuggestion,
-} from '@/services/getServices';
+  useGetServiceSuggestion,
+} from '@/services/service/getServiceSuggestion';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 import { AddServiceModal } from './modal/add-service';
@@ -36,7 +37,7 @@ export function ServicesForm({
     data: serviceSuggestions,
     isLoading,
     isFetched,
-  } = useServiceSuggestion(
+  } = useGetServiceSuggestion(
     {
       businessTypeId: formData.business?.businessType.id,
       segment: formData.business?.businessType.label,
@@ -68,9 +69,7 @@ export function ServicesForm({
       setServices([...services, { ...newService, id: uuidv4() }]);
       setNewService({ title: '', value: 0, time: 0 });
     } else {
-      toast({
-        title: 'Por favor, preencha todos os campos corretamente.',
-      });
+      toast.error('Por favor, preencha todos os campos corretamente.');
     }
   };
 
@@ -124,17 +123,17 @@ export function ServicesForm({
 
       {isLoading ? (
         <div className="flex flex-col gap-4">
-          <ul
+          <div
             className="grid grid-cols-1 gap-2 md:grid-cols-2"
             aria-label="Lista de serviços"
           >
             {Array.from({ length: 6 }).map((_, index) => (
-              <li
+              <Skeleton
                 key={index}
-                className="h-20 animate-pulse border border-input bg-white dark:border-slate-900 dark:bg-black"
+                className="h-20 border border-input bg-white dark:border-slate-900 dark:bg-black"
               />
             ))}
-          </ul>
+          </div>
         </div>
       ) : services?.length === 0 ? (
         <div

@@ -27,8 +27,6 @@ export const DashboardProfessional = () => {
 
   const handleToken = async () => {
     const token = await getToken({ template: 'development-jwt' });
-
-    console.log(token);
   };
 
   useEffect(() => {

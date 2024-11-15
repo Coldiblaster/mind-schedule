@@ -5,12 +5,12 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 import { AvailableTimes } from '@/components/available-times';
 import { CardProfessional } from '@/components/card-professional';
 import { Icon } from '@/components/icon';
-// import { toast } from '@/components/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -29,7 +29,6 @@ import {
 } from '@/components/ui/popover';
 import { AvailableTimesProps } from '@/data/mock/professional';
 import { useMultiStepForm } from '@/hooks/use-multistep-form';
-import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 const FormSchema = z.object({
@@ -40,7 +39,6 @@ const FormSchema = z.object({
 
 export function Step02() {
   const { updatePropertyForm, data } = useMultiStepForm();
-  const { toast } = useToast();
 
   const { professional } = data;
 
@@ -52,14 +50,9 @@ export function Step02() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    toast(
+      `You submitted the following values: ${JSON.stringify(data, null, 2)}`,
+    );
   }
 
   const handleSelectedDate = (selectedDate: Date) => {
@@ -79,14 +72,8 @@ export function Step02() {
       setAvailableTimes(availableTimesForSelectedDate);
 
       // Chama a função de submit para salvar a data selecionada no form
-
-      console.log(
-        'Horários disponíveis para o dia selecionado:',
-        availableTimesForSelectedDate,
-      );
     } else {
       setAvailableTimes(undefined);
-      console.log('Nenhum horário disponível para essa data.');
     }
   };
 

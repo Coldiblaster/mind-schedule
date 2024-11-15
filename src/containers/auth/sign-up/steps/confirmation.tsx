@@ -1,10 +1,10 @@
 import { useAuth, useClerk } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import success from '@/assets/animations/success.json';
 import { Animations } from '@/components/animations/animations';
 import { Button } from '@/components/ui/button';
-import { toast } from '@/hooks/use-toast';
 import { createAccount } from '@/services/createAccount';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
@@ -24,7 +24,6 @@ export function Confirmation() {
 
   const { user } = useClerk();
 
-  console.log(formData);
   const handleCreateAccount = async () => {
     try {
       await createAccount(
@@ -41,9 +40,10 @@ export function Confirmation() {
             complement: formData.location?.complement,
           },
           services: formData?.services?.map(service => ({
-            description: service.name,
-            value: service.price,
-            time: service.duration,
+            title: service.title,
+            description: service.title,
+            value: service.value,
+            time: service.time,
           })),
           operatingHours: formData.schedule ?? { days: [] },
           email: user?.emailAddresses[0]?.emailAddress ?? '',
@@ -52,14 +52,7 @@ export function Confirmation() {
         token!,
       );
     } catch (error) {
-      toast({
-        title: 'Erro ao cliar a conta',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(error, null, 2)}</code>
-          </pre>
-        ),
-      });
+      toast.error('Erro ao criar a conta', {});
     }
   };
 

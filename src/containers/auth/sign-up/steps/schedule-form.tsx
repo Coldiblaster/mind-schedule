@@ -89,8 +89,6 @@ export function ScheduleForm({
   const onSubmitForm = async (data: ScheduleData) => {
     setIsPending(true);
 
-    console.log(data);
-
     // const operatingHours = {
     //   days: Object.keys(schedules).map(dayId => ({
     //     startTime: schedules[dayId].start,

@@ -21,7 +21,7 @@ export interface ServiceSuggestionResponse {
   services: ServiceSuggestionProps[];
 }
 
-export const getServiceSuggestion = async (
+const getServiceSuggestion = async (
   { businessTypeId, segment }: ServiceSuggestionBody,
   token: string,
 ): Promise<ServiceSuggestionResponse> => {
@@ -51,14 +51,14 @@ export const getServiceSuggestion = async (
   return response.json();
 };
 
-export const useServiceSuggestion = (
+export const useGetServiceSuggestion = (
   { businessTypeId, segment }: ServiceSuggestionBody,
   enabled: boolean,
 ) => {
   const { token } = useAuth();
 
   return useQuery({
-    queryKey: ['useServiceSuggestion', businessTypeId, segment, token],
+    queryKey: ['useGetServiceSuggestion', businessTypeId, segment],
     queryFn: () => getServiceSuggestion({ businessTypeId, segment }, token),
     enabled: !!token && enabled && !!businessTypeId && !!segment,
     refetchOnWindowFocus: false,
