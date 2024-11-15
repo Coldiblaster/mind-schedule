@@ -1,13 +1,30 @@
-import { ServiceSuggestion } from '@/containers/auth/sign-up/steps';
+import { useQuery } from '@tanstack/react-query';
 
-interface ISegments {
-  businessType: number;
+import { useAuth } from '@/hooks/use-auth';
+
+interface ServiceSuggestionBody {
+  businessTypeId?: number;
+  segment?: string;
+}
+
+export interface ServiceSuggestionProps {
+  id: string;
+  description?: string;
+  time: number;
+  title: string;
+  createdAt?: string;
+  updatedAt?: string;
+  value: number;
+}
+
+export interface ServiceSuggestionResponse {
+  services: ServiceSuggestionProps[];
 }
 
 export const getServiceSuggestion = async (
-  businessType: ISegments,
+  { businessTypeId, segment }: ServiceSuggestionBody,
   token: string,
-): Promise<ServiceSuggestion> => {
+): Promise<ServiceSuggestionResponse> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/service-suggestion/generate`,
     {
@@ -17,8 +34,8 @@ export const getServiceSuggestion = async (
         authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        businessTypeId: businessType.id,
-        segment: businessType.label,
+        businessTypeId,
+        segment,
       }),
       cache: 'no-cache',
     },
@@ -32,4 +49,18 @@ export const getServiceSuggestion = async (
   }
 
   return response.json();
+};
+
+export const useServiceSuggestion = (
+  { businessTypeId, segment }: ServiceSuggestionBody,
+  enabled: boolean,
+) => {
+  const { token } = useAuth();
+
+  return useQuery({
+    queryKey: ['useServiceSuggestion', businessTypeId, segment, token],
+    queryFn: () => getServiceSuggestion({ businessTypeId, segment }, token),
+    enabled: !!token && enabled && !!businessTypeId && !!segment,
+    refetchOnWindowFocus: false,
+  });
 };
