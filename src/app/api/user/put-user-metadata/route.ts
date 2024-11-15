@@ -2,7 +2,7 @@
 import { clerkClient } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-export async function POST(request: Request) {
+export async function PUT(request: Request) {
   try {
     const { userId } = await request.json(); // Captura o userId do corpo da requisição
 
@@ -13,14 +13,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await clerkClient().users.getUser(userId);
+    const user = await clerkClient().users.updateUserMetadata(userId, {
+      privateMetadata: {
+        companyDataCompleted: false,
+        userType: 'professional',
+      },
+    });
 
     // Retorna os metadados privados do usuário
     return NextResponse.json(user.privateMetadata);
   } catch (error) {
-    console.error('Erro ao obter metadados do usuário:', error);
+    console.error('Erro ao salvar os metadados do usuário:', error);
     return NextResponse.json(
-      { error: 'Erro ao obter metadados do usuário' },
+      { error: 'Erro ao salvar metadados do usuário' },
       { status: 500 },
     );
   }

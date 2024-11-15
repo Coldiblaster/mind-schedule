@@ -3,3 +3,8 @@ export enum UserTypes {
   PATIENT = 'patient',
   // Adicione outros tipos conforme necessário
 }
+
+export interface UserPrivateMetadata {
+  userType: string;
+  companyDataCompleted: boolean;
+}

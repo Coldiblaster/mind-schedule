@@ -14,8 +14,13 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 // Definição de rotas específicas
-const patientRoutes = ['/schedule', '/dashboard', '/login-callback'];
-const professionalRoutes = ['/dashboard', '/login-callback'];
+const patientRoutes = [
+  '/schedule',
+  '/dashboard',
+  '/login-callback',
+  '/register',
+];
+const professionalRoutes = ['/dashboard', '/login-callback', '/register'];
 
 // Função para buscar o tipo de usuário (patient ou professional)
 async function getUserType(userId: string) {
@@ -23,9 +28,12 @@ async function getUserType(userId: string) {
   return user.privateMetadata.userType;
 }
 // Função para buscar o tipo de usuário (patient ou professional)
-async function getRegisterType(userId: string) {
+async function getUserPrivateMetadata(
+  userId: string,
+): Promise<UserPrivateMetadata> {
   const user = await clerkClient().users.getUser(userId);
-  return user.privateMetadata.startRegister;
+
+  return user.privateMetadata as UserPrivateMetadata;
 }
 
 export default clerkMiddleware(async (auth, request) => {
@@ -38,12 +46,13 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   if (userId && isPublicRoute(request)) {
-    const startRegister = await getRegisterType(userId);
-    console.log('startRegister', startRegister);
+    const userPrivateMetadata = await getUserPrivateMetadata(userId);
+
     // Preciso que ao startRegister redirecione para do registro com parametro ?register=true
-    if (startRegister) {
+    if (!userPrivateMetadata.companyDataCompleted) {
       return NextResponse.redirect(new URL(`/register`, request.url));
     }
+
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
