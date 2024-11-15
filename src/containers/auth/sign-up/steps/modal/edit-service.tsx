@@ -11,13 +11,12 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-import { Service } from '../services-form';
+import { ServiceSuggestionProps } from '@/services/getServices';
 
 interface EditServiceProps {
-  services: Service[];
-  service: Service;
-  setServices: (service: Service[]) => void;
+  services: ServiceSuggestionProps[];
+  service: ServiceSuggestionProps;
+  setServices: (service: ServiceSuggestionProps[]) => void;
 }
 
 export function EditServiceModal({
@@ -25,10 +24,11 @@ export function EditServiceModal({
   setServices,
   service,
 }: EditServiceProps) {
-  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [editingService, setEditingService] =
+    useState<ServiceSuggestionProps | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const editService = (service: Service) => {
+  const editService = (service: ServiceSuggestionProps) => {
     setEditingService(service);
   };
 
@@ -48,7 +48,7 @@ export function EditServiceModal({
         <button
           onClick={() => editService(service)}
           className="rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          aria-label={`Editar ${service.name}`}
+          aria-label={`Editar ${service.title}`}
         >
           <Icon size={18} name="MdOutlineEdit" />
         </button>
@@ -56,7 +56,7 @@ export function EditServiceModal({
 
       <DialogContent className="bg-background text-foreground">
         <DialogHeader>
-          <DialogTitle>Editar Serviço: {editingService?.name}</DialogTitle>
+          <DialogTitle>Editar Serviço: {editingService?.title}</DialogTitle>
         </DialogHeader>
         <form
           onSubmit={e => {
@@ -69,11 +69,11 @@ export function EditServiceModal({
             <Label htmlFor="edit-name">Nome do serviço</Label>
             <Input
               id="edit-name"
-              value={editingService?.name || ''}
+              value={editingService?.title || ''}
               onChange={e =>
                 setEditingService({
                   ...editingService!,
-                  name: e.target.value,
+                  title: e.target.value,
                 })
               }
               required
@@ -84,11 +84,11 @@ export function EditServiceModal({
             <Input
               id="edit-price"
               type="number"
-              value={editingService?.price || 0}
+              value={editingService?.value || 0}
               onChange={e =>
                 setEditingService({
                   ...editingService!,
-                  price: Number(e.target.value),
+                  value: Number(e.target.value),
                 })
               }
               min="0"
@@ -101,11 +101,11 @@ export function EditServiceModal({
             <Input
               id="edit-duration"
               type="number"
-              value={editingService?.duration || 0}
+              value={editingService?.time || 0}
               onChange={e =>
                 setEditingService({
                   ...editingService!,
-                  duration: Number(e.target.value),
+                  time: Number(e.target.value),
                 })
               }
               min="1"

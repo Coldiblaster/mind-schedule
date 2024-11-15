@@ -10,11 +10,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { Service } from '../services-form';
+import { newService } from '../services-form';
 
 interface AddServiceProps {
-  newService: Omit<Service, 'id'>;
-  setNewService: (newService: Omit<Service, 'id'>) => void;
+  newService: Omit<newService, 'id'>;
+  setNewService: (newService: Omit<newService, 'id'>) => void;
   addNewService: () => void;
   isOpenModalNewService: boolean;
   setIsOpenModalNewService: (value: boolean) => void;
@@ -27,7 +27,6 @@ export function AddServiceModal({
   isOpenModalNewService,
   setIsOpenModalNewService,
 }: AddServiceProps) {
-  console.log('isOpenModalNewService', isOpenModalNewService);
   return (
     <Dialog
       open={isOpenModalNewService}
@@ -35,15 +34,6 @@ export function AddServiceModal({
         setIsOpenModalNewService(false);
       }}
     >
-      {/* <DialogTrigger asChild>
-        <Button
-          variant="link"
-          aria-label="Adicionar novo serviço"
-          className="text-sm text-primary hover:text-blue-300 hover:no-underline focus:outline-none"
-        >
-          Adicionar mais
-        </Button>
-      </DialogTrigger> */}
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Adicionar Novo Serviço</DialogTitle>
@@ -60,9 +50,9 @@ export function AddServiceModal({
             <Label htmlFor="new-name">Nome do serviço</Label>
             <Input
               id="new-name"
-              value={newService.name}
+              value={newService.title}
               onChange={e =>
-                setNewService({ ...newService, name: e.target.value })
+                setNewService({ ...newService, title: e.target.value })
               }
               required
             />
@@ -72,11 +62,11 @@ export function AddServiceModal({
             <Input
               id="new-price"
               type="number"
-              value={newService.price}
+              value={newService.value}
               onChange={e =>
                 setNewService({
                   ...newService,
-                  price: Number(e.target.value),
+                  value: Number(e.target.value),
                 })
               }
               min="0"
@@ -89,11 +79,11 @@ export function AddServiceModal({
             <Input
               id="new-duration"
               type="number"
-              value={newService.duration}
+              value={newService.time}
               onChange={e =>
                 setNewService({
                   ...newService,
-                  duration: Number(e.target.value),
+                  time: Number(e.target.value),
                 })
               }
               min="1"
