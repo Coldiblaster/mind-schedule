@@ -1,20 +1,28 @@
 import { useAuth } from '@clerk/nextjs';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { formatCurrency, formatDuration } from '@/lib/format';
-import { getServices } from '@/services/getServices';
+import { getServiceSuggestion } from '@/services/getServices';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 import { AddServiceModal } from './modal/add-service';
-import { EditServiceModal } from './modal/edit-service';
 
 export interface Service {
   id: number;
   name: string;
   price: number;
   duration: number;
+}
+export interface ServiceSuggestion {
+  id: string;
+  createdAt: string;
+  description: string;
+  time: number;
+  title: string;
+  updatedAt: string;
+  value: number;
 }
 
 export function ServicesForm({
@@ -27,29 +35,8 @@ export function ServicesForm({
   const { getToken } = useAuth();
   const [token, setToken] = useState<string | null>(null);
   const { formData } = useStepsDataStore();
-
-  const handleToken = async () => {
-    setToken(await getToken({ template: 'development-jwt' }));
-  };
-
-  useEffect(() => {
-    handleToken();
-    handleGetService();
-  }, []);
-
-  const handleGetService = async () => {
-    try {
-      if (token) {
-        setServices(
-          await getServices(formData.business?.businessType?.id, token),
-        );
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const [services, setServices] = useState<Service[]>([]);
+
   const { updateFormData } = useStepsDataStore();
 
   const [newService, setNewService] = useState<Omit<Service, 'id'>>({
@@ -58,6 +45,40 @@ export function ServicesForm({
     duration: 0,
   });
   const [isOpenModalNewService, setIsOpenModalNewService] = useState(false);
+
+  // Função para obter o token e armazenar no estado
+  useEffect(() => {
+    const fetchToken = async () => {
+      const fetchedToken = await getToken({ template: 'development-jwt' });
+      setToken(fetchedToken);
+    };
+    fetchToken();
+  }, [getToken]);
+
+  // Função para buscar sugestões de serviços quando o token está disponível
+  const handleGetService = useCallback(async () => {
+    if (!token || !formData.business?.businessType?.id) return;
+    try {
+      const fetchedServices = await getServiceSuggestion(
+        formData.business.businessType,
+        token,
+      );
+
+      console.log(fetchedServices);
+      addNewService({
+        name: fetchedServices?.title,
+        price: fetchedServices?.value,
+        duration: fetchedServices?.time,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [token, formData.business?.businessType?.id]);
+
+  // Chamar a função handleGetService assim que o token for carregado
+  useEffect(() => {
+    handleGetService();
+  }, [token, handleGetService]);
 
   const removeService = (id: number) => {
     setServices(services.filter(service => service.id !== id));
@@ -146,40 +167,45 @@ export function ServicesForm({
               <span className="text-2xl md:mb-1">{type.icon}</span>
               {type.label}
             </div> */}
-            {services.map(service => (
-              <li
-                key={service.id}
-                className="relative flex flex-col items-start justify-between gap-1 border border-input bg-white p-3 text-xs transition hover:border-primary hover:bg-slate-100 hover:shadow-3xl hover:shadow-primary/25 dark:border-slate-900 dark:bg-black hover:dark:border-primary hover:dark:bg-blue-700 md:gap-2 lg:px-4 lg:text-sm"
-              >
-                <div className="flex w-full items-center justify-between">
-                  <span className="text-sm">{service.name}</span>
-                  <div className="space-x-2">
-                    <EditServiceModal
-                      service={service}
-                      services={services}
-                      setServices={setServices}
-                    />
+            {serviceSuggestions?.map(service => (
+              <div key={service.id}>
+                <div>{service.title}</div>
+                <div>{formatCurrency(service.value)}</div>
+                <div>{formatDuration(service.time)}</div>
+              </div>
+              // <li
+              //   key={service.id}
+              //   className="relative flex flex-col items-start justify-between gap-1 border border-input bg-white p-3 text-xs transition hover:border-primary hover:bg-slate-100 hover:shadow-3xl hover:shadow-primary/25 dark:border-slate-900 dark:bg-black hover:dark:border-primary hover:dark:bg-blue-700 md:gap-2 lg:px-4 lg:text-sm"
+              // >
+              //   <div className="flex w-full items-center justify-between">
+              //     <span className="text-sm">{service.title}</span>
+              //     <div className="space-x-2">
+              //       <EditServiceModal
+              //         service={service}
+              //         services={services}
+              //         setServices={setServices}
+              //       />
 
-                    <button
-                      onClick={() => removeService(service.id)}
-                      className="rounded-full p-1 text-gray-400 hover:text-destructive focus:outline-none focus:ring-2 focus:ring-blue-500 hover:dark:text-red-500"
-                      aria-label={`Remover ${service.name}`}
-                    >
-                      <Icon name="PiTrash" size={18} />
-                    </button>
-                  </div>
-                </div>
-                <div className="flex w-full items-center justify-between space-x-2 text-sm text-gray-400">
-                  <div className="flex justify-center gap-1 text-sm">
-                    <Icon name="PiCurrencyCircleDollar" size={18} />
-                    {formatCurrency(service.price)}
-                  </div>
-                  <div className="flex justify-center gap-0.5 text-sm">
-                    <Icon name="PiClock" size={18} />
-                    {formatDuration(service.duration)}
-                  </div>
-                </div>
-              </li>
+              //       <button
+              //         onClick={() => removeService(service.id)}
+              //         className="rounded-full p-1 text-gray-400 hover:text-destructive focus:outline-none focus:ring-2 focus:ring-blue-500 hover:dark:text-red-500"
+              //         aria-label={`Remover ${service.title}`}
+              //       >
+              //         <Icon name="PiTrash" size={18} />
+              //       </button>
+              //     </div>
+              //   </div>
+              //   <div className="flex w-full items-center justify-between space-x-2 text-sm text-gray-400">
+              //     <div className="flex justify-center gap-1 text-sm">
+              //       <Icon name="PiCurrencyCircleDollar" size={18} />
+              //       {formatCurrency(service.value)}
+              //     </div>
+              //     <div className="flex justify-center gap-0.5 text-sm">
+              //       <Icon name="PiClock" size={18} />
+              //       {formatDuration(service.time)}
+              //     </div>
+              //   </div>
+              // </li>
             ))}
           </ul>
           <div className="flex justify-between text-sm">

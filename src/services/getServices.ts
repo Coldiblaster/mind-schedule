@@ -1,11 +1,13 @@
+import { ServiceSuggestion } from '@/containers/auth/sign-up/steps';
+
 interface ISegments {
-  businessTypeId: number;
+  businessType: number;
 }
 
-export const getServices = async (
-  { businessTypeId }: ISegments,
+export const getServiceSuggestion = async (
+  businessType: ISegments,
   token: string,
-) => {
+): Promise<ServiceSuggestion> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/service-suggestion/generate`,
     {
@@ -14,7 +16,10 @@ export const getServices = async (
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ businessTypeId }),
+      body: JSON.stringify({
+        businessTypeId: businessType.id,
+        segment: businessType.label,
+      }),
       cache: 'no-cache',
     },
   );
