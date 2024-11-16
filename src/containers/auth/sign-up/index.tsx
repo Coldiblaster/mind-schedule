@@ -51,7 +51,7 @@ export function SignUp() {
       <Tabs
         value={activeStep.value}
         onValueChange={handleTabChange}
-        className="mb-8"
+        className="mb-4"
       >
         <TabsList
           variant="secondary"
@@ -81,7 +81,8 @@ export function SignUp() {
           ))}
         </TabsList>
       </Tabs>
-      <div className="mt-4 flex h-12 items-center justify-center text-sm font-bold text-foreground transition-all md:justify-start">
+
+      <div className="flex h-12 items-center justify-center text-sm font-bold text-foreground transition-all md:justify-start">
         {activeStep.description}
       </div>
       <Card className="rounded-none">
