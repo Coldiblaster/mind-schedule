@@ -14,7 +14,7 @@ export const LandingPage = () => {
   return (
     <main
       id="landing-page"
-      className="relative flex w-full flex-col items-center pb-32"
+      className="relative flex w-full animate-fade flex-col items-center pb-32"
     >
       <div className="relative flex h-[calc(100vh+170px)] w-full flex-col items-center justify-center">
         <div className="to-dark absolute top-0 h-full w-full bg-primary bg-gradient-to-b from-primary clip-polygon-clip dark:bg-primary">

@@ -22,7 +22,6 @@ export function SignUp() {
 
   const activeStep = steps[currentStepIndex];
 
-  // Memoiza o formulário para evitar re-renderizações desnecessárias
   const renderForm = useMemo(() => {
     switch (activeStep.id) {
       case 1:
@@ -40,7 +39,6 @@ export function SignUp() {
     }
   }, [activeStep, nextStep, prevStep, resetSteps]);
 
-  // Função callback para troca de abas, otimizada com useCallback
   const handleTabChange = useCallback(
     (value: string) => goToStep(steps.findIndex(step => step.value === value)),
     [goToStep, steps],
@@ -55,7 +53,10 @@ export function SignUp() {
         onValueChange={handleTabChange}
         className="mb-8"
       >
-        <TabsList className="grid w-full grid-cols-5 md:gap-2">
+        <TabsList
+          variant="secondary"
+          className="grid w-full grid-cols-5 md:gap-2"
+        >
           {steps.map((step, index) => (
             <TabsTrigger
               key={step.value}
@@ -63,7 +64,7 @@ export function SignUp() {
               disabled={
                 !step.complete && index > steps.findIndex(s => s.active)
               }
-              className={`flex h-full flex-col items-center justify-start p-1 text-center md:p-2 lg:p-3 ${step.active ? 'border-blue-600' : ''}`}
+              className={`flex h-full flex-col items-center justify-start p-1 text-center md:p-2 lg:p-3`}
             >
               <div
                 className={`${step.complete && 'bg-green-600'} mb-2 flex min-h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 lg:h-8 lg:w-8`}
