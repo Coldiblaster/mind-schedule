@@ -68,7 +68,15 @@ export function SegmentForm({
 
   useEffect(() => {
     if (data) {
-      setBusinessTypes(data.businessTypes);
+      if (formData.business && formData.business.businessType.id === 21) {
+        setBusinessTypes(
+          data.businessTypes.map(item =>
+            item.id === 21 && formData.business
+              ? { ...item, label: formData.business.businessType.label }
+              : item,
+          ),
+        );
+      } else setBusinessTypes(data.businessTypes);
     }
   }, [isPending, data]);
 

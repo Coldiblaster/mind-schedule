@@ -219,7 +219,13 @@ export function ServicesForm({
         <Button variant="outline" onClick={onBack}>
           Voltar
         </Button>
-        <Button onClick={() => saveServices(services)}>Continuar</Button>
+        <Button
+          className="w-full max-w-28"
+          isLoading={isLoading}
+          onClick={() => saveServices(services)}
+        >
+          Continuar
+        </Button>
       </div>
 
       <AddServiceModal

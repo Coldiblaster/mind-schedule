@@ -202,7 +202,7 @@ export function ScheduleForm({
             <Button variant="ghost" onClick={onBack}>
               Voltar
             </Button>
-            <Button type="submit" loading={isPending}>
+            <Button type="submit" isLoading={isPending}>
               Continuar
             </Button>
           </div>

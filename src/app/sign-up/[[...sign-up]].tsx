@@ -139,7 +139,7 @@ export default function SignUpForm() {
         type="submit"
         variant="secondary"
         className="mt-4 w-full"
-        loading={loading}
+        isLoading={loading}
       >
         Continue
       </Button>
