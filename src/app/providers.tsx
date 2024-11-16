@@ -31,7 +31,6 @@ export function Providers({ children }: ProvidersProps) {
               },
             }}
           />
-          ;
         </AuthPermissionsProvider>
       </QueryClientProvider>
     </ThemeProvider>
