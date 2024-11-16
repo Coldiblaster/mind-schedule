@@ -122,11 +122,7 @@ export function SignInPage() {
           <div className="text-center text-xs text-gray-500">
             Ideal para profissionais de saúde, beleza, e prestadores de
             serviços.
-            <Button
-              variant="link"
-              className="h-auto px-1 py-0"
-              onClick={() => { }}
-            >
+            <Button variant="link" className="h-auto px-1 py-0">
               Saiba mais e cadastre sua empresa
             </Button>
           </div>

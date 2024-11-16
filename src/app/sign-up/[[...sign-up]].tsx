@@ -104,7 +104,7 @@ export default function SignUpForm() {
           </label>
         )}
 
-        <Button type="submit" className="mt-4 w-full" loading={loading}>
+        <Button type="submit" className="mt-4 w-full" isLoading={loading}>
           Confirmar código
         </Button>
       </form>

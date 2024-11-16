@@ -116,7 +116,7 @@ export default function SignInForm() {
             {error}
           </label>
         )}
-        <Button type="submit" className="mt-4 w-full" loading={loading}>
+        <Button type="submit" className="mt-4 w-full" isLoading={loading}>
           Confirmar código
         </Button>
       </form>

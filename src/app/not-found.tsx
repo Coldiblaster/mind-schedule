@@ -1,6 +1,5 @@
 'use client';
 
-
 import { CompanyLogo } from '@/components/company-logo';
 import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 import { UserTypes } from '@/types/user-types';

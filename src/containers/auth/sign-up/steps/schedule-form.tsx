@@ -7,12 +7,7 @@ import { CustomSelect } from '@/components/custom-select';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
-import {
-  CreateAccountData,
-  ScheduleData,
-  ScheduleSchema,
-} from '@/schemas/schemas-sign-up';
-import { createAccount } from '@/services/createAccount';
+import { ScheduleData, ScheduleSchema } from '@/schemas/schemas-sign-up';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 const timeOptions = Array.from({ length: 24 }, (_, i) => {
@@ -45,7 +40,7 @@ export function ScheduleForm({
     };
   };
 
-  const { updateFormData, formData } = useStepsDataStore();
+  const { updateFormData } = useStepsDataStore();
   const [isPending, setIsPending] = useState(false);
 
   const [schedules, setSchedules] = useState<Schedule>(

@@ -34,7 +34,7 @@ export const MD = ({ as, children, className = '', ...rest }: BodyProps) => {
       {as === '700' && (
         <div
           {...rest}
-          className={`text-sm font-bold md:text-base  ${className}`}
+          className={`text-sm font-bold md:text-base ${className}`}
         >
           {children}
         </div>
