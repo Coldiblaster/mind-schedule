@@ -13,9 +13,11 @@ import { useStepsDataStore } from '@/store/steps-data-store';
 export function LocationForm({
   onNext,
   onBack,
+  title,
 }: {
   onNext: () => void;
   onBack: () => void;
+  title: string;
 }) {
   const { updateFormData, formData } = useStepsDataStore();
   const [fieldsDisabled, setFieldsDisabled] = useState({
@@ -78,7 +80,7 @@ export function LocationForm({
       role="tabpanel"
       aria-label="Local de atuação"
     >
-      <h2 className="mb-2 text-2xl font-bold">Localização</h2>
+      <h2 className="mb-2 text-2xl font-bold">{title}</h2>
       <p className="mb-4 text-sm text-muted-foreground md:mb-6">
         Insira o endereço do seu negócio para que seus clientes possam
         encontrá-lo.

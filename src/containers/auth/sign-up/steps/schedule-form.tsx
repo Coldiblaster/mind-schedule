@@ -28,9 +28,11 @@ const weekDays = [
 export function ScheduleForm({
   onNext,
   onBack,
+  title,
 }: {
   onNext: () => void;
   onBack: () => void;
+  title: string;
 }) {
   type Schedule = {
     [key: string]: {
@@ -135,7 +137,7 @@ export function ScheduleForm({
       role="tabpanel"
       aria-label="Horário de funcionamento"
     >
-      <h2 className="mb-2 text-2xl font-bold">Expediente</h2>
+      <h2 className="mb-2 text-2xl font-bold">{title}</h2>
       <p className="mb-4 text-sm text-muted-foreground md:mb-6">
         Para finalizar, qual é o horário de funcionamento do seu
         estabelecimento?

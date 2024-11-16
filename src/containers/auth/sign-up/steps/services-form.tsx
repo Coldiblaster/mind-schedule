@@ -25,9 +25,11 @@ export interface newService {
 export function ServicesForm({
   onNext,
   onBack,
+  title,
 }: {
   onNext: () => void;
   onBack: () => void;
+  title: string;
 }) {
   const { updateFormData, formData } = useStepsDataStore();
 
@@ -104,7 +106,7 @@ export function ServicesForm({
       role="tabpanel"
       aria-label="Gerenciamento de Serviços"
     >
-      <h2 className="mb-2 text-2xl font-bold">Serviços sugeridos</h2>
+      <h2 className="mb-2 text-2xl font-bold">{title}</h2>
       <p className="mb-4 text-sm text-muted-foreground md:mb-6">
         Baseado no segmento selecionado, aqui estão alguns serviços sugeridos
         para o seu negócio. Você pode revisar, editar os detalhes ou adicionar

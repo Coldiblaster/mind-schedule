@@ -25,13 +25,37 @@ export function SignUp() {
   const renderForm = useMemo(() => {
     switch (activeStep.id) {
       case 1:
-        return <SegmentForm onNext={nextStep} onBack={prevStep} />;
+        return (
+          <SegmentForm
+            title={activeStep.description}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        );
       case 2:
-        return <LocationForm onNext={nextStep} onBack={prevStep} />;
+        return (
+          <LocationForm
+            title={activeStep.description}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        );
       case 3:
-        return <ServicesForm onNext={nextStep} onBack={prevStep} />;
+        return (
+          <ServicesForm
+            title={activeStep.description}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        );
       case 4:
-        return <ScheduleForm onNext={nextStep} onBack={prevStep} />;
+        return (
+          <ScheduleForm
+            title={activeStep.description}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        );
       case 5:
         return <Confirmation />;
       default:
@@ -82,9 +106,9 @@ export function SignUp() {
         </TabsList>
       </Tabs>
 
-      <div className="flex h-12 items-center justify-center text-sm font-bold text-foreground transition-all md:justify-start">
+      {/* <div className="flex h-12 items-center justify-center text-sm font-bold text-foreground transition-all md:justify-start">
         {activeStep.description}
-      </div>
+      </div> */}
       <Card className="rounded-none">
         <CardContent className="overflow-x-hidden bg-background p-4 lg:p-6">
           {renderForm}

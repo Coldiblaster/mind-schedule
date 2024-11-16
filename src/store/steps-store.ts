@@ -42,7 +42,8 @@ const initialSteps: Step[] = [
     id: 3,
     value: 'servicos',
     label: 'Serviços',
-    description: 'Defina preços, tempo de trabalho para os seus serviços',
+    description:
+      'Adicione detalhes como preços e duração para cada serviço oferecido.',
     active: false,
     complete: false,
   },
@@ -50,7 +51,8 @@ const initialSteps: Step[] = [
     id: 4,
     value: 'expediente',
     label: 'Expediente',
-    description: 'Configure os horários de atendimento',
+    description:
+      'Defina os horários em que seu negócio estará disponível para atendimento.',
     active: false,
     complete: false,
   },

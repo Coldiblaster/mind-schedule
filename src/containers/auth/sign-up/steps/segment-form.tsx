@@ -19,9 +19,11 @@ import { AddCustomSegmentModal } from './modal/add-custom-segment';
 export function SegmentForm({
   onNext,
   onBack,
+  title,
 }: {
   onNext: () => void;
   onBack: () => void;
+  title: string;
 }) {
   const { updateFormData, formData } = useStepsDataStore();
   const { data, isPending } = useGetBusinessType();
@@ -86,7 +88,7 @@ export function SegmentForm({
       role="tabpanel"
       aria-label="Segmento de atuação"
     >
-      <h2 className="mb-2 text-2xl font-bold">Segmento de atuação</h2>
+      <h2 className="mb-2 text-2xl font-bold">{title}</h2>
       <p className="mb-6 text-sm text-muted-foreground">
         Para que você tenha um ambiente personalizado, é importante saber qual o
         seu tipo de negócio.
