@@ -113,7 +113,7 @@ export default function SignUpForm() {
 
   // Display the initial sign-up form to capture the email and password
   return (
-    <form onSubmit={handleSubmit} className="mt-6 animate-fade-left">
+    <form onSubmit={handleSubmit} className="mt-6">
       <label htmlFor="email" className="text-sm text-muted-foreground">
         Cadastrar com e-mail
       </label>

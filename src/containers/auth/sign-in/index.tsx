@@ -11,26 +11,15 @@ import SignUpForm from '@/app/sign-up/[[...sign-up]]';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { tabContent } from '@/data/auth';
 
 import { HeaderAuth } from '../header-auth';
 import { Header } from './header';
 
-const tabContent = {
-  login: {
-    title: 'Login',
-    description: 'Gerencie sua agenda, finanças e muito mais em um só lugar.',
-  },
-  register: {
-    title: 'Cadastrar',
-    description:
-      'Crie uma conta para começar a usar o sistema e facilite sua agenda.',
-  },
-};
-
 export function SignInPage() {
   const { signIn } = useSignIn();
   const { signUp } = useSignUp();
-  const [activeTab, setActiveTab] = useState('login');
+  const [activeTab, setActiveTab] = useState<'signIn' | 'signUp'>('signIn');
   // const router = useRouter();
 
   if (!signIn || !signUp) return null;
@@ -68,20 +57,24 @@ export function SignInPage() {
   // };
 
   return (
-    <div className="relative flex h-full w-full animate-fade justify-center py-4 animate-delay-150 animate-duration-500 md:py-8">
+    <div
+      data-animation={activeTab}
+      className="group relative flex h-full w-full justify-center py-4 transition-all md:py-8"
+    >
       <HeaderAuth className="absolute md:right-0" />
+
       <div className="flex max-w-[350px] flex-col justify-center gap-6">
-        <div className="flex flex-col gap-2">
-          {activeTab === 'login' ? (
-            <Header {...tabContent.login} />
+        <div className="flex flex-col gap-2 group-data-[animation=signIn]:animate-fade-right group-data-[animation=signUp]:animate-fade-left">
+          {activeTab === 'signIn' ? (
+            <Header {...tabContent.signIn} />
           ) : (
-            <Header {...tabContent.register} />
+            <Header {...tabContent.signUp} />
           )}
         </div>
 
         <Button
           variant="outline"
-          className="flex w-full gap-2"
+          className="flex w-full gap-2 group-data-[animation=signIn]:animate-fade-right group-data-[animation=signUp]:animate-fade-left"
           onClick={() => handleSignIn('oauth_google')}
         >
           <Image
@@ -90,7 +83,9 @@ export function SignInPage() {
             height={24}
             alt="Logo google"
           />
-          Faça login com o Google
+          {activeTab === 'signIn'
+            ? 'Faça login com o Google'
+            : 'Criar conta com o Google'}
         </Button>
 
         <div className="inline-flex w-full items-center justify-center">
@@ -100,22 +95,25 @@ export function SignInPage() {
           </p>
         </div>
 
-        <Tabs defaultValue="login" className="w-full">
+        <Tabs defaultValue="signIn" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login" onClick={() => setActiveTab('login')}>
+            <TabsTrigger value="signIn" onClick={() => setActiveTab('signIn')}>
               Entrar
             </TabsTrigger>
-            <TabsTrigger
-              value="register"
-              onClick={() => setActiveTab('register')}
-            >
+            <TabsTrigger value="signUp" onClick={() => setActiveTab('signUp')}>
               Cadastrar
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="login">
+          <TabsContent
+            className="group-data-[animation=signIn]:animate-fade-right group-data-[animation=signUp]:animate-fade-left"
+            value="signIn"
+          >
             <SignInForm />
           </TabsContent>
-          <TabsContent value="register">
+          <TabsContent
+            className="group-data-[animation=signIn]:animate-fade-right group-data-[animation=signUp]:animate-fade-left"
+            value="signUp"
+          >
             <SignUpForm />
           </TabsContent>
         </Tabs>
@@ -127,7 +125,7 @@ export function SignInPage() {
             <Button
               variant="link"
               className="h-auto px-1 py-0"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               Saiba mais e cadastre sua empresa
             </Button>

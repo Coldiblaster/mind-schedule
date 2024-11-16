@@ -95,7 +95,7 @@ export default function SignInForm() {
 
   if (verifying) {
     return (
-      <form onSubmit={handleVerification} className="mt-6 animate-fade">
+      <form onSubmit={handleVerification} className="mt-6">
         <label htmlFor="code" className="text-sm text-muted-foreground">
           Enviamos um código para o seu email. Insira-o abaixo.
         </label>
@@ -124,7 +124,7 @@ export default function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 animate-fade-right">
+    <form onSubmit={handleSubmit} className="mt-6">
       <label htmlFor="email" className="text-sm text-muted-foreground">
         Entrar com e-mail
       </label>

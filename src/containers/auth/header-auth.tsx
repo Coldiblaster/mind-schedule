@@ -1,4 +1,5 @@
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useClerk } from '@clerk/nextjs';
+import { usePathname } from 'next/navigation';
 
 import { CompanyLogo } from '@/components/company-logo';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
@@ -10,9 +11,11 @@ interface HeaderAuthProps {
 }
 
 export const HeaderAuth = ({ className }: HeaderAuthProps) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const isRegister = searchParams.get('register') === 'true';
+  const pathname = usePathname();
+
+  const { signOut } = useClerk();
+
+  const isRegister = pathname === '/register';
 
   return (
     <div
@@ -28,8 +31,8 @@ export const HeaderAuth = ({ className }: HeaderAuthProps) => {
 
       <div className="mr-1 flex items-center gap-2 md:gap-4">
         {isRegister && (
-          <Button variant="ghost" onClick={() => router.push('/')}>
-            Fazer login
+          <Button variant="ghost" onClick={() => signOut()}>
+            Sair
           </Button>
         )}
         <ThemeToggle />
