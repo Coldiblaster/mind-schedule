@@ -24,15 +24,15 @@ export const metadata: Metadata = {
     title: 'Agende com eficiência e conquiste clientes!',
     description:
       'Transforme sua rotina com nossa plataforma de agendamento intuitiva.',
-    images: ['https://www.mymind.com/logo/my-mind.svg'],
-    url: 'URL_do_seu_site',
+    images: ['https://www.mind-schedule.com/logo/my-mind.svg'],
+    url: 'https://mind-schedule.com.br/',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Agende com eficiência e ganhe clientes!',
     description:
       'Agende de forma simples e aumente a satisfação dos seus clientes.',
-    images: ['https://www.mymind.com/logo/my-mind.svg'],
+    images: ['https://www.mind-schedule.com/logo/my-mind.svg'],
   },
 };
 
