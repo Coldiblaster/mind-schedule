@@ -28,7 +28,7 @@ export const LandingPage = () => {
             <div className="flex flex-col items-center gap-3 text-lg">
               <CompanyLogo width={140} height={140} />
               <Caption as="100" className="mt-5">
-                my.mynd
+                Mind Schedule
               </Caption>
             </div>
             <div className="mt-[10vh] flex flex-col items-center gap-4">
@@ -113,8 +113,8 @@ export const LandingPage = () => {
             Vamos voar juntos! 🚀
           </Display2>
           <p className="max-w-lg text-center text-sm text-muted-foreground lg:text-lg">
-            Com a my.mind, você tem tudo o que precisa para decolar e conquistar
-            o sucesso!
+            Com a Mind Schedule, você tem tudo o que precisa para decolar e
+            conquistar o sucesso!
           </p>
           <div className="mt-8">
             <Button size="lg" onClick={() => goToRegister()}>

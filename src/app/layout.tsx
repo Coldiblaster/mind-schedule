@@ -14,7 +14,7 @@ const font = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'my.mind',
+  title: 'Mind Schedule',
   description:
     'Agende com facilidade e eficiência, otimize seu atendimento e aumente a satisfação dos clientes.',
   keywords:

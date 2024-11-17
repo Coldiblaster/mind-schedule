@@ -26,7 +26,7 @@ export const HeaderAuth = ({ className }: HeaderAuthProps) => {
     >
       <div className="flex items-center gap-2 md:hidden">
         <CompanyLogo />
-        <span className="font-semibold">mind.schedule</span>
+        <span className="font-semibold">Mind Schedule</span>
       </div>
 
       <div className="mr-1 flex items-center gap-2 md:gap-4">

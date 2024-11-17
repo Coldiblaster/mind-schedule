@@ -35,7 +35,7 @@ export function SidebarMobile() {
                 className="transition-all group-hover:scale-110"
               />
 
-              <span className="sr-only">mind.schedule</span>
+              <span className="sr-only">Mind Schedule</span>
             </Link>
 
             {isLoading ? (
