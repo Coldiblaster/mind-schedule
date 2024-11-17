@@ -71,7 +71,6 @@ export const useStepsStore = create<StepsState>()(
     (set, get) => ({
       steps: initialSteps,
       currentStepIndex: 0,
-
       // Avança para o próximo step
       nextStep: () => {
         const { steps, currentStepIndex } = get();
@@ -86,7 +85,6 @@ export const useStepsStore = create<StepsState>()(
           })),
         }));
       },
-
       // Volta para o step anterior
       prevStep: () => {
         const { currentStepIndex } = get();
@@ -100,7 +98,6 @@ export const useStepsStore = create<StepsState>()(
           })),
         }));
       },
-
       // Vai diretamente para um step específico
       goToStep: (index: number) => {
         set(state => ({
@@ -112,7 +109,6 @@ export const useStepsStore = create<StepsState>()(
           })),
         }));
       },
-
       // Reseta os steps para o estado inicial
       resetSteps: () => {
         set(() => ({
@@ -123,6 +119,72 @@ export const useStepsStore = create<StepsState>()(
     }),
     {
       name: 'steps-storage', // Nome do localStorage
+      onRehydrateStorage: () => state => {
+        if (!state) return; // Não há estado salvo no localStorage
+
+        // Map para otimizar a busca de steps existentes no estado
+        const existingStepsMap = new Map(
+          state.steps.map(step => [step.id, step]),
+        );
+
+        // Flag para verificar se houve alterações
+        let stepsChanged = false;
+
+        // Atualizando os steps (mapeando a lista de initialSteps)
+        const updatedSteps = initialSteps.map(newStep => {
+          const existingStep = existingStepsMap.get(newStep.id);
+
+          // Se o step já existe, compara e atualiza os campos se houver diferenças
+          if (existingStep) {
+            // Verifica se há diferenças nos campos label e description
+            const updatedStep: Step = { ...existingStep };
+            let stepUpdated = false;
+
+            if (existingStep.label !== newStep.label) {
+              updatedStep.label = newStep.label;
+              stepUpdated = true;
+            }
+
+            if (existingStep.description !== newStep.description) {
+              updatedStep.description = newStep.description;
+              stepUpdated = true;
+            }
+
+            // Se houve alguma alteração, marca como alterado
+            if (stepUpdated) {
+              stepsChanged = true;
+              return updatedStep;
+            }
+
+            // Caso não haja alteração, retorna o step original
+            return existingStep;
+          }
+
+          // Se o step não existir no estado, adiciona o novo step
+          stepsChanged = true;
+          return newStep;
+        });
+
+        // Verifica se há algum step existente no estado que não está em initialSteps
+        // Caso algum step tenha sido removido no initialSteps, ele será descartado.
+        const updatedStepsSet = new Set(updatedSteps.map(step => step.id));
+
+        // Não adiciona novamente steps já presentes no estado
+        const stepsToAdd = initialSteps.filter(
+          newStep => !updatedStepsSet.has(newStep.id),
+        );
+
+        // Adiciona novos steps ao final, se houver algum
+        if (stepsToAdd.length > 0) {
+          updatedSteps.push(...stepsToAdd);
+          stepsChanged = true;
+        }
+
+        // Se houve qualquer alteração, atualiza o estado
+        if (stepsChanged) {
+          state.steps = updatedSteps;
+        }
+      },
     },
   ),
 );
