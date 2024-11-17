@@ -21,8 +21,9 @@ export const BusinessSchema = z.object({
 });
 
 export const ServiceSchema = z.object({
+  id: z.string(),
   title: z.string().min(1, 'Nome do serviço é obrigatório'),
-  // description: z.string().min(1, 'Descrição do serviço é obrigatório'),
+  description: z.string().min(1, 'Descrição do serviço é obrigatório'),
   value: z.number().min(1, 'Preço é obrigatório'),
   time: z.number().min(1, 'Duração é obrigatória'),
 });
@@ -38,11 +39,13 @@ export const ScheduleSchema = z.object({
   ),
 });
 
+export const OmittedServiceSchema = ServiceSchema.omit({ id: true });
+
 export const CreateAccountSchema = z.object({
   businessTypeId: z.number().optional(),
   customSegment: z.string().optional(),
   address: LocationSchema,
-  services: z.array(ServiceSchema).optional(),
+  services: z.array(OmittedServiceSchema).optional(),
   operatingHours: ScheduleSchema,
   email: z.string().email('O e-mail deve ser um endereço válido'),
   providerId: z.string(),

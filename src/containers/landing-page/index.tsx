@@ -27,7 +27,7 @@ export const LandingPage = () => {
           <div className="mt-auto flex flex-col items-center">
             <div className="flex flex-col items-center gap-3 text-lg">
               <CompanyLogo width={140} height={140} />
-              <Caption as="100" className="mt-5">
+              <Caption as="100" className="mt-5 text-center">
                 Mind Schedule
               </Caption>
             </div>

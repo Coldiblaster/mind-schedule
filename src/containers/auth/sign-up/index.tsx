@@ -100,7 +100,9 @@ export function SignUp() {
                 )}
               </div>
 
-              <span className="text-[10px] md:text-sm">{step.label}</span>
+              <span className="text-[10px] md:text-xs xl:text-sm">
+                {step.label}
+              </span>
             </TabsTrigger>
           ))}
         </TabsList>

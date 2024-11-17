@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
@@ -20,6 +18,7 @@ export interface newService {
   title: string;
   value: number;
   time: number;
+  description: string;
 }
 
 export function ServicesForm({
@@ -33,7 +32,7 @@ export function ServicesForm({
 }) {
   const { updateFormData, formData } = useStepsDataStore();
 
-  const [shouldFetch, setShouldFetch] = useState(true);
+  const [shouldFetch, setShouldFetch] = useState(!formData.services);
 
   const {
     data: serviceSuggestions,
@@ -49,11 +48,6 @@ export function ServicesForm({
 
   const [services, setServices] = useState<ServiceSuggestionProps[]>([]);
 
-  const [newService, setNewService] = useState<Omit<newService, 'id'>>({
-    title: '',
-    value: 0,
-    time: 0,
-  });
   const [isOpenModalNewService, setIsOpenModalNewService] = useState(false);
 
   const removeService = (id: string) => {
@@ -63,15 +57,6 @@ export function ServicesForm({
   const removeAllServices = () => {
     if (window.confirm('Tem certeza que deseja remover todos os serviços?')) {
       setServices([]);
-    }
-  };
-
-  const addNewService = () => {
-    if (newService.title && newService.time > 0 && newService.value > 0) {
-      setServices([...services, { ...newService, id: uuidv4() }]);
-      setNewService({ title: '', value: 0, time: 0 });
-    } else {
-      toast.error('Por favor, preencha todos os campos corretamente.');
     }
   };
 
@@ -89,14 +74,14 @@ export function ServicesForm({
   };
 
   useEffect(() => {
-    if (serviceSuggestions) {
+    if (!formData.services && serviceSuggestions) {
       setServices(serviceSuggestions.services);
-    }
+    } else if (formData.services) setServices(formData.services);
   }, [isFetched, serviceSuggestions]);
 
   useEffect(() => {
     if (isFetched) {
-      setShouldFetch(false); // Desabilita a consulta após o primeiro carregamento
+      setShouldFetch(false);
     }
   }, [isFetched]);
 
@@ -123,7 +108,7 @@ export function ServicesForm({
         </Button>
       </div>
 
-      {isLoading ? (
+      {isLoading || (!serviceSuggestions && !formData.services) ? (
         <div className="flex flex-col gap-4">
           <div
             className="grid grid-cols-1 gap-2 md:grid-cols-2"
@@ -164,9 +149,14 @@ export function ServicesForm({
                 key={service.id}
                 className="relative flex flex-col items-start justify-between gap-1 border border-input bg-white p-3 text-xs transition hover:border-primary hover:bg-slate-100 hover:shadow-3xl hover:shadow-primary/25 dark:border-slate-900 dark:bg-black hover:dark:border-primary hover:dark:bg-blue-700 md:gap-2 lg:px-4 lg:text-sm"
               >
-                <div className="flex w-full items-center justify-between">
-                  <span className="text-sm">{service.title}</span>
-                  <div className="space-x-2">
+                <div className="flex w-full items-start justify-between">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-sm">{service.title}</span>
+                    <span className="text-xs text-gray-400">
+                      {service.description}
+                    </span>
+                  </div>
+                  <div className="flex space-x-2">
                     <EditServiceModal
                       service={service}
                       services={services}
@@ -231,9 +221,8 @@ export function ServicesForm({
       </div>
 
       <AddServiceModal
-        addNewService={addNewService}
-        newService={newService}
-        setNewService={setNewService}
+        services={services}
+        setServices={setServices}
         isOpenModalNewService={isOpenModalNewService}
         setIsOpenModalNewService={setIsOpenModalNewService}
       />

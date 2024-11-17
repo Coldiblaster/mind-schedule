@@ -9,7 +9,7 @@ interface ServiceSuggestionBody {
 
 export interface ServiceSuggestionProps {
   id: string;
-  description?: string;
+  description: string;
   time: number;
   title: string;
   createdAt?: string;
