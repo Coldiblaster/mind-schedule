@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 export async function PUT(request: Request) {
   try {
-    const { userId } = await request.json(); // Captura o userId do corpo da requisição
+    const { userId, companyDataCompleted, userType } = await request.json(); // Captura o userId do corpo da requisição
 
     if (!userId) {
       return NextResponse.json(
@@ -15,8 +15,8 @@ export async function PUT(request: Request) {
 
     const user = await clerkClient().users.updateUserMetadata(userId, {
       privateMetadata: {
-        companyDataCompleted: false,
-        userType: 'professional',
+        companyDataCompleted,
+        userType,
       },
     });
 
