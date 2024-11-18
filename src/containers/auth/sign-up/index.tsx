@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useCallback, useMemo } from 'react';
 
 import { Icon } from '@/components/icon';
@@ -116,9 +117,12 @@ export function SignUp() {
               Termos de Serviço
             </a>{' '}
             e{' '}
-            <a href="#" className="text-blue-400 hover:underline">
+            <Link
+              href="/politicas-de-privacidade"
+              className="text-blue-400 hover:underline"
+            >
               Política de Privacidade
-            </a>
+            </Link>
             .
           </p>
         </div>
