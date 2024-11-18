@@ -18,11 +18,9 @@ import { AddCustomSegmentModal } from './modal/add-custom-segment';
 
 export function SegmentForm({
   onNext,
-  onBack,
   title,
 }: {
   onNext: () => void;
-  onBack: () => void;
   title: string;
 }) {
   const { updateFormData, formData } = useStepsDataStore();
@@ -148,10 +146,7 @@ export function SegmentForm({
             </p>
           )}
 
-          <div className="mt-8 flex justify-between border-t pt-4">
-            <Button variant="outline" onClick={onBack}>
-              Voltar
-            </Button>
+          <div className="mt-8 flex justify-end border-t pt-4">
             <Button type="submit" disabled={!form.getValues('businessType')}>
               Continuar
             </Button>
