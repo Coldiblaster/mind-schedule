@@ -5,27 +5,35 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { CompanyLogo } from '@/components/company-logo';
+import { useAuthPermissions } from '@/hooks/use-auth-permissions';
 import { usePutMetadata } from '@/services/putUserMetadata';
+import { UserTypes } from '@/types/user-types';
 
 const LoginCallback = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const { userId, isLoaded } = useAuth();
+  const { userId } = useAuth();
+  const { companyDataCompleted, isLoading } = useAuthPermissions();
 
-  const { data: userMetadata } = usePutMetadata(userId);
+  const useSaveMetadata = usePutMetadata({
+    userId,
+    companyDataCompleted,
+    userType: UserTypes.PROFESSIONAL,
+  });
 
   useEffect(() => {
-    if (isLoaded && userMetadata) {
-      if (!userMetadata?.companyDataCompleted) {
-        router.push('/register');
-      } else {
+    if (!isLoading && userId) {
+      if (companyDataCompleted) {
         router.push('/dashboard');
+      } else {
+        useSaveMetadata.mutate();
+        router.push('/register');
       }
 
       setLoading(false);
     }
-  }, [isLoaded, userMetadata]);
+  }, [companyDataCompleted, userId]);
 
   if (loading) {
     return (

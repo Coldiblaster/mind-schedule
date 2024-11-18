@@ -5,12 +5,20 @@ import success from '@/assets/animations/success.json';
 import { Animations } from '@/components/animations/animations';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
+import { usePutMetadata } from '@/services/putUserMetadata';
 import { usePostRegister } from '@/services/register/postRegister';
 import { useStepsDataStore } from '@/store/steps-data-store';
+import { UserTypes } from '@/types/user-types';
 
 export function Confirmation() {
   const { formData } = useStepsDataStore();
   const { user } = useClerk();
+
+  const useSaveMetadata = usePutMetadata({
+    userId: user?.id,
+    companyDataCompleted: true,
+    userType: UserTypes.PROFESSIONAL,
+  });
 
   const mutation = usePostRegister({
     businessTypeId: formData.business?.businessType?.id,
@@ -37,6 +45,8 @@ export function Confirmation() {
 
   const handleCreateAccount = async () => {
     mutation.mutate();
+
+    mutation.isSuccess && useSaveMetadata.mutate();
 
     mutation.isError &&
       toast.error(
