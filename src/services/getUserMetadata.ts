@@ -1,7 +1,10 @@
-// src/services/userService.ts
 import { useQuery } from '@tanstack/react-query';
 
-const getUserMetadata = async (userId: string) => {
+import { UserPrivateMetadata } from '@/types/user-types';
+
+const getUserMetadata = async (
+  userId: string,
+): Promise<UserPrivateMetadata> => {
   const response = await fetch('/api/user/get-user-metadata', {
     method: 'POST',
     headers: {
@@ -18,7 +21,7 @@ const getUserMetadata = async (userId: string) => {
 };
 
 export const useUserMetadata = (userId: string | undefined) => {
-  return useQuery({
+  return useQuery<UserPrivateMetadata>({
     queryKey: ['userMetadata', userId],
     queryFn: () => getUserMetadata(userId!),
     enabled: !!userId,

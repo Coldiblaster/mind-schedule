@@ -1,13 +1,18 @@
-// src/services/userService.ts
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
-const getPutMetadata = async (userId: string) => {
+import { UserPrivateMetadata } from '@/types/user-types';
+
+interface PutMetadataProps extends UserPrivateMetadata {
+  userId: string | null | undefined;
+}
+
+const putPutMetadata = async (data: PutMetadataProps) => {
   const response = await fetch('/api/user/put-user-metadata', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId }),
+    body: JSON.stringify({ data }),
   });
 
   if (!response.ok) {
@@ -17,13 +22,8 @@ const getPutMetadata = async (userId: string) => {
   return response.json();
 };
 
-export const usePutMetadata = (userId: string | null | undefined) => {
-  return useQuery({
-    queryKey: ['usePutMetadata', userId],
-    queryFn: () => getPutMetadata(userId!),
-    enabled: !!userId,
-    staleTime: 1000 * 60 * 5, // 5 minutos
-    gcTime: 1000 * 60 * 10,
-    refetchOnWindowFocus: false,
+export const usePutMetadata = (data: PutMetadataProps) => {
+  return useMutation({
+    mutationFn: () => putPutMetadata(data),
   });
 };
