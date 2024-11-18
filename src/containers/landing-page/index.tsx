@@ -1,15 +1,15 @@
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-import { CompanyLogo } from '@/components/company-logo';
-import { Caption, Display2 } from '@/components/typography';
-import { Button } from '@/components/ui/button';
+import { CompanyLogo } from "@/components/company-logo";
+import { Caption, Display2 } from "@/components/typography";
+import { Button } from "@/components/ui/button";
 
 export const LandingPage = () => {
   const router = useRouter();
   const goToRegister = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    router.push('/?register=true');
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    router.push("/?register=true");
   };
   return (
     <main
@@ -55,7 +55,7 @@ export const LandingPage = () => {
 
       <section className="relative -mt-32 w-full">
         <div className="mx-auto flex flex-col gap-12 md:flex-row md:items-center">
-          <div className="w-72 lg:w-1/2">
+          <div className="w-72 lg:w-1/2 animate-fade-right">
             <Image
               src="/home/image-left.svg"
               alt="Gestão"
@@ -87,7 +87,7 @@ export const LandingPage = () => {
               que realmente importa: o atendimento.
             </p>
           </div>
-          <div className="lg:w-1/2">
+          <div className="w-72 lg:w-1/2 self-end animate-fade-left">
             <Image
               src="home/image-right.svg"
               alt="Eficiência"
@@ -103,7 +103,7 @@ export const LandingPage = () => {
         <Image
           src="home/rocket.svg"
           alt="Rocket"
-          className="-z-10 mx-auto mb-8 h-auto w-screen xl:-mt-[140px]"
+          className="-z-10 mx-auto mb-8 h-auto w-screen xl:-mt-[140px] animate-fade-up"
           width={1000}
           height={1000}
         />

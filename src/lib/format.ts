@@ -102,7 +102,7 @@ export const formatPhone = (phone: string): string => {
  * @example 1234 => R$ 1.234,00
  */
 export const formatCurrency = (value: number): string => {
-  return value.toLocaleString('pt-BR', {
+  return value?.toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
