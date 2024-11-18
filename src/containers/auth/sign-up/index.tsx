@@ -25,13 +25,7 @@ export function SignUp() {
   const renderForm = useMemo(() => {
     switch (activeStep.id) {
       case 1:
-        return (
-          <SegmentForm
-            title={activeStep.description}
-            onNext={nextStep}
-            onBack={prevStep}
-          />
-        );
+        return <SegmentForm title={activeStep.description} onNext={nextStep} />;
       case 2:
         return (
           <LocationForm
