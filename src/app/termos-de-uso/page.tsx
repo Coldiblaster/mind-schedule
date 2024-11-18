@@ -13,8 +13,10 @@ export default function UseTerms() {
         </Caption>
       </div>
 
-      <h1>Termos de Uso - Mind Schedule</h1>
-      <p>
+      <h1 className="mb-6 text-center text-4xl font-bold">
+        Termos de Uso - Mind Schedule
+      </h1>
+      <p className="mb-6 text-justify text-lg">
         Estes Termos de Uso (&quot;Termos&quot;) regem o acesso e uso do sistema
         de agendamento online, disponibilizado pela empresa Vinicius Bastazin
         Araujo Desenvolvimento de Software LTDA, inscrita no CNPJ/MF sob o nº
@@ -25,8 +27,8 @@ export default function UseTerms() {
         utilize o sistema.
       </p>
 
-      <h2>1. Aceitação dos Termos</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">1. Aceitação dos Termos</h2>
+      <p className="mb-6 text-justify text-lg">
         Ao acessar e utilizar o Mind Schedule, você concorda com os Termos de
         Uso aqui descritos, bem como com a nossa Política de Privacidade. Estes
         Termos podem ser alterados a qualquer momento, sem aviso prévio. O uso
@@ -34,9 +36,8 @@ export default function UseTerms() {
         novos termos.
       </p>
 
-      <h2>2. Definições</h2>
-      <p>Para os fins deste Termo de Uso, as definições são as seguintes:</p>
-      <ul>
+      <h2 className="mb-4 text-2xl font-semibold">2. Definições</h2>
+      <ul className="mb-6 list-disc pl-8">
         <li>
           <strong>Usuário:</strong> qualquer pessoa que acessa ou utiliza o
           sistema de agendamento.
@@ -51,8 +52,8 @@ export default function UseTerms() {
         </li>
       </ul>
 
-      <h2>3. Objetivo do Sistema</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">3. Objetivo do Sistema</h2>
+      <p className="mb-6 text-justify text-lg">
         O Mind Schedule é uma plataforma de agendamento online que permite que
         usuários agendem serviços de prestadores de diferentes segmentos, como
         salões de beleza, clínicas de estética, mecânicos, entre outros. O
@@ -60,9 +61,10 @@ export default function UseTerms() {
         comunicação entre clientes e prestadores de serviço.
       </p>
 
-      <h2>4. Obrigações dos Usuários</h2>
-      <p>Os usuários do sistema concordam em:</p>
-      <ul>
+      <h2 className="mb-4 text-2xl font-semibold">
+        4. Obrigações dos Usuários
+      </h2>
+      <ul className="mb-6 list-disc pl-8">
         <li>
           Fornecer informações corretas, precisas e completas ao realizar o
           cadastro e agendamentos.
@@ -77,9 +79,10 @@ export default function UseTerms() {
         </li>
       </ul>
 
-      <h2>5. Obrigações dos Prestadores de Serviço</h2>
-      <p>Os prestadores de serviço concordam em:</p>
-      <ul>
+      <h2 className="mb-4 text-2xl font-semibold">
+        5. Obrigações dos Prestadores de Serviço
+      </h2>
+      <ul className="mb-6 list-disc pl-8">
         <li>
           Manter a veracidade e a atualidade das informações sobre os serviços
           prestados e seus horários de funcionamento.
@@ -94,9 +97,13 @@ export default function UseTerms() {
         </li>
       </ul>
 
-      <h2>6. Coleta de Dados Pessoais</h2>
-      <p>Ao utilizar o sistema, coletamos os seguintes dados pessoais:</p>
-      <ul>
+      <h2 className="mb-4 text-2xl font-semibold">
+        6. Coleta de Dados Pessoais
+      </h2>
+      <p className="mb-6 text-justify text-lg">
+        Ao utilizar o sistema, coletamos os seguintes dados pessoais:
+      </p>
+      <ul className="mb-6 list-disc pl-8">
         <li>
           <strong>Dados do Cliente:</strong> Nome, e-mail, telefone, CPF.
         </li>
@@ -116,16 +123,24 @@ export default function UseTerms() {
           de atuação.
         </li>
       </ul>
-      <p>
+      <p className="mb-6 text-justify text-lg">
         Os dados coletados são utilizados para viabilizar o agendamento de
         serviços, melhorar a experiência do usuário e realizar ações de
         marketing e publicidade. Para mais detalhes sobre o tratamento de seus
         dados, consulte nossa{' '}
-        <a href="politica-privacidade.html">Política de Privacidade</a>.
+        <a
+          href="politica-privacidade.html"
+          className="text-blue-500 hover:underline"
+        >
+          Política de Privacidade
+        </a>
+        .
       </p>
 
-      <h2>7. Propriedade Intelectual</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">
+        7. Propriedade Intelectual
+      </h2>
+      <p className="mb-6 text-justify text-lg">
         Todo o conteúdo e funcionalidades do Mind Schedule, incluindo, mas não
         se limitando a, software, design, texto, gráficos e logotipos, são de
         propriedade da Vinicius Bastazin Araujo Desenvolvimento de Software LTDA
@@ -134,9 +149,13 @@ export default function UseTerms() {
         sistema pode violar direitos autorais, marcas registradas e outras leis.
       </p>
 
-      <h2>8. Limitação de Responsabilidade</h2>
-      <p>O Mind Schedule não se responsabiliza por:</p>
-      <ul>
+      <h2 className="mb-4 text-2xl font-semibold">
+        8. Limitação de Responsabilidade
+      </h2>
+      <p className="mb-6 text-justify text-lg">
+        O Mind Schedule não se responsabiliza por:
+      </p>
+      <ul className="mb-6 list-disc pl-8">
         <li>
           Falhas ou erros na prestação de serviços dos prestadores de serviço.
         </li>
@@ -150,8 +169,10 @@ export default function UseTerms() {
         </li>
       </ul>
 
-      <h2>9. Suspensão e Cancelamento de Conta</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">
+        9. Suspensão e Cancelamento de Conta
+      </h2>
+      <p className="mb-6 text-justify text-lg">
         Podemos suspender ou cancelar a conta de qualquer usuário ou prestador
         de serviço que viole estes Termos de Uso, sem aviso prévio. Caso haja a
         necessidade de revogação de acesso, o usuário será notificado, e todas
@@ -159,26 +180,33 @@ export default function UseTerms() {
         pela nossa Política de Privacidade.
       </p>
 
-      <h2>10. Alterações nos Termos de Uso</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">
+        10. Alterações nos Termos de Uso
+      </h2>
+      <p className="mb-6 text-justify text-lg">
         Nos reservamos o direito de alterar estes Termos de Uso a qualquer
         momento, sendo que as alterações serão publicadas neste site, com a data
         de revisão atualizada. O uso contínuo do sistema após tais alterações
         constitui aceitação dos novos termos.
       </p>
 
-      <h2>11. Legislação Aplicável</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">11. Legislação Aplicável</h2>
+      <p className="mb-6 text-justify text-lg">
         Este Termo de Uso será regido e interpretado de acordo com as leis da
         República Federativa do Brasil, e qualquer disputa relacionada a ele
         será submetida ao foro da comarca de São Paulo, Estado de São Paulo.
       </p>
 
-      <h2>12. Contato</h2>
-      <p>
+      <h2 className="mb-4 text-2xl font-semibold">12. Contato</h2>
+      <p className="mb-6 text-justify text-lg">
         Se você tiver dúvidas ou preocupações sobre estes Termos de Uso ou sobre
         como tratamos seus dados pessoais, entre em contato conosco pelo e-mail{' '}
-        <a href="mailto:jorgebrunetto@hotmail.com">jorgebrunetto@hotmail.com</a>
+        <a
+          href="mailto:jorgebrunetto@hotmail.com"
+          className="text-blue-500 hover:underline"
+        >
+          jorgebrunetto@hotmail.com
+        </a>
         .
       </p>
     </ScrollArea>
