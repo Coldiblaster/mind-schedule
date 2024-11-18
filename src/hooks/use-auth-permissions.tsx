@@ -1,66 +1,59 @@
-// src/context/AuthPermissionsProvider.tsx
-
 'use client';
 
 import { useClerk } from '@clerk/nextjs';
-import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, type ReactNode, useContext, useMemo } from 'react';
 
 import { useUserMetadata } from '@/services/getUserMetadata';
-import { UserTypes } from '@/types/user-types';
+import { UserPrivateMetadata } from '@/types/user-types';
 
-interface AuthPermissionsContextType {
-  userType: UserTypes; // Atualizando para usar o enum UserTypes
-  isLoading: boolean;
+interface AuthPermissionsContextType extends UserPrivateMetadata {
+  isLoading: boolean; // Estado de carregamento baseado no React Query
 }
 
-interface AuthFormContextProviderProps {
+interface AuthPermissionsProviderProps {
   children: ReactNode;
 }
 
 const AuthPermissionsContext = createContext<
   AuthPermissionsContextType | undefined
->(undefined); // Definindo o contexto como indefinido inicialmente
+>(undefined);
 
 const AuthPermissionsProvider = ({
   children,
-}: AuthFormContextProviderProps) => {
+}: AuthPermissionsProviderProps) => {
   const { user } = useClerk();
 
-  // Usando o hook de serviço para obter metadados do usuário
-  const { data: userMetadata } = useUserMetadata(user?.id);
+  // Hook para buscar os metadados do usuário
+  const { data: userMetadata, isPending: isLoading } = useUserMetadata(
+    user?.id,
+  );
 
-  const [isLoading, setIsLoading] = useState(true);
+  // Determinar o tipo de usuário ou null se ainda não carregou
+  const userType = userMetadata?.userType;
+  const companyDataCompleted = userMetadata?.companyDataCompleted;
 
-  // Verificando se o usuário é um profissional ou paciente
-  const userType = userMetadata?.userType as UserTypes; // Assegurando que userType seja do tipo UserTypes
-
-  useEffect(() => {
-    if (userType) setIsLoading(false);
-  }, [userType]);
+  const value = useMemo(
+    () => ({
+      userType,
+      isLoading,
+      companyDataCompleted,
+    }),
+    [userType, isLoading, companyDataCompleted],
+  );
 
   return (
-    <AuthPermissionsContext.Provider
-      value={{
-        userType, // Adicionando userType ao contexto
-        isLoading,
-      }}
-    >
+    <AuthPermissionsContext.Provider value={value}>
       {children}
     </AuthPermissionsContext.Provider>
   );
 };
 
-// Atualizando o hook useAuth
-const useAuthPermissions = () => {
+const useAuthPermissions = (): AuthPermissionsContextType => {
   const context = useContext(AuthPermissionsContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthPermissionsProvider');
+    throw new Error(
+      'useAuthPermissions must be used within an AuthPermissionsProvider',
+    );
   }
   return context;
 };
