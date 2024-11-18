@@ -5,6 +5,6 @@ export enum UserTypes {
 }
 
 export interface UserPrivateMetadata {
-  userType: string;
-  companyDataCompleted: boolean;
+  userType: UserTypes | undefined;
+  companyDataCompleted: boolean | undefined;
 }
