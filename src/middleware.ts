@@ -21,6 +21,8 @@ const patientRoutes = [
   '/dashboard',
   '/login-callback',
   '/register',
+  '/politicas-de-privacidade',
+  '/termos-de-uso',
 ];
 const professionalRoutes = ['/dashboard', '/login-callback', '/register'];
 

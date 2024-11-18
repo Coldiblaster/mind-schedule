@@ -125,6 +125,17 @@ export function SignInPage() {
             <Button variant="link" className="h-auto px-1 py-0">
               Saiba mais e cadastre sua empresa
             </Button>
+            <div className="mt-4">
+              Conheça também nossos{' '}
+              <Link href="/termos-de-uso" className="text-primary">
+                termos de uso
+              </Link>{' '}
+              e nossa{' '}
+              <Link href="/politicas-de-privacidade" className="text-primary">
+                política de privacidade
+              </Link>
+              .
+            </div>
           </div>
         </div>
       </div>
