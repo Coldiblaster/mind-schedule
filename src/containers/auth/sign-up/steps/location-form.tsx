@@ -6,7 +6,7 @@ import { CustomInput } from '@/components/custom-input';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { LocationData, LocationSchema } from '@/schemas/schemas-sign-up';
+import { AddressProps, AddressSchema } from '@/schemas/schemas-sign-up';
 import { useGetAddress } from '@/services/getAddress';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
@@ -27,18 +27,18 @@ export function LocationForm({
     street: '',
   });
 
-  const form = useForm<LocationData>({
+  const form = useForm<AddressProps>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: zodResolver(LocationSchema),
+    resolver: zodResolver(AddressSchema),
     defaultValues: {
-      cep: formData.location?.cep || '',
-      city: formData.location?.city || '',
-      neighborhood: formData.location?.neighborhood || '',
-      number: formData.location?.number || '',
-      state: formData.location?.state || '',
-      street: formData.location?.street || '',
-      complement: formData.location?.complement || '',
+      cep: formData.address?.cep || '',
+      city: formData.address?.city || '',
+      neighborhood: formData.address?.neighborhood || '',
+      number: formData.address?.number || '',
+      state: formData.address?.state || '',
+      street: formData.address?.street || '',
+      complement: formData.address?.complement || '',
     },
   });
 
@@ -46,10 +46,10 @@ export function LocationForm({
     form.getValues('cep').replace(/\D/g, ''),
   );
 
-  const onSubmit = (data: LocationData) => {
-    const validation = LocationSchema.safeParse(data);
+  const onSubmit = (data: AddressProps) => {
+    const validation = AddressSchema.safeParse(data);
     if (validation.success) {
-      updateFormData({ location: data });
+      updateFormData({ address: data });
       onNext();
     } else {
       console.error(validation.error.format());

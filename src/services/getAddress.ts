@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { LocationData } from '@/schemas/schemas-sign-up';
+import { AddressProps } from '@/schemas/schemas-sign-up';
 
-export const getAddress = async (cep: string): Promise<LocationData> => {
+export const getAddress = async (cep: string): Promise<AddressProps> => {
   if (!/^\d{8}$/.test(cep)) {
     throw new Error('CEP inválido');
   }

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { BusinessData, BusinessSchema } from '@/schemas/schemas-sign-up';
+import { BusinessProps, BusinessSchema } from '@/schemas/schemas-sign-up';
 import {
   BusinessTypeProps,
   useGetBusinessType,
@@ -31,14 +31,14 @@ export function SegmentForm({
   const [isOpenModalCustomSegment, setIsOpenModalCustomSegment] =
     useState(false);
 
-  const form = useForm<BusinessData>({
+  const form = useForm<BusinessProps>({
     resolver: zodResolver(BusinessSchema),
     defaultValues: {
       businessType: formData?.business?.businessType || { id: 0, label: '' },
     },
   });
 
-  const onSubmit = (data: BusinessData) => {
+  const onSubmit = (data: BusinessProps) => {
     const validation = BusinessSchema.safeParse(data);
 
     if (validation.success) {

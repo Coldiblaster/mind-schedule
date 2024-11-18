@@ -3,17 +3,17 @@ import { persist } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
 
 import {
-  BusinessData,
-  LocationData,
-  ScheduleData,
-  ServiceData,
+  AddressProps,
+  BusinessProps,
+  OperatingHoursProps,
+  ServiceProps,
 } from '@/schemas/schemas-sign-up';
 
 interface FormData {
-  business?: BusinessData;
-  location?: LocationData;
-  services?: ServiceData[];
-  schedule?: ScheduleData;
+  business?: BusinessProps;
+  address?: AddressProps;
+  services?: ServiceProps[];
+  operatingHoursProps?: OperatingHoursProps;
 }
 
 interface StepsState {
