@@ -1,35 +1,35 @@
-"use client";
-import { CompanyLogo } from "@/components/company-logo";
-import { Caption } from "@/components/typography";
-import { ScrollArea } from "@/components/ui/scroll-area";
+'use client';
+import { CompanyLogo } from '@/components/company-logo';
+import { Caption } from '@/components/typography';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function PrivacyPolicy() {
   return (
-    <ScrollArea className="fixed h-svh w-full bg-white px-4  dark:bg-black md:relative md:px-8">
-      <div className="flex flex-col items-center gap-3 text-lg mt-4">
+    <ScrollArea className="fixed h-svh w-full bg-white px-4 dark:bg-black md:relative md:px-8">
+      <div className="mt-4 flex flex-col items-center gap-3 text-lg">
         <CompanyLogo width={140} height={140} />
         <Caption as="100" className="mt-5 text-center">
           Mind Schedule
         </Caption>
       </div>
 
-      <h1 className="text-3xl font-bold text-foreground mt-6">
+      <h1 className="mt-6 text-3xl font-bold text-foreground">
         Política de Privacidade da Mind Schedule
       </h1>
       <p className="text-sm text-muted-foreground">
         Última atualização: Novembro de 2024
       </p>
-      <div className="grid gap-10 mt-10">
+      <div className="mt-10 grid gap-10">
         <section>
           <h2 className="text-2xl font-semibold text-blue-600">1. Sobre Nós</h2>
           <p className="mt-4">
-            A{" "}
+            A{' '}
             <strong>
               VINICIUS BASTAZIN ARAUJO DESENVOLVIMENTO DE SOFTWARE LTDA
             </strong>
             , pessoa jurídica de direito privado, com sede na Avenida Paulista,
             1636 - Bela Vista, Sao Paulo, inscrita no CNPJ/MF sob o nº
-            51492413000171, opera a plataforma de agendamento online{" "}
+            51492413000171, opera a plataforma de agendamento online{' '}
             <strong>Mind Schedule</strong> para diversos segmentos como Salões
             de Beleza, Clínicas de Estética, e outros.
           </p>
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
           <p className="mt-4">
             Coletamos os seguintes dados, conforme sua interação conosco:
           </p>
-          <ul className="list-disc list-inside mt-2 space-y-2">
+          <ul className="mt-2 list-inside list-disc space-y-2">
             <li>
               <strong>Cliente:</strong> Nome, e-mail, telefone, CPF.
             </li>
@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
             3. Uso dos Dados Pessoais
           </h2>
           <p className="mt-4">Os dados coletados são utilizados para:</p>
-          <ul className="list-disc list-inside mt-2 space-y-2">
+          <ul className="mt-2 list-inside list-disc space-y-2">
             <li>Viabilizar agendamentos e gestão de serviços contratados.</li>
             <li>Fornecer suporte técnico ou operacional.</li>
             <li>Personalizar sua experiência em nossa plataforma.</li>
@@ -102,7 +102,7 @@ export default function PrivacyPolicy() {
             4. Compartilhamento de Dados
           </h2>
           <p className="mt-4">Podemos compartilhar seus dados pessoais com:</p>
-          <ul className="list-disc list-inside mt-2 space-y-2">
+          <ul className="mt-2 list-inside list-disc space-y-2">
             <li>
               Parceiros comerciais para a execução dos serviços contratados.
             </li>
@@ -123,7 +123,7 @@ export default function PrivacyPolicy() {
             5. Direitos do Usuário
           </h2>
           <p className="mt-4">Você tem direito a:</p>
-          <ul className="list-disc list-inside mt-2 space-y-2">
+          <ul className="mt-2 list-inside list-disc space-y-2">
             <li>Acessar e corrigir seus dados pessoais.</li>
             <li>
               Solicitar anonimização, bloqueio ou exclusão de dados excessivos
@@ -133,7 +133,7 @@ export default function PrivacyPolicy() {
             <li>Revogar consentimento para o tratamento de dados.</li>
           </ul>
           <p className="mt-4">
-            Para exercer seus direitos, entre em contato pelo e-mail{" "}
+            Para exercer seus direitos, entre em contato pelo e-mail{' '}
             <strong>contato@mind-schedule.com.br</strong>.
           </p>
         </section>
