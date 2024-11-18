@@ -1,37 +1,82 @@
 <svg width="182" height="182" viewBox="0 0 182 182" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <link
-    xmlns="http://www.w3.org/1999/xhtml"
-    rel="stylesheet"
-    href="./my-mind-loader.css"
-    type="text/css" />
-  <circle cx="91" cy="91" r="85.3112" fill="white" stroke="#25293E" stroke-width="10.6224"
-    class="svg-elem-1" data-darkreader-inline-fill="" data-darkreader-inline-stroke=""
-    style="--darkreader-inline-fill: #181a1b; --darkreader-inline-stroke: #c9c4bd;"></circle>
-  <circle cx="91.0001" cy="90.9999" r="62.7386" fill="#1074FF" stroke="#25293E"
-    stroke-width="10.6224" class="svg-elem-2" data-darkreader-inline-fill=""
-    data-darkreader-inline-stroke=""
-    style="--darkreader-inline-fill: #0051c2; --darkreader-inline-stroke: #c9c4bd;"></circle>
-  <mask id="path-3-outside-1_45_2777" maskUnits="userSpaceOnUse" x="66.0952" y="58.8879" width="61"
-    height="67" fill="black" data-darkreader-inline-fill=""
-    style="--darkreader-inline-fill: #e8e6e3;">
-    <rect fill="white" x="66.0952" y="58.8879" width="61" height="67" class="svg-elem-3"
-      data-darkreader-inline-fill="" style="--darkreader-inline-fill: #181a1b;"></rect>
-    <path
-      d="M93.3234 67.4315C97.3247 67.4315 101.269 68.3832 104.829 70.2081C108.39 72.033 111.466 74.6787 113.803 77.9268C116.139 81.1749 117.67 84.9322 118.268 88.8885C118.866 92.8448 118.515 96.8866 117.243 100.68C115.971 104.474 113.814 107.911 110.952 110.707C108.09 113.503 104.604 115.578 100.781 116.76C96.9587 117.943 92.9097 118.2 88.9685 117.509C85.0273 116.819 81.307 115.2 78.1145 112.788L93.3234 92.6597L93.3234 67.4315Z"
-      class="svg-elem-4"></path>
-  </mask>
-  <path
-    d="M93.3234 67.4315C97.3247 67.4315 101.269 68.3832 104.829 70.2081C108.39 72.033 111.466 74.6787 113.803 77.9268C116.139 81.1749 117.67 84.9322 118.268 88.8885C118.866 92.8448 118.515 96.8866 117.243 100.68C115.971 104.474 113.814 107.911 110.952 110.707C108.09 113.503 104.604 115.578 100.781 116.76C96.9587 117.943 92.9097 118.2 88.9685 117.509C85.0273 116.819 81.307 115.2 78.1145 112.788L93.3234 92.6597L93.3234 67.4315Z"
-    fill="white" class="svg-elem-5" data-darkreader-inline-fill=""
-    style="--darkreader-inline-fill: #181a1b;"></path>
-  <path
-    d="M93.3234 67.4315C97.3247 67.4315 101.269 68.3832 104.829 70.2081C108.39 72.033 111.466 74.6787 113.803 77.9268C116.139 81.1749 117.67 84.9322 118.268 88.8885C118.866 92.8448 118.515 96.8866 117.243 100.68C115.971 104.474 113.814 107.911 110.952 110.707C108.09 113.503 104.604 115.578 100.781 116.76C96.9587 117.943 92.9097 118.2 88.9685 117.509C85.0273 116.819 81.307 115.2 78.1145 112.788L93.3234 92.6597L93.3234 67.4315Z"
-    stroke="#25293E" stroke-width="15.9336" mask="url(#path-3-outside-1_45_2777)" class="svg-elem-6"
-    data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: #c9c4bd;"></path>
-  <path d="M89.3403 48.8423L89.3403 91.3319" stroke="#25293E" stroke-width="10.6224"
-    stroke-linecap="round" class="svg-elem-7" data-darkreader-inline-stroke=""
-    style="--darkreader-inline-stroke: #c9c4bd;"></path>
-  <path d="M68.0952 119.216L89.34 91.332" stroke="#25293E" stroke-width="10.6224"
-    stroke-linecap="round" class="svg-elem-8" data-darkreader-inline-stroke=""
-    style="--darkreader-inline-stroke: #c9c4bd;"></path>
+  <style>
+    @keyframes animate-svg-stroke {
+      0% {
+        stroke-dasharray: 0 535.95;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 535.95 0;
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dasharray: 0 535.95;
+        stroke-dashoffset: 535.95;
+      }
+    }
+
+    @keyframes animate-svg-stroke-inner {
+      0% {
+        stroke-dasharray: 0 396.20;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 396.20 0;
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dasharray: 0 396.20;
+        stroke-dashoffset: -396.20;
+      }
+    }
+
+    @keyframes rotate-hour {
+      0% { transform: rotate(-360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes rotate-minute {
+      0% { transform: rotate(-360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .rotate-animation {
+      animation: animate-svg-stroke 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .rotate-animation-inner {
+      animation: animate-svg-stroke-inner 2s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
+    }
+
+    .hour-hand {
+      animation: rotate-hour 10s linear infinite;
+      transform-origin: center;
+    }
+
+    .minute-hand {
+      animation: rotate-minute 5s linear infinite;
+      transform-origin: center;
+    }
+
+    .linecap-rounded {
+      stroke-linecap: round;
+    }
+
+    .hour-hand, .minute-hand {
+      stroke-linecap: round;
+    }
+  </style>
+
+  <!-- Borda de fora -->
+  <circle cx="91" cy="91" r="85.3112" fill="white" stroke="#25293E" stroke-width="10.6224" class="linecap-rounded rotate-animation"></circle>
+
+  <!-- Borda de dentro -->
+  <circle cx="91" cy="91" r="62.7386" fill="#1074FF" stroke="#25293E" stroke-width="10.6224" class="linecap-rounded rotate-animation-inner"></circle>
+
+  <!-- Círculo interno -->
+  <circle cx="93" cy="93" r="30" fill="white" stroke="#25293E" stroke-width="8" class="linecap-rounded rotate-animation"></circle>
+
+  <!-- Ponteiros do relógio -->
+  <line class="hour-hand" x1="91" y1="91" x2="91" y2="50" stroke="#25293E" stroke-width="10"/>
+  <line class="minute-hand" x1="91" y1="91" x2="60" y2="91" stroke="#25293E" stroke-width="10"/>
 </svg>

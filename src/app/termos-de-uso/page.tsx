@@ -202,10 +202,10 @@ export default function UseTerms() {
         Se você tiver dúvidas ou preocupações sobre estes Termos de Uso ou sobre
         como tratamos seus dados pessoais, entre em contato conosco pelo e-mail{' '}
         <a
-          href="mailto:jorgebrunetto@hotmail.com"
+          href="mailto:contato@mind-schedule.com.br"
           className="text-blue-500 hover:underline"
         >
-          jorgebrunetto@hotmail.com
+          contato@mind-schedule.com.br
         </a>
         .
       </p>
