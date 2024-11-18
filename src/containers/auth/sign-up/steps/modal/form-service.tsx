@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { formatCurrency } from '@/lib/format';
-import { ServiceData, ServiceSchema } from '@/schemas/schemas-sign-up';
+import { ServiceProps, ServiceSchema } from '@/schemas/schemas-sign-up';
 import { ServiceSuggestionProps } from '@/services/service/getServiceSuggestion';
 
 interface EditServiceProps {
@@ -46,7 +46,7 @@ export function FormService({
   setIsOpen,
   typeForm,
 }: EditServiceProps) {
-  const form = useForm<ServiceData>({
+  const form = useForm<ServiceProps>({
     reValidateMode: 'onChange',
     resolver: zodResolver(ServiceSchemaWithoutId),
     defaultValues: {
@@ -57,7 +57,7 @@ export function FormService({
     },
   });
 
-  const onSubmit = (data: ServiceData) => {
+  const onSubmit = (data: ServiceProps) => {
     if (typeForm === 'edit') {
       const updatedService = {
         ...service,

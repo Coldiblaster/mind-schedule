@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { cepRegex } from './mask';
 
-export const LocationSchema = z.object({
+export const AddressSchema = z.object({
   cep: z.string().regex(cepRegex, 'CEP inválido').refine(isCEP, 'CEP inválido'),
   street: z.string().min(1, 'Rua é obrigatória'),
   number: z.string().min(1, 'Número é obrigatório'),
@@ -28,7 +28,7 @@ export const ServiceSchema = z.object({
   time: z.number().min(1, 'Duração é obrigatória'),
 });
 
-export const ScheduleSchema = z.object({
+export const OperatingHoursSchema = z.object({
   days: z.array(
     z.object({
       startTime: z.string().min(1, 'Hora de início é obrigatória'),
@@ -44,16 +44,16 @@ export const OmittedServiceSchema = ServiceSchema.omit({ id: true });
 export const CreateAccountSchema = z.object({
   businessTypeId: z.number().optional(),
   customSegment: z.string().optional(),
-  address: LocationSchema,
+  address: AddressSchema,
   services: z.array(OmittedServiceSchema).optional(),
-  operatingHours: ScheduleSchema,
+  operatingHours: OperatingHoursSchema,
   email: z.string().email('O e-mail deve ser um endereço válido'),
   providerId: z.string(),
 });
 
 // Tipos derivados dos schemas Zod
-export type BusinessData = z.infer<typeof BusinessSchema>;
-export type LocationData = z.infer<typeof LocationSchema>;
-export type ServiceData = z.infer<typeof ServiceSchema>;
-export type ScheduleData = z.infer<typeof ScheduleSchema>;
-export type CreateAccountData = z.infer<typeof CreateAccountSchema>;
+export type BusinessProps = z.infer<typeof BusinessSchema>;
+export type AddressProps = z.infer<typeof AddressSchema>;
+export type ServiceProps = z.infer<typeof ServiceSchema>;
+export type OperatingHoursProps = z.infer<typeof OperatingHoursSchema>;
+export type CreateAccountProps = z.infer<typeof CreateAccountSchema>;

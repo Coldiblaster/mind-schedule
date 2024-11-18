@@ -7,7 +7,10 @@ import { CustomSelect } from '@/components/custom-select';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
-import { ScheduleData, ScheduleSchema } from '@/schemas/schemas-sign-up';
+import {
+  OperatingHoursProps,
+  OperatingHoursSchema,
+} from '@/schemas/schemas-sign-up';
 import { useStepsDataStore } from '@/store/steps-data-store';
 
 const timeOptions = Array.from({ length: 24 }, (_, i) => {
@@ -62,7 +65,7 @@ export function ScheduleForm({
   const form = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: zodResolver(ScheduleSchema),
+    resolver: zodResolver(OperatingHoursSchema),
     defaultValues: {
       days: Object.keys(schedules).map(dayId => ({
         startTime: schedules[dayId].start,
@@ -83,52 +86,17 @@ export function ScheduleForm({
     }));
   };
 
-  const onSubmitForm = async (data: ScheduleData) => {
+  const onSubmitForm = async (data: OperatingHoursProps) => {
     setIsPending(true);
 
-    // const operatingHours = {
-    //   days: Object.keys(schedules).map(dayId => ({
-    //     startTime: schedules[dayId].start,
-    //     endTime: schedules[dayId].end,
-    //     isOpen: schedules[dayId].isOpen,
-    //     weekday: dayId,
-    //   })),
-    // };
-
-    const validation = ScheduleSchema.safeParse(data);
+    const validation = OperatingHoursSchema.safeParse(data);
 
     if (validation.success) {
-      updateFormData({ schedule: data });
+      updateFormData({ operatingHoursProps: data });
       onNext();
     } else {
       console.error(validation.error.format());
     }
-
-    // const data: CreateAccountData = {
-    //   providerId: '1',
-    //   email: 'email-do-teste@gmail.com',
-    //   customSegment: formData.business?.businessType.label,
-    //   address: formData?.location || {
-    //     number: '',
-    //     cep: '',
-    //     street: '',
-    //     neighborhood: '',
-    //     city: '',
-    //     state: '',
-    //     complement: '',
-    //   },
-    //   services: formData.services,
-    //   operatingHours,
-    // };
-
-    // try {
-    //   await createAccount(data);
-    //   onNext();
-    // } catch (error) {
-    //   console.error(error);
-    // } finally {
-    //   setIsPending(false);
-    // }
   };
 
   return (

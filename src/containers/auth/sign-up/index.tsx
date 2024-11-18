@@ -102,14 +102,27 @@ export function SignUp() {
         </TabsList>
       </Tabs>
 
-      {/* <div className="flex h-12 items-center justify-center text-sm font-bold text-foreground transition-all md:justify-start">
-        {activeStep.description}
-      </div> */}
       <Card className="rounded-none">
         <CardContent className="overflow-x-hidden bg-background p-4 lg:p-6">
           {renderForm}
         </CardContent>
       </Card>
+
+      {activeStep.id === 5 && (
+        <div className="mx-auto mt-8 max-w-lg text-center text-sm text-gray-400">
+          <p>
+            {`Ao clicar em "Efetuar cadastro", você concorda com nossos `}
+            <a href="#" className="text-blue-400 hover:underline">
+              Termos de Serviço
+            </a>{' '}
+            e{' '}
+            <a href="#" className="text-blue-400 hover:underline">
+              Política de Privacidade
+            </a>
+            .
+          </p>
+        </div>
+      )}
     </div>
   );
 }

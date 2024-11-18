@@ -1,6 +1,9 @@
-import { CreateAccountData } from '@/schemas/schemas-sign-up';
+import { useMutation } from '@tanstack/react-query';
 
-export const createAccount = async (data: CreateAccountData, token: string) => {
+import { useAuth } from '@/hooks/use-auth';
+import { CreateAccountProps } from '@/schemas/schemas-sign-up';
+
+export const postRegister = async (data: CreateAccountProps, token: string) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
     method: 'POST',
     headers: {
@@ -19,4 +22,12 @@ export const createAccount = async (data: CreateAccountData, token: string) => {
   }
 
   return response.json();
+};
+
+export const usePostRegister = (data: CreateAccountProps) => {
+  const { token } = useAuth();
+
+  return useMutation({
+    mutationFn: () => postRegister(data, token),
+  });
 };
