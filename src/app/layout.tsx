@@ -1,47 +1,47 @@
-import "./globals.css";
+import './globals.css';
 
-import { ptBR } from "@clerk/localizations";
-import { ClerkProvider } from "@clerk/nextjs";
-import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
+import { ptBR } from '@clerk/localizations';
+import { ClerkProvider } from '@clerk/nextjs';
+import type { Metadata, Viewport } from 'next';
+import { Roboto } from 'next/font/google';
 
-import { Providers } from "./providers";
+import { Providers } from './providers';
 
 const font = Roboto({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "700"],
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '400', '500', '700'],
 });
 
 export const viewport: Viewport = {
-  themeColor: "black",
+  themeColor: 'black',
   initialScale: 1,
-  width: "device-width",
-  height: "device-height",
+  width: 'device-width',
+  height: 'device-height',
   minimumScale: 1,
   maximumScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: "Mind Schedule",
+  title: 'Mind Schedule',
   description:
-    "Agende com facilidade e eficiência, otimize seu atendimento e aumente a satisfação dos clientes.",
+    'Agende com facilidade e eficiência, otimize seu atendimento e aumente a satisfação dos clientes.',
   keywords:
-    "agendamento, plataforma de agendamento, eficiência, otimização de atendimento, gestão de agenda, aumentar clientes",
-  robots: "index, follow",
+    'agendamento, plataforma de agendamento, eficiência, otimização de atendimento, gestão de agenda, aumentar clientes',
+  robots: 'index, follow',
   openGraph: {
-    title: "Agende com eficiência e conquiste clientes!",
+    title: 'Agende com eficiência e conquiste clientes!',
     description:
-      "Transforme sua rotina com nossa plataforma de agendamento intuitiva.",
-    images: ["https://www.mind-schedule.com/logo/my-mind.svg"],
-    url: "https://mind-schedule.com.br/",
+      'Transforme sua rotina com nossa plataforma de agendamento intuitiva.',
+    images: ['https://www.mind-schedule.com/logo/my-mind.svg'],
+    url: 'https://mind-schedule.com.br/',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Agende com eficiência e ganhe clientes!",
+    card: 'summary_large_image',
+    title: 'Agende com eficiência e ganhe clientes!',
     description:
-      "Agende de forma simples e aumente a satisfação dos seus clientes.",
-    images: ["https://www.mind-schedule.com/logo/my-mind.svg"],
+      'Agende de forma simples e aumente a satisfação dos seus clientes.',
+    images: ['https://www.mind-schedule.com/logo/my-mind.svg'],
   },
 };
 
