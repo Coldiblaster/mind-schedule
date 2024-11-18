@@ -11,7 +11,7 @@ const isPublicRoute = createRouteMatcher([
   '/sign-up',
   '/about',
   '/contact',
-  '/politicas-de-privacidade'
+  '/politicas-de-privacidade',
 ]);
 
 // Definição de rotas específicas
@@ -62,7 +62,6 @@ export default clerkMiddleware(async (auth, request) => {
     try {
       const userType = await getUserType(userId);
 
-      // Validação de rotas com base no tipo de usuário
       if (userType === 'patient') {
         // Pacientes só podem acessar '/schedule'
         if (!patientRoutes.includes(currentPath)) {
