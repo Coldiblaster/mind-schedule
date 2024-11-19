@@ -13,6 +13,7 @@ const isPublicRoute = createRouteMatcher([
   '/contact',
   '/politicas-de-privacidade',
   '/termos-de-uso',
+  '/calendar',
 ]);
 
 // Definição de rotas específicas
