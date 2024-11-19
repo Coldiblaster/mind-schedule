@@ -14,7 +14,9 @@ export const CompanyLogo = ({
 }: CompanyLogoProps) => {
   return (
     <Image
-      src={loading ? '/logos/my-mind-loader.svg' : '/logos/my-mind.svg'}
+      src={
+        loading ? '/logos/mind-schedule-loader.svg' : '/logos/mind-schedule.svg'
+      }
       alt="Logo do sistema"
       width={width || 36}
       height={height || 36}
