@@ -86,6 +86,9 @@ dependencies:
   dlx:
     specifier: ^0.2.1
     version: 0.2.1
+  framer-motion:
+    specifier: ^11.11.17
+    version: 11.11.17(react-dom@18.3.1)(react@18.3.1)
   leaflet:
     specifier: ^1.9.4
     version: 1.9.4
@@ -3635,6 +3638,25 @@ packages:
     engines: {node: '>=12.20.0'}
     dependencies:
       fetch-blob: 3.2.0
+    dev: false
+
+  /framer-motion@11.11.17(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-O8QzvoKiuzI5HSAHbcYuL6xU+ZLXbrH7C8Akaato4JzQbX2ULNeniqC2Vo5eiCtFktX9XsJ+7nUhxcl2E2IjpA==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      tslib: 2.7.0
     dev: false
 
   /fs-extra@11.2.0:
