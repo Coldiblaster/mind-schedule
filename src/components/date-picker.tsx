@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 import { add, format } from 'date-fns';
-import { enUS, type Locale } from 'date-fns/locale';
+import { type Locale, ptBR } from 'date-fns/locale';
 import {
   Calendar as CalendarIcon,
   ChevronLeft,
@@ -259,7 +259,7 @@ function Calendar({
   ...props
 }: CalendarProps & { yearRange?: number }) {
   const MONTHS = React.useMemo(() => {
-    let locale: Pick<Locale, 'options' | 'localize' | 'formatLong'> = enUS;
+    let locale: Pick<Locale, 'options' | 'localize' | 'formatLong'> = ptBR;
     const { options, localize, formatLong } = props.locale || {};
     if (options && localize && formatLong) {
       locale = {
@@ -277,6 +277,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
+      locale="pt-br"
       classNames={{
         months:
           'flex flex-col sm:flex-row space-y-4  sm:space-y-0 justify-center',
@@ -706,7 +707,7 @@ const DateTimePicker = React.forwardRef<
 >(
   (
     {
-      locale = enUS,
+      locale = ptBR,
       value,
       onChange,
       hourCycle = 24,
@@ -758,11 +759,11 @@ const DateTimePicker = React.forwardRef<
         `PP hh:mm${!granularity || granularity === 'second' ? ':ss' : ''} b`,
     };
 
-    let loc = enUS;
+    let loc = ptBR;
     const { options, localize, formatLong } = locale;
     if (options && localize && formatLong) {
       loc = {
-        ...enUS,
+        ...ptBR,
         options,
         localize,
         formatLong,
@@ -826,5 +827,6 @@ const DateTimePicker = React.forwardRef<
 
 DateTimePicker.displayName = 'DateTimePicker';
 
-export { DateTimePicker, TimePickerInput, TimePicker };
-export type { TimePickerType, DateTimePickerProps, DateTimePickerRef };
+export { DateTimePicker, TimePicker, TimePickerInput };
+export type { DateTimePickerProps, DateTimePickerRef, TimePickerType };
+

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusIcon } from 'lucide-react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -31,9 +31,9 @@ import { Input } from '@/components/ui/input';
 import { useEvents } from '@/context/events-context';
 
 import { DateTimePicker } from './date-picker';
+import { Icon } from './icon';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Textarea } from './ui/textarea';
-import { ToastAction } from './ui/toast';
 
 const eventAddFormSchema = z.object({
   title: z
@@ -113,12 +113,18 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
           onClick={() => setEventAddOpen(true)}
         >
           <PlusIcon className="h-3 w-3 md:h-5 md:w-5" />
-          <p>Add Event</p>
+          <p>Nova agenda</p>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Add Event</AlertDialogTitle>
+          <AlertDialogCancel
+            className="absolute right-2 top-2"
+            onClick={() => setEventAddOpen(false)}
+          >
+            <Icon name="PiX" />
+          </AlertDialogCancel>
+          <AlertDialogTitle>Nova agenda</AlertDialogTitle>
         </AlertDialogHeader>
 
         <Form {...form}>
@@ -128,7 +134,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Título</FormLabel>
                   <FormControl>
                     <Input placeholder="Standup Meeting" {...field} />
                   </FormControl>
@@ -141,7 +147,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Daily session"
@@ -158,7 +164,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
               name="start"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel htmlFor="datetime">Start</FormLabel>
+                  <FormLabel htmlFor="datetime">De</FormLabel>
                   <FormControl>
                     <DateTimePicker
                       value={field.value}
@@ -176,7 +182,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
               name="end"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel htmlFor="datetime">End</FormLabel>
+                  <FormLabel htmlFor="datetime">Até</FormLabel>
                   <FormControl>
                     <DateTimePicker
                       value={field.value}
@@ -194,7 +200,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
               name="color"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Color</FormLabel>
+                  <FormLabel>Especiladade</FormLabel>
                   <FormControl>
                     <Popover>
                       <PopoverTrigger asChild className="cursor-pointer">
@@ -220,10 +226,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
               )}
             />
             <AlertDialogFooter className="pt-2">
-              <AlertDialogCancel onClick={() => setEventAddOpen(false)}>
-                Cancel
-              </AlertDialogCancel>
-              <AlertDialogAction type="submit">Add Event</AlertDialogAction>
+              <AlertDialogAction type="submit">Salvar</AlertDialogAction>
             </AlertDialogFooter>
           </form>
         </Form>

@@ -94,16 +94,16 @@ export default function CalendarNav({
               >
                 {selectedDay
                   ? dayOptions.find(day => day.value === String(selectedDay))
-                    ?.label
-                  : 'Select day...'}
+                      ?.label
+                  : 'Selecione o dia...'}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
               <Command>
-                <CommandInput placeholder="Search day..." />
+                <CommandInput placeholder="Buscar dia..." />
                 <CommandList>
-                  <CommandEmpty>No day found.</CommandEmpty>
+                  <CommandEmpty>Nenhum dia encontrado.</CommandEmpty>
                   <CommandGroup>
                     {dayOptions.map(day => (
                       <CommandItem
@@ -148,16 +148,16 @@ export default function CalendarNav({
             >
               {selectedMonth
                 ? months.find(month => month.value === String(selectedMonth))
-                  ?.label
-                : 'Select month...'}
+                    ?.label
+                : 'Selecione o mês...'}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[200px] p-0">
             <Command>
-              <CommandInput placeholder="Search month..." />
+              <CommandInput placeholder="Buscar mês..." />
               <CommandList>
-                <CommandEmpty>No month found.</CommandEmpty>
+                <CommandEmpty>Nenhum mês encontrado.</CommandEmpty>
                 <CommandGroup>
                   {months.map(month => (
                     <CommandItem
@@ -223,11 +223,11 @@ export default function CalendarNav({
           }}
         >
           {currentView === 'timeGridDay'
-            ? 'Today'
+            ? 'Hoje'
             : currentView === 'timeGridWeek'
-              ? 'This Week'
+              ? 'Semana'
               : currentView === 'dayGridMonth'
-                ? 'This Month'
+                ? 'Mês'
                 : null}
         </Button>
 
@@ -240,12 +240,13 @@ export default function CalendarNav({
               onClick={() =>
                 setView(calendarRef, 'timeGridDay', setCurrentView)
               }
-              className={`space-x-1 ${currentView === 'timeGridDay' ? 'w-1/2' : 'w-1/4'
-                }`}
+              className={`space-x-1 ${
+                currentView === 'timeGridDay' ? 'w-1/2' : 'w-1/4'
+              }`}
             >
               <GalleryVertical className="h-5 w-5" />
               {currentView === 'timeGridDay' && (
-                <p className="text-xs md:text-sm">Day</p>
+                <p className="text-xs md:text-sm">Dia</p>
               )}
             </TabsTrigger>
             <TabsTrigger
@@ -253,12 +254,13 @@ export default function CalendarNav({
               onClick={() =>
                 setView(calendarRef, 'timeGridWeek', setCurrentView)
               }
-              className={`space-x-1 ${currentView === 'timeGridWeek' ? 'w-1/2' : 'w-1/4'
-                }`}
+              className={`space-x-1 ${
+                currentView === 'timeGridWeek' ? 'w-1/2' : 'w-1/4'
+              }`}
             >
               <Tally3 className="h-5 w-5" />
               {currentView === 'timeGridWeek' && (
-                <p className="text-xs md:text-sm">Week</p>
+                <p className="text-xs md:text-sm">Semana</p>
               )}
             </TabsTrigger>
             <TabsTrigger
@@ -266,12 +268,13 @@ export default function CalendarNav({
               onClick={() =>
                 setView(calendarRef, 'dayGridMonth', setCurrentView)
               }
-              className={`space-x-1 ${currentView === 'dayGridMonth' ? 'w-1/2' : 'w-1/4'
-                }`}
+              className={`space-x-1 ${
+                currentView === 'dayGridMonth' ? 'w-1/2' : 'w-1/4'
+              }`}
             >
               <Table className="h-5 w-5 rotate-90" />
               {currentView === 'dayGridMonth' && (
-                <p className="text-xs md:text-sm">Month</p>
+                <p className="text-xs md:text-sm">Mês</p>
               )}
             </TabsTrigger>
           </TabsList>

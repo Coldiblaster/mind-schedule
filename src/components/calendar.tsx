@@ -170,6 +170,7 @@ export default function Calendar() {
         <FullCalendar
           ref={calendarRef}
           timeZone="local"
+          locale="pt-br"
           plugins={[
             dayGridPlugin,
             timeGridPlugin,
@@ -184,7 +185,7 @@ export default function Calendar() {
           slotMaxTime={'24:00'}
           allDaySlot={false}
           firstDay={1}
-          height={'75vh'}
+          height={'90vh'}
           displayEventEnd={true}
           windowResizeDelay={0}
           events={events}
