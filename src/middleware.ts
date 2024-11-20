@@ -14,6 +14,9 @@ const isPublicRoute = createRouteMatcher([
   '/politicas-de-privacidade',
   '/termos-de-uso',
   '/calendar',
+  '/agendamento',
+  '/agendamento/pagamento',
+  '/agendamento/especialidade',
 ]);
 
 // Definição de rotas específicas

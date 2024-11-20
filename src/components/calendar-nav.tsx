@@ -84,7 +84,7 @@ export default function CalendarNav({
 
         {/* Day Lookup */}
 
-        {currentView == 'timeGridDay' && (
+        {currentView === 'timeGridDay' && (
           <Popover open={daySelectOpen} onOpenChange={setDaySelectOpen}>
             <PopoverTrigger asChild>
               <Button
