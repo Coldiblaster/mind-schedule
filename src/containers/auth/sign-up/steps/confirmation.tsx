@@ -1,4 +1,5 @@
 import { useClerk } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import success from '@/assets/animations/success.json';
@@ -13,6 +14,7 @@ import { UserTypes } from '@/types/user-types';
 export function Confirmation() {
   const { formData } = useStepsDataStore();
   const { user } = useClerk();
+  const router = useRouter();
 
   const useSaveMetadata = usePutMetadata({
     userId: user?.id,
@@ -46,7 +48,10 @@ export function Confirmation() {
   const handleCreateAccount = async () => {
     mutation.mutate();
 
-    mutation.isSuccess && useSaveMetadata.mutate();
+    if (mutation.isSuccess) {
+      useSaveMetadata.mutate();
+      router.push('/login-callback');
+    }
 
     mutation.isError &&
       toast.error(
