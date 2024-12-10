@@ -39,6 +39,7 @@
     "date-fns": "^4.1.0",
     "dlx": "^0.2.1",
     "framer-motion": "^11.11.17",
+    "iconsax-react": "^0.0.8",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "lottie-react": "^2.4.0",

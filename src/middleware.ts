@@ -20,6 +20,7 @@ const isPublicRoute = createRouteMatcher([
   '/agendar/pagamento',
   '/agendar/horarios',
   '/agendar/pix',
+  '/agendar/perfil',
 ]);
 
 // Definição de rotas específicas
