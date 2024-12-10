@@ -52,7 +52,7 @@ export const CustomInput = ({
       name={registerName}
       render={({ field }) => (
         <FormItem className="space-y-1">
-          <FormLabel htmlFor={registerName} className="text-xs uppercase">
+          <FormLabel htmlFor={registerName} className="text-xs">
             {labelText}
           </FormLabel>
           <FormControl onChange={changeValueMask}>
