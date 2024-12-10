@@ -3,7 +3,7 @@ import {
   clerkMiddleware,
   createRouteMatcher,
 } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // rotas públicas
 const isPublicRoute = createRouteMatcher([
@@ -15,6 +15,11 @@ const isPublicRoute = createRouteMatcher([
   '/termos-de-uso',
   '/agendamento/:companyName',
   '/agendamento/:companyName/:professionalName',
+  '/agendar',
+  '/agendar/especialidade',
+  '/agendar/pagamento',
+  '/agendar/horarios',
+  '/agendar/pix',
 ]);
 
 // Definição de rotas específicas
@@ -42,7 +47,8 @@ async function getUserPrivateMetadata(
   return user.privateMetadata as UserPrivateMetadata;
 }
 
-export default clerkMiddleware(async (auth, request) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default clerkMiddleware(async (auth: any, request: NextRequest) => {
   const { userId } = auth();
   const currentPath = new URL(request.url).pathname;
 
