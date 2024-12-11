@@ -1,8 +1,8 @@
 'use client';
 
-import { MagicStar, Notepad2, Profile } from 'iconsax-react';
 import { useState } from 'react';
 
+import { Icon } from '@/components/icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -51,15 +51,9 @@ export default function Perfil() {
 
   const renderStars = (rank: number) => {
     return Array.from({ length: 5 }, (_, index) => (
-      <MagicStar
+      <Icon
         key={index}
-        variant={
-          index < Math.floor(rank)
-            ? 'Bold'
-            : index < rank
-              ? 'TwoTone'
-              : 'Outline'
-        }
+        name={index < Math.floor(rank) ? 'PiStarFill' : 'PiStar'}
         size={16}
         className={cn(
           'text-gray-400',
@@ -105,7 +99,7 @@ export default function Perfil() {
           >
             <Card className="flex flex-col gap-2 p-4">
               <div className="flex items-center gap-2">
-                <Profile variant="TwoTone" size={24} />
+                <Icon name="PiUserThin" size={24} />
                 <p>Informações</p>
               </div>
               <div className="flex justify-center">
@@ -118,7 +112,7 @@ export default function Perfil() {
             </Card>
             <Card className="flex flex-col gap-4 p-4">
               <div className="flex items-center gap-2">
-                <Notepad2 variant="TwoTone" size={24} />
+                <Icon name="PiNoteThin" size={24} />
                 <p>Avaliações</p>
               </div>
               {services.map(service => (

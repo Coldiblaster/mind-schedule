@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { PiCopyThin, PiCreditCardThin } from 'react-icons/pi';
 import QRCode from 'react-qr-code';
 
+import { Icon } from '@/components/icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -41,7 +41,7 @@ export default function Pix() {
       <CardContent className="flex flex-col gap-4 bg-gray-100 p-4">
         <Card className="flex flex-col gap-2 p-4">
           <div className="flex items-center gap-2">
-            <PiCreditCardThin size={24} className="text-muted-foreground" />
+            <Icon name="PiQrCodeThin" className="text-muted-foreground" />
             <p>Pagamento via PIX</p>
           </div>
         </Card>
@@ -97,7 +97,7 @@ export default function Pix() {
                   className="absolute right-1 top-1/2 -translate-y-1/2"
                   onClick={copyToClipboard}
                 >
-                  <PiCopyThin size={16} />
+                  <Icon name="PiCopyThin" />
                   <span className="sr-only">Copy PIX code</span>
                 </Button>
               </div>

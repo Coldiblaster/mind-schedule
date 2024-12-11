@@ -69,6 +69,11 @@ export const SM = ({ as, children, className = '', ...rest }: BodyProps) => {
           {children}
         </div>
       )}
+      {as === '300' && (
+        <div {...rest} className={`${className} text-sm font-light`}>
+          {children}
+        </div>
+      )}
     </>
   );
 };

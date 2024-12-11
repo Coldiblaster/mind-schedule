@@ -1,5 +1,4 @@
-import { PiInstagramLogoDuotone } from 'react-icons/pi';
-
+import { Icon } from '@/components/icon';
 import { Heading, SM, XS } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -10,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-interface Service {
+interface ServiceProps {
   id: string;
   initials: string;
   name: string;
@@ -18,38 +17,38 @@ interface Service {
   price: number;
 }
 
-export default function Specialty() {
-  const services: Service[] = [
-    {
-      id: 'co',
-      initials: 'CO',
-      name: 'Avaliação Psicológica',
-      duration: '1h',
-      price: 60.0,
-    },
-    {
-      id: 'cf',
-      initials: 'CF',
-      name: 'Corte Feminino',
-      duration: '30 min',
-      price: 30.0,
-    },
-    {
-      id: 'fp',
-      initials: 'FP',
-      name: 'Fisioterapia Pélvica',
-      duration: '2h',
-      price: 100.0,
-    },
-    {
-      id: 'pm',
-      initials: 'PM',
-      name: 'Pilates Mat',
-      duration: '30 min',
-      price: 50.0,
-    },
-  ];
+const services: ServiceProps[] = [
+  {
+    id: 'co',
+    initials: 'CO',
+    name: 'Avaliação Psicológica',
+    duration: '1h',
+    price: 60.0,
+  },
+  {
+    id: 'cf',
+    initials: 'CF',
+    name: 'Corte Feminino',
+    duration: '30 min',
+    price: 30.0,
+  },
+  {
+    id: 'fp',
+    initials: 'FP',
+    name: 'Fisioterapia Pélvica',
+    duration: '2h',
+    price: 100.0,
+  },
+  {
+    id: 'pm',
+    initials: 'PM',
+    name: 'Pilates Mat',
+    duration: '30 min',
+    price: 50.0,
+  },
+];
 
+export default function Specialty() {
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader>
@@ -60,7 +59,7 @@ export default function Specialty() {
       </CardHeader>
       <CardContent className="flex flex-col gap-4 bg-gray-100 p-4">
         <Card className="flex items-center gap-2 p-4">
-          <PiInstagramLogoDuotone size={24} className="text-muted-foreground" />
+          <Icon name="LuInstagram" className="text-muted-foreground" />
           <p>Serviços oferecidos</p>
         </Card>
         <div className="flex flex-col gap-2">

@@ -150,7 +150,6 @@ export function SignInPage() {
       >
         <Icon
           name="MdKeyboardArrowDown"
-          size={30}
           className="animate-jump repeat-infinite animate-delay-200 animate-duration-1000"
         />
         <span className="sr-only">Scroll down for more content</span>

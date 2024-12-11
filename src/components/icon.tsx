@@ -16,7 +16,7 @@ export type IconProps = IconBaseProps & {
   name: IconName;
 };
 
-export function Icon({ name, ...props }: IconProps) {
+export function Icon({ name, size = 24, ...props }: IconProps) {
   const element = match(name)
     .with(P.string.startsWith('Md'), icon => MdIcon[icon])
     .with(P.string.startsWith('Lu'), icon => LuIcon[icon])
@@ -24,5 +24,5 @@ export function Icon({ name, ...props }: IconProps) {
     .with(P.string.startsWith('Fa'), icon => FaIcon[icon])
     .otherwise(() => React.Fragment);
 
-  return React.createElement(element, props);
+  return React.createElement(element, { size, ...props });
 }

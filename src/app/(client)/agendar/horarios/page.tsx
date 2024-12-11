@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { PiAlarmThin, PiCalendarThin } from 'react-icons/pi';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -35,7 +35,7 @@ export default function Schedules() {
       <CardContent className="flex flex-col gap-4 bg-gray-100 p-4">
         <Card className="flex flex-col gap-2 p-4">
           <div className="flex items-center gap-2">
-            <PiCalendarThin size={24} className="text-muted-foreground" />
+            <Icon name="PiCalendarThin" className="text-muted-foreground" />
             <p>Data do agendamento</p>
           </div>
           <div className="flex justify-center">
@@ -51,7 +51,7 @@ export default function Schedules() {
         </Card>
         <Card className="flex flex-col gap-2 p-4">
           <div className="flex items-center gap-2">
-            <PiAlarmThin size={24} className="text-muted-foreground" />
+            <Icon name="PiAlarmThin" className="text-muted-foreground" />
             <p>Horários disponíveis</p>
           </div>
           <RadioGroup
