@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
+import { Heading, SM } from '../typography';
+
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -30,14 +32,7 @@ const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      'text-2xl font-semibold leading-none tracking-tight',
-      className,
-    )}
-    {...props}
-  />
+  <Heading as="h4" ref={ref} className={cn(className)} {...props} />
 ));
 CardTitle.displayName = 'CardTitle';
 
@@ -45,9 +40,10 @@ const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p
+  <SM
+    as="400"
     ref={ref}
-    className={cn('text-sm text-muted-foreground', className)}
+    className={cn('text-muted-foreground', className)}
     {...props}
   />
 ));
@@ -79,5 +75,6 @@ export {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 };
+

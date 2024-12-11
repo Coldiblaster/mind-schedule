@@ -2,7 +2,7 @@ import { type ComponentProps } from 'react';
 
 export type BodyProps = ComponentProps<'div'> & {
   as: '700' | '400' | '300' | '200';
-  children: React.ReactNode | string;
+  children?: React.ReactNode | string;
   className?: string;
 };
 

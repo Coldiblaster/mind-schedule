@@ -9,6 +9,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -77,7 +78,7 @@ export default function Perfil() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 bg-gray-100 p-4">
-        <Tabs defaultValue="signIn" className="w-full">
+        <Tabs defaultValue="signIn" className="w-full" value={activeTab}>
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger
               value="information"
@@ -167,6 +168,9 @@ export default function Perfil() {
           </TabsContent>
         </Tabs>
       </CardContent>
+      <CardFooter>
+        <Button className="w-full">Continue</Button>
+      </CardFooter>
     </Card>
   );
 }

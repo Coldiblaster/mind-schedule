@@ -9,6 +9,7 @@ import { useState } from 'react';
 import SignInForm from '@/app/sign-in/[[...sign-in]]';
 import SignUpForm from '@/app/sign-up/[[...sign-up]]';
 import { Icon } from '@/components/icon';
+import { MD, XS } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { tabContent } from '@/data/auth';
@@ -89,10 +90,13 @@ export function SignInPage() {
         </Button>
 
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="my-3 h-1 w-64 rounded border-0 bg-gray-200 dark:bg-gray-700" />
-          <p className="absolute left-1/2 -translate-x-1/2 bg-white px-4 text-center text-muted-foreground dark:bg-black">
+          <hr className="my-3 w-full" />
+          <MD
+            as="400"
+            className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-center text-muted-foreground dark:bg-black"
+          >
             ou
-          </p>
+          </MD>
         </div>
 
         <Tabs defaultValue="signIn" className="w-full">
@@ -119,7 +123,7 @@ export function SignInPage() {
         </Tabs>
 
         <div className="flex flex-col space-y-4">
-          <div className="text-center text-xs text-gray-500">
+          <XS as="400" className="text-center text-muted-foreground">
             Ideal para profissionais de saúde, beleza, e prestadores de
             serviços.
             <Button variant="link" className="h-auto px-1 py-0">
@@ -136,7 +140,7 @@ export function SignInPage() {
               </Link>
               .
             </div>
-          </div>
+          </XS>
         </div>
       </div>
 
@@ -147,7 +151,7 @@ export function SignInPage() {
         <Icon
           name="MdKeyboardArrowDown"
           size={30}
-          className="animate-bounce pt-2 animate-delay-200 animate-duration-1000"
+          className="animate-jump repeat-infinite animate-delay-200 animate-duration-1000"
         />
         <span className="sr-only">Scroll down for more content</span>
       </Link>

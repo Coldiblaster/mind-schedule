@@ -1,3 +1,5 @@
+import { Heading, SM } from '@/components/typography';
+
 export interface IHeaderProps {
   title: string;
   description: string;
@@ -5,7 +7,9 @@ export interface IHeaderProps {
 
 export const Header = ({ title, description }: IHeaderProps) => (
   <div className="flex flex-col gap-2">
-    <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-    <p className="text-sm text-muted-foreground">{description}</p>
+    <Heading as="h3">{title}</Heading>
+    <SM as="400" className="text-muted-foreground">
+      {description}
+    </SM>
   </div>
 );

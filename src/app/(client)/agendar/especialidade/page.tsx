@@ -1,5 +1,6 @@
 import { PiInstagramLogoDuotone } from 'react-icons/pi';
 
+import { Heading, SM, XS } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -73,24 +74,25 @@ export default function Specialty() {
               </Badge>
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg">{service.name}</h2>
-                  <p className="text-xs text-muted-foreground">
+                  <Heading as="h5">{service.name}</Heading>
+                  <SM as="400" className="text-muted-foreground">
                     Sugestão de 2 sessoes
-                  </p>
+                  </SM>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="text-xl font-bold">R$ {service.price}/</div>
-                  <div className="text-sm font-medium text-muted-foreground">
+                  <Heading as="h4">R$ {service.price}/</Heading>
+
+                  <XS as="700" className="text-muted-foreground">
                     {service.duration}
-                  </div>
+                  </XS>
                 </div>
               </div>
               <hr className="my-4" />
-              <p className="text-xs text-muted-foreground">
+              <SM as="400" className="text-muted-foreground">
                 Realização de testes psicológicos para avaliação da
                 personalidade, inteligência, habilidades emocionais, entre
                 outros aspectos.
-              </p>
+              </SM>
             </Card>
           ))}
         </div>
