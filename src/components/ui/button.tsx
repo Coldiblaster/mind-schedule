@@ -7,11 +7,13 @@ import { PiCircleNotch } from "react-icons/pi";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+  "inline-flex gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
       variant: {
         default:
+          "bg-primary text-primary-foreground hover:bg-gradient-to-l dark:to-teal-400/90",
+        gradient:
           "bg-gradient-to-r from-primary from-30% to-teal-500 to-100% text-primary-foreground hover:bg-gradient-to-l dark:to-teal-400/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
@@ -51,7 +53,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn("hover:brightness-125", buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
         disabled={isLoading || props.disabled}
@@ -62,6 +64,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               size={30}
               className="animate-spin animate-duration-700"
             />
+            Aguarde...
           </>
         ) : (
           props.children

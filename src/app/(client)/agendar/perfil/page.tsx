@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 
-import { Icon } from '@/components/icon';
+import { Icon, IconProps } from '@/components/icon';
+import { Heading, SM, XS } from '@/components/typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -22,7 +24,7 @@ interface Service {
   name: string;
   duration: string;
   price: number;
-  rank?: number;
+  rank: number;
 }
 
 const services: Service[] = [
@@ -44,32 +46,52 @@ const services: Service[] = [
   },
 ];
 
+interface SocialMediaProps {
+  id: string;
+  name: string;
+  username: string;
+  icon: IconProps['name'];
+}
+
+const socialMedias: SocialMediaProps[] = [
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    username: '@veronicaa_ramos',
+    icon: 'PiInstagramLogoThin',
+  },
+  {
+    id: 'facebook',
+    name: 'Facebook',
+    username: 'Verônica Ramos',
+    icon: 'PiFacebookLogoThin',
+  },
+];
+
 export default function Perfil() {
   const [activeTab, setActiveTab] = useState<
     'information' | 'services' | 'contact'
   >('information');
 
-  const renderStars = (rank: number) => {
-    return Array.from({ length: 5 }, (_, index) => (
-      <Icon
-        key={index}
-        name={index < Math.floor(rank) ? 'PiStarFill' : 'PiStar'}
-        size={16}
-        className={cn(
-          'text-gray-400',
-          index < Math.floor(rank) && 'text-[#FF9920]',
-        )}
-      />
-    ));
-  };
-
   return (
     <Card className="mx-auto w-full max-w-md" data-animation={activeTab}>
-      <CardHeader>
-        <CardTitle>Escolha a especialidade</CardTitle>
-        <CardDescription>
-          Escolha a especialidade que deseja agendar
-        </CardDescription>
+      <CardHeader className="relative">
+        <div className="flex items-center gap-4">
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="/placeholder.svg" />
+            <AvatarFallback>JB</AvatarFallback>
+          </Avatar>
+          <div>
+            <CardTitle>Psico Vida - Psicóloga</CardTitle>
+            <CardDescription>Verônica Ramos</CardDescription>
+          </div>
+        </div>
+        <div className="absolute right-3 top-3 flex items-center gap-2">
+          <Icon name="PiStarFill" size={16} className="text-[#FF9920]" />
+          <SM as="400" className="text-muted-foreground">
+            4.8
+          </SM>
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 bg-gray-100 p-4">
         <Tabs defaultValue="signIn" className="w-full" value={activeTab}>
@@ -134,7 +156,21 @@ export default function Perfil() {
                       </p>
                     </div>
                     <div className="flex items-center gap-1">
-                      {renderStars(service?.rank ?? 0)}
+                      {[1, 2, 3, 4, 5].map((_, i) => (
+                        <Icon
+                          key={i}
+                          name={
+                            i < Math.floor(service.rank)
+                              ? 'PiStarFill'
+                              : 'PiStar'
+                          }
+                          size={16}
+                          className={cn(
+                            'text-gray-400',
+                            i < Math.floor(service.rank) && 'text-[#FF9920]',
+                          )}
+                        />
+                      ))}
                     </div>
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -152,18 +188,85 @@ export default function Perfil() {
             className="group-data-[animation=signIn]:animate-fade-right group-data-[animation=signUp]:animate-fade-left"
             value="services"
           >
-            Serviços
+            <div className="flex flex-col gap-2">
+              <Card className="flex items-center gap-2 p-4">
+                <Icon
+                  name="PiReadCvLogoThin"
+                  className="text-muted-foreground"
+                />
+                <p>Serviços oferecidos</p>
+              </Card>
+              {services.map(service => (
+                <Card key={service.id} className="relative p-4">
+                  <Badge
+                    variant="destructive"
+                    className="absolute -right-1 -top-1 rounded-xl"
+                  >
+                    -30%
+                  </Badge>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Heading as="h5">{service.name}</Heading>
+                      <SM as="400" className="text-muted-foreground">
+                        Sugestão de 2 sessoes
+                      </SM>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Heading as="h4">R$ {service.price}/</Heading>
+
+                      <XS as="700" className="text-muted-foreground">
+                        {service.duration}
+                      </XS>
+                    </div>
+                  </div>
+                  <hr className="my-2" />
+                  <SM as="400" className="text-muted-foreground">
+                    Realização de testes psicológicos para avaliação da
+                    personalidade, inteligência, habilidades emocionais, entre
+                    outros aspectos.
+                  </SM>
+                </Card>
+              ))}
+            </div>
           </TabsContent>
           <TabsContent
             className="group-data-[animation=signIn]:animate-fade-right group-data-[animation=signUp]:animate-fade-left"
             value="contact"
           >
-            Contato
+            <div className="flex flex-col gap-2">
+              <Card className="flex items-center gap-2 p-4">
+                <Icon name="PiLinkThin" className="text-muted-foreground" />
+                <p>Nossas redes sociais</p>
+              </Card>
+              {socialMedias.map(social => (
+                <Card key={social.id} className="flex flex-col gap-4 p-4">
+                  <div className="flex gap-2">
+                    <Icon
+                      name={social.icon}
+                      className="text-muted-foreground"
+                    />
+                    <p>{social.name}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                      />
+                      <AvatarFallback>{social.initials}</AvatarFallback>
+                    </Avatar>
+                    <p>{social.username}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
           </TabsContent>
         </Tabs>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Continue</Button>
+        <Button variant="default" className="w-full" size="lg">
+          Continue
+        </Button>
       </CardFooter>
     </Card>
   );
