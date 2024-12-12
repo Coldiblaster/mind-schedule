@@ -253,7 +253,7 @@ export default function Perfil() {
                         src="https://github.com/shadcn.png"
                         alt="@shadcn"
                       />
-                      <AvatarFallback>{social.initials}</AvatarFallback>
+                      {/* <AvatarFallback>{social.initials}</AvatarFallback> */}
                     </Avatar>
                     <p>{social.username}</p>
                   </div>

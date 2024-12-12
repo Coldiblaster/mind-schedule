@@ -72,8 +72,6 @@ const FormSchema = z.object({
     .nonempty('É necessário adicionar ao menos um horário.'),
 });
 
-// type FormData = z.infer<typeof FormSchema>;
-
 export default function ServiceHoursInput() {
   const saveAvailability = usePostAvailability();
 
@@ -155,6 +153,7 @@ export default function ServiceHoursInput() {
 
   const validateStartTime = (index: number, startTime: string) => {
     const dateSelected = form.getValues('date');
+    const timeSlots = form.getValues('timeSlots');
     const currentDate = new Date();
 
     // Se a data selecionada for o dia atual, verifique o horário
@@ -175,10 +174,32 @@ export default function ServiceHoursInput() {
           message:
             'O horário de início deve ser ao menos 10 minutos após o horário atual.',
         });
-      } else {
-        form.clearErrors(`timeSlots.${index}.startTime`);
+        return; // Para evitar validações adicionais se a primeira falhar
       }
     }
+
+    // Validação do próximo horário em relação ao `endTime` anterior
+    if (index > 0) {
+      const previousEndTime = timeSlots[index - 1]?.endTime;
+      if (previousEndTime) {
+        const [endHours, endMinutes] = previousEndTime.split(':').map(Number);
+        const previousEndTimeInMinutes = endHours * 60 + endMinutes;
+
+        const [startHours, startMinutes] = startTime.split(':').map(Number);
+        const startTimeInMinutes = startHours * 60 + startMinutes;
+
+        if (startTimeInMinutes <= previousEndTimeInMinutes) {
+          form.setError(`timeSlots.${index}.startTime`, {
+            message:
+              'O horário de início deve ser maior que o horário de término anterior.',
+          });
+          return;
+        }
+      }
+    }
+
+    // Se todas as validações passarem, limpe os erros
+    form.clearErrors(`timeSlots.${index}.startTime`);
   };
 
   const getCurrentTimePlusTenMinutes = () => {
