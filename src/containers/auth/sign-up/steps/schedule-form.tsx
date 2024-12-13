@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { PiCalendar, PiCalendarX, PiSun } from 'react-icons/pi';
 
 import { CustomSelect } from '@/components/custom-select';
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
@@ -19,13 +19,13 @@ const timeOptions = Array.from({ length: 24 }, (_, i) => {
 });
 
 const weekDays = [
-  { id: 'domingo', label: 'Domingo', icon: PiCalendar },
-  { id: 'segunda', label: 'Segunda-Feira', icon: PiCalendar },
-  { id: 'terca', label: 'Terça-Feira', icon: PiCalendar },
-  { id: 'quarta', label: 'Quarta-Feira', icon: PiCalendar },
-  { id: 'quinta', label: 'Quinta-Feira', icon: PiCalendar },
-  { id: 'sexta', label: 'Sexta-Feira', icon: PiCalendar },
-  { id: 'sabado', label: 'Sábado', icon: PiCalendar },
+  { id: 'domingo', label: 'Domingo' },
+  { id: 'segunda', label: 'Segunda-Feira' },
+  { id: 'terca', label: 'Terça-Feira' },
+  { id: 'quarta', label: 'Quarta-Feira' },
+  { id: 'quinta', label: 'Quinta-Feira' },
+  { id: 'sexta', label: 'Sexta-Feira' },
+  { id: 'sabado', label: 'Sábado' },
 ];
 
 export function ScheduleForm({
@@ -125,13 +125,12 @@ export function ScheduleForm({
                   onCheckedChange={() => handleCheckboxChange(day.id)}
                   className="mr-3"
                 />
-                <div className="flex items-center">
-                  {schedules[day.id].isOpen ? (
-                    <PiSun className="mr-2 h-4 w-4 text-gray-500" />
-                  ) : (
-                    <PiCalendarX className="mr-2 h-4 w-4 text-gray-500" />
-                  )}
-
+                <div className="flex items-center gap-2">
+                  <Icon
+                    name={schedules[day.id].isOpen ? 'PiSun' : 'PiCalendarX'}
+                    size="16"
+                    className="text-gray-500"
+                  />
                   <label htmlFor={day.id} className="font-medium">
                     {day.label}
                   </label>

@@ -2,9 +2,10 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-import { PiCircleNotch } from "react-icons/pi";
 
 import { cn } from "@/lib/utils";
+
+import { Icon } from "../icon";
 
 const buttonVariants = cva(
   "inline-flex gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
@@ -53,14 +54,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn("hover:brightness-125", buttonVariants({ variant, size, className }))}
+        className={cn(
+          "hover:brightness-90",
+          buttonVariants({ variant, size, className }),
+        )}
         ref={ref}
         {...props}
         disabled={isLoading || props.disabled}
       >
         {isLoading ? (
           <>
-            <PiCircleNotch
+            <Icon
+              name="PiCircleNotch"
               size={30}
               className="animate-spin animate-duration-700"
             />

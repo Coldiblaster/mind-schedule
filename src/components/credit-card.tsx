@@ -2,7 +2,6 @@
 
 import valid from 'card-validator';
 import { useState } from 'react';
-import { PiWifiHigh } from 'react-icons/pi';
 
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -191,7 +190,7 @@ export default function CreditCardForm() {
               <div className="mb-1 text-xl font-bold">Cartão Virtual</div>
               <div className="text-xs">Cartão Platinum</div>
             </div>
-            <PiWifiHigh className="h-8 w-8 rotate-90" />
+            <Icon name="PiWifiHigh" className="h-8 w-8 rotate-90" />
           </div>
           <div className="my-auto flex justify-between">
             <div className="font-mono text-2xl tracking-wider">
