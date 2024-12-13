@@ -1,5 +1,6 @@
 'use client';
 
+
 import CreditCardForm from '@/components/credit-card';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
@@ -11,84 +12,32 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-export default function PaymentMethod() {
+export default function PaymentMethods() {
   return (
-    <Card>
+    <Card className="mx-auto w-full max-w-3xl">
       <CardHeader>
-        <CardTitle>Forma de pagamento</CardTitle>
+        <CardTitle>Pagamento com cartão de crédito</CardTitle>
         <CardDescription>
-          Escolha a forma de pagamento que deseja utilizar
+          Preencha os campos abaixo para realizar o pagamento
         </CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-6">
-        <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
-          <div>
-            <RadioGroupItem
-              value="card"
-              id="card"
-              className="peer sr-only"
-              aria-label="Card"
-            />
-            <Label
-              htmlFor="card"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 peer-data-[state=checked]:border-primary hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="mb-3 h-6 w-6"
-              >
-                <rect width="20" height="14" x="2" y="5" rx="2" />
-                <path d="M2 10h20" />
-              </svg>
-              Cartão de crédito
-            </Label>
+      <CardContent className="flex flex-col gap-4 bg-gray-100 p-4">
+        <Card className="flex flex-col gap-2 p-4">
+          <div className="flex items-center gap-2">
+            <Icon name="PiCalendarThin" className="text-muted-foreground" />
+            <p>Data do agendamento</p>
           </div>
-
-          <div>
-            <RadioGroupItem
-              value="paypal"
-              id="paypal"
-              className="peer sr-only"
-              aria-label="Paypal"
-            />
-            <Label
-              htmlFor="paypal"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 peer-data-[state=checked]:border-primary hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary"
-            >
-              <Icon name="PiPaypalLogo" className="mb-3 h-6 w-6" />
-              Paypal
-            </Label>
+          <div className="flex justify-center">
+            <CreditCardForm />
           </div>
-
-          <div>
-            <RadioGroupItem
-              value="apple"
-              id="apple"
-              className="peer sr-only"
-              aria-label="Apple"
-            />
-            <Label
-              htmlFor="apple"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 peer-data-[state=checked]:border-primary hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary"
-            >
-              <Icon name="PiAppleLogo" className="mb-3 h-6 w-6" />
-              Apple
-            </Label>
-          </div>
-        </RadioGroup>
-        <CreditCardForm />
+        </Card>
       </CardContent>
+
       <CardFooter>
-        <Button className="w-full">Continue</Button>
+        <Button className="w-full" size="lg">
+          Agendar
+        </Button>
       </CardFooter>
     </Card>
   );

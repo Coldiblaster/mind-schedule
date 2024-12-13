@@ -30,11 +30,11 @@ export default function SchedulePage() {
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Icon name="PiVideoCamera" size={20} />
+            <Icon name="PiVideoCamera" size="20" />
             <span>Vídeo chamada</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Icon name="PiClock" size={20} />
+            <Icon name="PiClock" size="20" />
             <span>30 minutos</span>
           </div>
         </div>

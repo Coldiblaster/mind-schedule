@@ -35,13 +35,14 @@ export default function Page({
 
                 <div className="flex justify-between">
                   <div className="flex items-center gap-2">
-                    <Icon name="PiMapPin" className="h-5 w-5 text-gray-500" />
+                    <Icon name="PiMapPin" size="18" className="text-gray-500" />
                     <span className="text-sm">São Paulo, SP</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Icon
                       name="PiStarFill"
-                      className="h-5 w-5 text-yellow-400"
+                      size="18"
+                      className="text-yellow-400"
                     />
 
                     <span className="text-sm font-medium">4.8</span>
@@ -91,7 +92,7 @@ export default function Page({
             <Card>
               <CardContent className="p-4">
                 <div className="mb-4 flex items-center gap-2">
-                  <Icon name="PiInfo" className="h-6 w-6 text-blue-500" />
+                  <Icon name="PiInfo" className="text-blue-500" />
                   <h2 className="text-xl font-semibold">Informações</h2>
                 </div>
                 <p className="text-gray-600">
@@ -112,7 +113,7 @@ export default function Page({
             <Card>
               <CardContent className="p-4">
                 <div className="mb-4 flex items-center gap-2">
-                  <Icon name="PiStar" className="h-6 w-6 text-blue-500" />
+                  <Icon name="PiStar" className="text-blue-500" />
                   <h2 className="text-xl font-semibold">Avaliações</h2>
                 </div>
                 <div className="space-y-6">
@@ -134,7 +135,8 @@ export default function Page({
                             <Icon
                               key={i}
                               name="PiStar"
-                              className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                              size="16"
+                              className="fill-yellow-400 text-yellow-400"
                             />
                           ))}
                         </div>
@@ -166,13 +168,15 @@ export default function Page({
                             <Icon
                               key={i}
                               name="PiStar"
-                              className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                              size="16"
+                              className="fill-yellow-400 text-yellow-400"
                             />
                           ))}
 
                           <Icon
                             name="PiStar"
-                            className="h-4 w-4 text-gray-300"
+                            size="16"
+                            className="text-gray-300"
                           />
                         </div>
                       </div>
@@ -209,7 +213,11 @@ export default function Page({
                     'Grupos de Apoio',
                   ].map((service, index) => (
                     <li key={index} className="flex items-center gap-2">
-                      <Icon name="PiCheck" className="h-5 w-5 text-green-500" />
+                      <Icon
+                        name="PiCheck"
+                        size="16"
+                        className="text-green-500"
+                      />
 
                       <span>{service}</span>
                     </li>
@@ -224,15 +232,19 @@ export default function Page({
               <CardContent className="p-4">
                 <div className="w-full space-y-3 text-left">
                   <div className="flex items-center gap-2">
-                    <Icon name="PiPhone" className="h-5 w-5 text-gray-500" />
+                    <Icon name="PiPhone" size="16" className="text-gray-500" />
                     <span className="text-sm">+55 (11) 99999-9999</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Icon name="PiMailbox" className="h-5 w-5 text-gray-500" />
+                    <Icon
+                      name="PiMailbox"
+                      size="16"
+                      className="text-gray-500"
+                    />
                     <span className="text-sm">veronica@example.com</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Icon name="PiGlobe" className="h-5 w-5 text-gray-500" />
+                    <Icon name="PiGlobe" size="16" className="text-gray-500" />
                     <span className="text-sm">www.veronicabastazin.com</span>
                   </div>
                 </div>
