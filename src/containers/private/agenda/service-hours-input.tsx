@@ -225,10 +225,9 @@ export default function ServiceHoursInput() {
   const addNewTime = () => {
     const lastSlot = form.getValues('timeSlots').at(-1);
     if (!lastSlot || !lastSlot.startTime || !lastSlot.endTime) {
-      toast.error(
-        'Preencha o horário inicial e final antes de adicionar um novo!',
-        { id: '1' },
-      );
+      toast({
+        title: 'Preencha o horário inicial e final antes de adicionar um novo!',
+      });
       return;
     }
 
