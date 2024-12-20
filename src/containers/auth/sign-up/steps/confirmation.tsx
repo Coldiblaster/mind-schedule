@@ -1,11 +1,11 @@
 import { useClerk } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 import success from '@/assets/animations/success.json';
 import { Animations } from '@/components/animations/animations';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 import { usePutMetadata } from '@/services/putUserMetadata';
 import { usePostRegister } from '@/services/register/postRegister';
 import { useStepsDataStore } from '@/store/steps-data-store';
@@ -15,6 +15,7 @@ export function Confirmation() {
   const { formData } = useStepsDataStore();
   const { user } = useClerk();
   const router = useRouter();
+  const { toast } = useToast();
 
   const useSaveMetadata = usePutMetadata({
     userId: user?.id,
@@ -54,9 +55,10 @@ export function Confirmation() {
     }
 
     mutation.isError &&
-      toast.error(
-        'Ocorreu um erro ao tenta efetuar o cadastro, tente novamente!',
-      );
+      toast({
+        title: 'Ocorreu um erro ao tenta efetuar o cadastro, tente novamente!',
+        variant: 'destructive',
+      });
   };
 
   return (

@@ -34,7 +34,12 @@ const patientRoutes = [
   '/politicas-de-privacidade',
   '/termos-de-uso',
 ];
-const professionalRoutes = ['/dashboard', '/login-callback', '/register'];
+const professionalRoutes = [
+  '/dashboard',
+  '/login-callback',
+  '/register',
+  '/agenda',
+];
 
 // Função para buscar o tipo de usuário (patient ou professional)
 async function getUserType(userId: string) {

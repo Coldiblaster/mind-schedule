@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
+import AppointmentScheduler from '../scheduler/appointment-scheduler';
 import ServiceHoursInput from './service-hours-input';
 
 interface Schedule {
@@ -52,8 +53,8 @@ export function AvailableTimes() {
           <DialogTrigger asChild>
             <Button variant="outline">Adicionar Horário</Button>
           </DialogTrigger>
-          <DialogContent>
-            <ServiceHoursInput />
+          <DialogContent className="max-w-6xl">
+            <AppointmentScheduler />
           </DialogContent>
         </Dialog>
       </CardHeader>
