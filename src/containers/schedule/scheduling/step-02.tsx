@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 import { AvailableTimes } from '@/components/available-times';
@@ -29,6 +28,7 @@ import {
 } from '@/components/ui/popover';
 import { AvailableTimesProps } from '@/data/mock/professional';
 import { useMultiStepForm } from '@/hooks/use-multistep-form';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 const FormSchema = z.object({
@@ -38,6 +38,7 @@ const FormSchema = z.object({
 });
 
 export function Step02() {
+  const { toast } = useToast();
   const { updatePropertyForm, data } = useMultiStepForm();
 
   const { professional } = data;
@@ -50,9 +51,9 @@ export function Step02() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast(
-      `You submitted the following values: ${JSON.stringify(data, null, 2)}`,
-    );
+    toast({
+      title: `You submitted the following values: ${JSON.stringify(data, null, 2)}`,
+    });
   }
 
   const handleSelectedDate = (selectedDate: Date) => {

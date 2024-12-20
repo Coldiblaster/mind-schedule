@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 import { Icon } from '@/components/icon';
@@ -28,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { usePostAvailability } from '@/services/availability/postAvailability';
 
@@ -74,6 +74,7 @@ const FormSchema = z.object({
 
 export default function ServiceHoursInput() {
   const saveAvailability = usePostAvailability();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -109,12 +110,15 @@ export default function ServiceHoursInput() {
         ],
       });
 
-      toast.success('Horários salvos com sucesso!');
+      toast({
+        title: 'Horários salvos com sucesso!',
+      });
     } catch (error) {
       // Tratamento de erro
-      toast.error(
-        'Ocorreu um erro ao tentar salvar os horários, tente novamente!',
-      );
+      toast({
+        title: 'Ocorreu um erro ao tentar salvar os horários, tente novamente!',
+        variant: 'destructive',
+      });
     }
   };
 
@@ -216,6 +220,22 @@ export default function ServiceHoursInput() {
     }
 
     return false;
+  };
+
+  const addNewTime = () => {
+    const lastSlot = form.getValues('timeSlots').at(-1);
+    if (!lastSlot || !lastSlot.startTime || !lastSlot.endTime) {
+      toast.error(
+        'Preencha o horário inicial e final antes de adicionar um novo!',
+        { id: '1' },
+      );
+      return;
+    }
+
+    const startTime = getCurrentTimePlusTenMinutes();
+
+    if (startTime) append({ startTime, endTime: '' });
+    else append({ startTime: '', endTime: '' });
   };
 
   useEffect(() => {
@@ -374,25 +394,7 @@ export default function ServiceHoursInput() {
                     )}
                   </div>
                 ))}
-                <Button
-                  type="button"
-                  onClick={() => {
-                    const lastSlot = form.getValues('timeSlots').at(-1);
-                    if (!lastSlot || !lastSlot.startTime || !lastSlot.endTime) {
-                      toast.error(
-                        'Preencha o horário inicial e final antes de adicionar um novo!',
-                        { id: '1' },
-                      );
-                      return;
-                    }
-
-                    const startTime = getCurrentTimePlusTenMinutes();
-
-                    if (startTime) append({ startTime, endTime: '' });
-                    else append({ startTime: '', endTime: '' });
-                  }}
-                  variant="outline"
-                >
+                <Button type="button" onClick={addNewTime} variant="outline">
                   Adicionar Novo Horário
                 </Button>
 

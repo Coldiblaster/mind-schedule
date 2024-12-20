@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { BusinessProps, BusinessSchema } from '@/schemas/schemas-sign-up';
 import {
@@ -25,6 +25,7 @@ export function SegmentForm({
 }) {
   const { updateFormData, formData } = useStepsDataStore();
   const { data, isPending } = useGetBusinessType();
+  const { toast } = useToast();
 
   const [businessTypes, setBusinessTypes] = useState<BusinessTypeProps[]>([]);
 
@@ -63,7 +64,9 @@ export function SegmentForm({
   };
 
   const addingNewSegmentCompleted = () => {
-    toast.success('Novo segmento adicionado com sucesso.');
+    toast({
+      title: 'Novo segmento adicionado com sucesso.',
+    });
   };
 
   useEffect(() => {

@@ -18,7 +18,7 @@ export const MenuData: MenuProps[] = [
   {
     title: 'Agenda',
     icon: 'LuCalendar',
-    link: '/schedule',
-    allowedUserTypes: [UserTypes.PATIENT],
+    link: '/agenda',
+    allowedUserTypes: [UserTypes.PROFESSIONAL],
   },
 ];
